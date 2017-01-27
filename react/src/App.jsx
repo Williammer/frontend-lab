@@ -1,6 +1,7 @@
 import React from 'react';
-import StopWatch from './components/StopWatch';
-import NameForm from './components/NameForm';
+// import StopWatch from './components/StopWatch';
+// import NameForm from './components/NameForm';
+import DataFetchList from './components/DataFetchList';
 import logo from './logo.svg'
 import './App.css';
 
@@ -15,10 +16,12 @@ function App() {
                 />
             </div>
 
-            <StopWatch />
+            /*<StopWatch />
             <br/>
             <br/>
-            <NameForm />
+            <NameForm />*/
+
+            <DataFetchList />
         </div>
     );
 }
