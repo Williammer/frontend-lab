@@ -1,61 +1,59 @@
 import React, { PropTypes, Component } from 'react'
 import axios from 'axios'
 
+class DataFetchList extends Component {
+    state = {
+        repos: [],
+        isFetching: false
+    }
 
-function fetchDataComponent(Comp) {
-    return class DataFetchListContainer extends Component {
-        state = {
-            repos: [],
-            isFetching: false
-        }
+    static propTypes = {
+        fetch: PropTypes.func,
+        username: PropTypes.string.isRequired,
+    }
 
-        static propTypes = {
-            fetch: PropTypes.func,
-            username: PropTypes.string.isRequired,
-        }
+    static defaultProps = {
+        fetch: axios.get,
+        username: 'Williammer'
+    }
 
-        static defaultProps = {
-            fetch: axios.get,
-            username: 'Williammer'
-        }
+    componentDidMount() {
+        this.fetchRepos(this.props.username);
+    }
 
-        componentDidMount() {
-            this.fetchRepos(this.props.username);
-        }
+    fetchRepos(username) {
+        const apiUrl = `https://api.github.com/users/${username}/repos`;
 
-        fetchRepos(username) {
-            const apiUrl = `https://api.github.com/users/${username}/repos`;
+        this.setState({ isFetching: true });
+        return this.props.fetch(apiUrl).then(({ data: repos }) => {
+            console.log(`[fetch] success... ${repos}`, repos);
+            this.setState({
+                repos,
+                isFetching: false
+            })
+        }, (error) => {
+            this.setState({ isFetching: false });
+            console.warn(`[fetch] error... ${error.message}`);
+        });
+    }
 
-            this.setState({ isFetching: true });
-            return this.props.fetch(apiUrl).then(({ data: repos }) => {
-                console.log(`[fetch] success... ${repos}`, repos);
-                this.setState({
-                    repos,
-                    isFetching: false
-                })
-            }, (error) => {
-                this.setState({ isFetching: false });
-                console.warn(`[fetch] error... ${error.message}`);
-            });
-        }
-
-        render() {
-            return <Comp {...this.state} {...this.props} />
-
-        }
+    render() {
+        return this.props.children(this.state);
     }
 }
 
-function RepoListContainer({ isFetching, username, repos }) {
+function RepoListContainer({ username, ...rest }) {
     return (
-        <div>
-            {isFetching ? <span>fetching...</span>: null}
-            {
-                repos && repos.length > 0 ?
-                <RepoList username={username} repos={repos} />
-                : null
-            }
-        </div>
+        <DataFetchList username={username} {...rest}>
+        {({isFetching, repos}) => 
+            (<div>
+                {isFetching ? <span>fetching...</span> : 
+                    (repos && repos.length > 0) ?
+                    <RepoList username={username} repos={repos} />
+                    : "no result"}
+            </div>)
+        }
+        </DataFetchList>
     )
 }
 
@@ -82,4 +80,4 @@ RepoList.PropTypes = {
     repos: PropTypes.array.isRequired
 }
 
-export default fetchDataComponent(RepoListContainer)
+export default RepoListContainer
