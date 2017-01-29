@@ -1,7 +1,7 @@
 import React from 'react';
 import StopWatch from './components/StopWatch';
 import NameForm from './components/NameForm';
-import DataFetchList from './components/DataFetchList';
+import RepoListContainer from './components/DataFetchList';
 import logo from './logo.svg'
 import './App.css';
 
@@ -21,7 +21,7 @@ function App() {
             <br/>
             <NameForm />
 
-            <DataFetchList />
+            <RepoListContainer username="Williammer" />
         </div>
     );
 }
