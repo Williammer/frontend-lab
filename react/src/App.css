@@ -14,8 +14,24 @@
   color: white;
 }
 
+.App-router {
+  background: white;
+  text-decoration: none;
+  text-align: left;
+  padding: 10px 20px;
+}
+
+.App-router li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
 .App-intro {
   font-size: large;
+}
+
+.App-main {
+  margin-top: 40px;
 }
 
 @keyframes App-logo-spin {

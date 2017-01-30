@@ -1,29 +1,32 @@
-import React from 'react';
-import StopWatch from './components/StopWatch';
-import NameForm from './components/NameForm';
-import RepoListContainer from './components/DataFetchList';
+import React, { Component } from 'react';
+import { Link } from 'react-router'
 import logo from './logo.svg'
 import './App.css';
 
-function App() {
-    return (
-        <div className="App">
+class App extends Component {
+    render() {
+        return (
+            <div className="App">
             <div className="App-header">
-                <img
-                  src={logo}
-                  className="App-logo"
-                  alt="logo"
-                />
+                <Link to="/">
+                    <img
+                      src={logo}
+                      className="App-logo"
+                      alt="logo"
+                    />
+                </Link>
+                <ul role="nav" className="App-router">
+                    <li><Link to="/repoList">repoList</Link></li>
+                    <li><Link to="/stopWatch">stopWatch</Link></li>
+                    <li><Link to="/nameForm">nameForm</Link></li>
+                </ul>
             </div>
-
-            <StopWatch />
-            <br/>
-            <br/>
-            <NameForm />
-
-            <RepoListContainer username="Williammer" />
+            <div className="App-main">
+            {this.props.children}
+            </div>
         </div>
-    );
+        );
+    }
 }
 
 export default App;
