@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: serif;
 }
 
 .App-logo {
@@ -24,6 +25,16 @@
 .App-router li {
   display: inline-block;
   margin-right: 10px;
+}
+
+.App-router li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.App-router li a.active {
+  font-weight: bold;
+  border-bottom: 1px solid #333;
 }
 
 .App-intro {
