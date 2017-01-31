@@ -1,0 +1,7 @@
+var obj = { a: 1, b:2, c: {c1: 4} }; 
+
+var arr = [1,2,3];
+
+var assign = foo.a = 2;
+
+var getter = foo.bar;

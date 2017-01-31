@@ -1,0 +1,15 @@
+{
+  "name": "babel-plugin-practice",
+  "version": "0.0.1",
+  "description": "Practice for creating babel plugin",
+  "main": "index.js",
+  "repository": "wip",
+  "author": "William He",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js resource/fooCase.msb"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1"
+  }
+}
