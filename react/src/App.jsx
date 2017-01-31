@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router'
+import NavLink from './components/NavLink'
 import logo from './logo.svg'
 import './App.css';
 
@@ -8,17 +8,17 @@ class App extends Component {
         return (
             <div className="App">
             <div className="App-header">
-                <Link to="/">
+                <NavLink to="/">
                     <img
                       src={logo}
                       className="App-logo"
                       alt="logo"
                     />
-                </Link>
+                </NavLink>
                 <ul role="nav" className="App-router">
-                    <li><Link to="/repoList">repoList</Link></li>
-                    <li><Link to="/stopWatch">stopWatch</Link></li>
-                    <li><Link to="/nameForm">nameForm</Link></li>
+                    <li><NavLink to="/repoList">repoList</NavLink></li>
+                    <li><NavLink to="/stopWatch">stopWatch</NavLink></li>
+                    <li><NavLink to="/nameForm">nameForm</NavLink></li>
                 </ul>
             </div>
             <div className="App-main">
