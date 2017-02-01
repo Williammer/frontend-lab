@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node index.js resource/fooCase.msb"
   },
-  "devDependencies": {
+  "dependencies": {
     "babel-core": "^6.22.1"
-  }
+  },
+  "devDependencies": {}
 }
