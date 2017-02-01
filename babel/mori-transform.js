@@ -1,97 +1,97 @@
 module.exports = function(babel) {
-    var t = babel.types;
+  const t = babel.types;
 
-    function moriMethod(name) {
-        var expr = t.memberExpression(
-            t.identifier('mori'),
-            t.identifier(name)
+  function moriMethod(name) {
+    let expr = t.memberExpression(
+      t.identifier('mori'),
+      t.identifier(name)
+    );
+
+    expr.isInner = true;
+    return expr;
+  }
+
+  return {
+    visitor: {
+      ArrayExpression: function(path) {
+        path.replaceWith(
+          t.callExpression(
+            moriMethod('vector'),
+            path.node.elements
+          )
         );
+      },
+      ObjectExpression: function(path) {
+        let props = [];
 
-        expr.isInner = true;
-        return expr;
-    }
+        path.node.properties.forEach(function(prop) {
+          props.push(
+            t.stringLiteral(prop.key.name),
+            prop.value
+          );
+        });
 
-    return {
-        visitor: {
-            ArrayExpression: function(path) {
-                path.replaceWith(
-                    t.callExpression(
-                        moriMethod('vector'),
-                        path.node.elements
-                    )
-                );
-            },
-            ObjectExpression: function(path) {
-                var props = [];
+        path.replaceWith(
+          t.callExpression(
+            moriMethod('hashMap'),
+            props
+          )
+        );
+      },
+      AssignmentExpression: function(path) {
+        let props = [
+          path.node.left.object,
+          t.stringLiteral(path.node.left.property.name),
+          path.node.right
+        ];
 
-                path.node.properties.forEach(function(prop) {
-                    props.push(
-                        t.stringLiteral(prop.key.name),
-                        prop.value
-                    );
-                });
+        path.replaceWith(
+          t.callExpression(
+            moriMethod('assign'),
+            props
+          )
+        );
+      },
+      MemberExpression: function(path) {
+        if (path.node.isInner) return; // escape moriMethod call
+        if (t.isAssignmentExpression(path.parent) || t.isCallExpression(path.parent)) return;
 
-                path.replaceWith(
-                    t.callExpression(
-                        moriMethod('hashMap'),
-                        props
-                    )
-                );
-            },
-            AssignmentExpression: function(path) {
-                var props = [
-                    path.node.left.object,
-                    t.stringLiteral(path.node.left.property.name),
-                    path.node.right
-                ];
+        path.replaceWith(
+          t.callExpression(
+            moriMethod('get'), [
+              path.node.object,
+              t.stringLiteral(path.node.property.name)
+            ]
+          )
+        );
+      },
+      CallExpression(path) {
+        const callee = path.node.callee;
 
-                path.replaceWith(
-                    t.callExpression(
-                        moriMethod('assign'),
-                        props
-                    )
-                );
-            },
-            MemberExpression: function(path) {
-                if (path.node.isInner) return; // escape moriMethod call
-                if (t.isAssignmentExpression(path.parent) || t.isCallExpression(path.parent)) return;
+        if (t.isMemberExpression(callee)) {
+          if (callee.isInner) return; // escape moriMethod call
 
-                path.replaceWith(
-                    t.callExpression(
-                        moriMethod('get'), [
-                            path.node.object,
-                            t.stringLiteral(path.node.property.name)
-                        ]
-                    )
-                );
-            },
-            CallExpression(path) {
-                const callee = path.node.callee;
+          path.replaceWith(
+            t.callExpression(
+              moriMethod('call'), [
+                callee.object,
+                callee.property,
+                ...path.node.arguments
+              ]
+            )
+          );
 
-                if (t.isMemberExpression(callee)) {
-                    if (callee.isInner) return; // escape moriMethod call
-
-                    path.replaceWith(
-                        t.callExpression(
-                            moriMethod('call'), [
-                                callee.object,
-                                callee.property,
-                                ...path.node.arguments
-                            ]
-                        )
-                    );
-
-                } else {
-                    path.replaceWith(
-                        t.callExpression(
-                            moriMethod('call'), [
-                                callee,
-                                ...path.node.arguments
-                            ]
-                        )
-                    );
-                }
-            }
+        } else {
+          path.replaceWith(
+            t.callExpression(
+              moriMethod('call'), [
+                callee,
+                ...path.node.arguments
+              ]
+            )
+          );
         }
-    };
+      }
+    }
+  };
 };
