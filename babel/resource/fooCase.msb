@@ -1,7 +1,11 @@
-var obj = { a: 1, b:2, c: {c1: 4} }; 
+const obj = { a: 1, b:2, c: {c1: 4} };
 
-var arr = [1,2,3];
+const arr = [1,2,3];
 
 var assign = foo.a = 2;
 
-var getter = foo.bar;
+let getter = foo.bar;
+
+func()
+funcWithArg("arg")
+func[method]("rfdv", "arg2", "arg3", "arg4")

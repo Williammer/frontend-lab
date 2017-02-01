@@ -7,7 +7,7 @@ module.exports = function(babel) {
             t.identifier(name)
         );
 
-        expr.isClean = true;
+        expr.isInner = true;
         return expr;
     }
 
@@ -53,14 +53,44 @@ module.exports = function(babel) {
                 );
             },
             MemberExpression: function(path) {
-            	if(path.node.isClean) return;
-                if (t.isAssignmentExpression(path.parent)) return;
+                if (path.node.isInner) return; // escape moriMethod call
+                if (t.isAssignmentExpression(path.parent) || t.isCallExpression(path.parent)) return;
 
                 path.replaceWith(
                     t.callExpression(
-                        moriMethod('get'), [path.node.object, t.stringLiteral(path.node.property.name)]
+                        moriMethod('get'), [
+                            path.node.object,
+                            t.stringLiteral(path.node.property.name)
+                        ]
                     )
                 );
+            },
+            CallExpression(path) {
+                const callee = path.node.callee;
+
+                if (t.isMemberExpression(callee)) {
+                    if (callee.isInner) return; // escape moriMethod call
+
+                    path.replaceWith(
+                        t.callExpression(
+                            moriMethod('call'), [
+                                callee.object,
+                                callee.property,
+                                ...path.node.arguments
+                            ]
+                        )
+                    );
+
+                } else {
+                    path.replaceWith(
+                        t.callExpression(
+                            moriMethod('call'), [
+                                callee,
+                                ...path.node.arguments
+                            ]
+                        )
+                    );
+                }
             }
         }
     };
