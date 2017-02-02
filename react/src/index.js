@@ -11,19 +11,19 @@ import './index.css'
 
 
 const repoListContainer = React.createClass({
-    render() {
-        return <RepoList username="Williammer" />
-    }
+  render() {
+    return <RepoList username="Williammer" />
+  }
 })
 
 ReactDOM.render(
-    <Router history={hashHistory}>
-	    <Route path="/" component={App}>
-	    	<IndexRoute component={Welcome} />
-		    <Route path="/repoList" component={repoListContainer} />
-		    <Route path="/stopWatch" component={StopWatch} />
-		    <Route path="/nameForm" component={NameForm} />
-	    </Route>
+  <Router history={hashHistory}>
+    <Route path="/" component={App}>
+    	<IndexRoute component={Welcome} />
+	    <Route path="/repoList" component={repoListContainer} />
+	    <Route path="/stopWatch" component={StopWatch} />
+	    <Route path="/nameForm" component={NameForm} />
+    </Route>
 	</Router>,
-    document.getElementById('root')
+  document.getElementById('root')
 )
