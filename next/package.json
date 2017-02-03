@@ -5,6 +5,7 @@
     "next": "^2.0.0-beta"
   },
   "devDependencies": {
+    "axios": "^0.15.3",
     "babel-eslint": "7.0.0",
     "standard": "8.4.0"
   },

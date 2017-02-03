@@ -1,12 +1,11 @@
-import React, { PropTypes, Component } from 'react'
+import { PropTypes, Component } from 'react'
 import axios from 'axios'
 
 class DataFetchList extends Component {
-  static async getInitialProps() {
-    return {
-    }
-  }
-
+  // static async getInitialProps() {
+  //   return {
+  //   }
+  // }
   state = {
     repos: [],
     isFetching: false

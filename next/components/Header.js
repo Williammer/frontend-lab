@@ -10,7 +10,8 @@ class Header extends Component {
             <a>Home</a>
           </Link>
           <br/>
-            {/*<Link href="/repoList">repoList</Link>*/}
+            <Link href="/dataFetchList"><a>dataFetchList</a></Link>
+          <br/>
             <Link href="/stopWatch"><a>stopWatch</a></Link>
           <br/>
             <Link href="/nameForm"><a>nameForm</a></Link>
