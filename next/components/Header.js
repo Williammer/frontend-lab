@@ -11,9 +11,9 @@ class Header extends Component {
           </Link>
           <br/>
             {/*<Link href="/repoList">repoList</Link>*/}
-            <Link href="/StopWatch"><a>stopWatch</a></Link>
+            <Link href="/stopWatch"><a>stopWatch</a></Link>
           <br/>
-            <Link href="/NameForm"><a>nameForm</a></Link>
+            <Link href="/nameForm"><a>nameForm</a></Link>
 
         <style jsx>
         {`
