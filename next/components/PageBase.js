@@ -3,9 +3,9 @@ import Link from 'next/prefetch'
 import Header from '../components/Header';
 
 export default class extends Component {
-
   render() {
     const { Comp } = this.props;
+
     return (
       <div className="App">
         <Header />

@@ -5,18 +5,15 @@ import Logo from '../res/logo.svg'
 class Header extends Component {
   render() {
     return (
-        <div className="App-header">
-          <Link href="/">
-              <a>
-                <Logo width='80px' />
-              </a>
-          </Link>
-          <br/>
-          <ul className="App-router">
-            <li><Link href="/dataFetchList"><a>dataFetchList</a></Link></li>
-            <li><Link href="/stopWatch"><a>stopWatch</a></Link></li>
-            <li><Link href="/nameForm"><a>nameForm</a></Link></li>
-          </ul>
+      <div className="App-header">
+        <Link href="/">
+          <a><Logo width='80px' /></a>
+        </Link>
+        <ul className="App-router">
+          <li><Link href="/dataFetchList"><a>dataFetchList</a></Link></li>
+          <li><Link href="/stopWatch"><a>stopWatch</a></Link></li>
+          <li><Link href="/nameForm"><a>nameForm</a></Link></li>
+        </ul>
         <style jsx>
         {`
           .App-logo {
