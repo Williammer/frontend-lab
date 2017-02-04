@@ -37,6 +37,10 @@ class StopWatch extends Component {
     this.setState({ timing: 0, isRunning: false });
   }
 
+  componentWillUnmount() {
+    this.reset();
+  }
+
   render() {
     return (
       <div>
