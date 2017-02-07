@@ -5,7 +5,7 @@ class Button extends Component {
     return (
       <button
         className="stopwatch-button"
-        onClick={this.props.clickHandler}
+        onClick={this.props.onClick}
       >
         {this.props.text}
       </button>
@@ -15,7 +15,7 @@ class Button extends Component {
 
 Button.PropTypes = {
   text: PropTypes.string,
-  clickHandler: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired
 }
 
 export default Button;

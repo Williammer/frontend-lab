@@ -53,10 +53,10 @@ class StopWatch extends Component {
           text={this.state.isRunning
           ? "Pause"
           : "Start"}
-          clickHandler={this.state.isRunning
+          onClick={this.state.isRunning
           ? this.pause
           : this.start}/>
-        <Button text="Reset" clickHandler={this.reset}/>
+        <Button text="Reset" onClick={this.reset}/>
       </div>
     );
   }
