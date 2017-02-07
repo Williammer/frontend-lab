@@ -19,6 +19,7 @@ class App extends Component {
             <li><NavLink to="/repoList">repoList</NavLink></li>
             <li><NavLink to="/stopWatch">stopWatch</NavLink></li>
             <li><NavLink to="/nameForm">nameForm</NavLink></li>
+            <li><NavLink to="/typeWriter">typeWriter</NavLink></li>
           </ul>
         </div>
         <div className="App-main">
