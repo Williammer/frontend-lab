@@ -3,29 +3,53 @@ import React, { Component } from 'react'
 class SampleForm extends Component {
   state = {
     logs: [],
-    input: "default",
+    name: "default",
+    age: 1,
     moreInfo: "moreInfo",
     isValidToSubmit: false
   }
 
-  _isValidInput = (val) => {
+  _isValidName = (val) => {
     return val && val.length > 3;
   }
 
-  updateInputValue = (evt) => {
-    // this.setState(this.input.value); // uncontrolled form
-    let isValidToSubmit = false;
-    if (this._isValidInput(evt.target.value)) {
-      isValidToSubmit = true;
+  _isValidAge = (val) => {
+    return typeof val === 'number' && val >= 0;
+  }
+
+  readyToSubmit = () => {
+    const { name, age } = this.state;
+    return this._isValidName(name) && this._isValidAge(age);
+  }
+
+  updateNameValue = (evt) => {
+    this.setState({
+      name: evt.target.value
+    }, () => {
+      this.setState((prevState, props) => {
+        return {
+          isValidToSubmit: this.readyToSubmit(),
+          logs: prevState.logs.concat(`this.state.name: ${this.state.name}; this.state.isValidToSubmit: ${this.state.isValidToSubmit}; `)
+        };
+      });
+    });
+  }
+
+  updateAgeValue = (evt) => {
+    const targetValue = Number(evt.target.value);
+    if (!(targetValue >= 0)) {
+      return;
     }
     this.setState({
-      input: evt.target.value,
-      isValidToSubmit: isValidToSubmit
-    }, () => this.setState((prevState, props) => {
-      return {
-        logs: prevState.logs.concat(`this.state.input: ${this.state.input}; this.state.isValidToSubmit: ${this.state.isValidToSubmit}; `)
-      };
-    }));
+      age: targetValue
+    }, () => {
+      this.setState((prevState, props) => {
+        return {
+          isValidToSubmit: this.readyToSubmit(),
+          logs: prevState.logs.concat(`this.state.age: ${this.state.age}; this.state.isValidToSubmit: ${this.state.isValidToSubmit}; `)
+        };
+      });
+    });
   }
 
   updateTextAreaValue = (evt) => {
@@ -37,7 +61,7 @@ class SampleForm extends Component {
   submit = (evt) => {
     this.setState((prevState, props) => {
       return {
-        logs: prevState.logs.concat(`Submitting: this.state.input: ${this.state.input}; this.state.isValidToSubmit: ${this.state.isValidToSubmit}; `)
+        logs: prevState.logs.concat(`Submitting: this.state.name: ${this.state.name}; this.state.isValidToSubmit: ${this.state.isValidToSubmit}; `)
       };
     });
 
@@ -48,21 +72,32 @@ class SampleForm extends Component {
 
   componentDidMount() {
     this.setState({
-      isValidToSubmit: this._isValidInput(this.state.input)
+      isValidToSubmit: this.readyToSubmit()
     });
   }
 
   render() {
-    const { input, moreInfo, isValidToSubmit, logs } = this.state;
+    const { name, age, moreInfo, isValidToSubmit, logs } = this.state;
 
     return (
       <div>
         <form onSubmit={this.submit}>
+          <label for="name">Name: </label>
           <input
+            name="name"
             type="text"
-            // ref={el => this.input = el}
-            onChange={this.updateInputValue}
-            value={input}
+            onChange={this.updateNameValue}
+            value={name}
+            style={{width: "200px"}}
+          />
+          <br/>
+
+          <label for="age">Age: </label>
+          <input
+            name="age"
+            type="text"
+            onChange={this.updateAgeValue}
+            value={age}
             style={{width: "200px"}}
           />
           <br/>
@@ -77,7 +112,7 @@ class SampleForm extends Component {
             />
             :
             <span style={{color: 'red'}}>
-              Invalid input to submit, need to be over 3 chars.
+              Invalid input to submit. Name needs to be over 3 chars, age needs to be non-negative number.
             </span>
           }
         </form>
