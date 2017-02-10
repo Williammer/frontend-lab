@@ -5,7 +5,7 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import App from './App';
 import Welcome from './components/Welcome';
 import StopWatch from './components/StopWatch';
-import NameForm from './components/NameForm';
+import SampleForm from './components/SampleForm';
 import RepoList from './components/DataFetchList';
 import TypeWriter from './components/TypeWriter';
 import './index.css'
@@ -30,7 +30,7 @@ ReactDOM.render(
     	<IndexRoute component={Welcome} />
 	    <Route path="/repoList" component={repoListContainer} />
 	    <Route path="/stopWatch" component={StopWatch} />
-      <Route path="/nameForm" component={NameForm} />
+      <Route path="/form" component={SampleForm} />
 	    <Route path="/typeWriter" component={typeWriterContainer} />
     </Route>
 	</Router>,
