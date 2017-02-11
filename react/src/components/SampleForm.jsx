@@ -22,39 +22,23 @@ class SampleForm extends Component {
     return this._isValidName(name) && this._isValidAge(age);
   }
 
-  updateNameValue = (evt) => {
+  updateInputValue = (evt) => {
+    const targetName = evt.target.name;
+    let targetValue = evt.target.value;
+
+      if (targetName === "age") {
+        targetValue = Number(targetValue) >= 0 ? Number(targetValue) : "";
+      }
+
     this.setState({
-      name: evt.target.value
+      [targetName]: targetValue
     }, () => {
       this.setState((prevState, props) => {
         return {
           isValidToSubmit: this.readyToSubmit(),
-          logs: prevState.logs.concat(`this.state.name: ${this.state.name}; this.state.isValidToSubmit: ${this.state.isValidToSubmit}; `)
+          logs: prevState.logs.concat(`this.state.${targetName}: ${this.state[targetName]}; this.state.isValidToSubmit: ${this.state.isValidToSubmit}; `)
         };
       });
-    });
-  }
-
-  updateAgeValue = (evt) => {
-    const targetValue = Number(evt.target.value);
-    if (!(targetValue >= 0)) {
-      return;
-    }
-    this.setState({
-      age: targetValue
-    }, () => {
-      this.setState((prevState, props) => {
-        return {
-          isValidToSubmit: this.readyToSubmit(),
-          logs: prevState.logs.concat(`this.state.age: ${this.state.age}; this.state.isValidToSubmit: ${this.state.isValidToSubmit}; `)
-        };
-      });
-    });
-  }
-
-  updateTextAreaValue = (evt) => {
-    this.setState({
-      moreInfo: evt.target.value
     });
   }
 
@@ -82,27 +66,32 @@ class SampleForm extends Component {
     return (
       <div>
         <form onSubmit={this.submit}>
-          <label for="name">Name: </label>
+          <label htmlFor="name">Name: </label>
           <input
             name="name"
             type="text"
-            onChange={this.updateNameValue}
+            onChange={this.updateInputValue}
             value={name}
             style={{width: "200px"}}
           />
           <br/>
 
-          <label for="age">Age: </label>
+          <label htmlFor="age">Age: </label>
           <input
             name="age"
             type="text"
-            onChange={this.updateAgeValue}
+            onChange={this.updateInputValue}
             value={age}
             style={{width: "200px"}}
           />
           <br/>
 
-          <textarea onChange={this.updateTextAreaValue} value={moreInfo}></textarea>
+          <label htmlFor="moreInfo">MoreInfo: </label>
+          <textarea
+            name="moreInfo"
+            onChange={this.updateInputValue}
+            value={moreInfo}>
+          </textarea>
           <br/>
 
           {isValidToSubmit ?
