@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 class Label extends Component {
   render() {
     return (
-      <span className="stopwatch-timing" >
+      <span className={`label ${this.props.customClass}`}>
 				{this.props.text}
 			</span>
     );
