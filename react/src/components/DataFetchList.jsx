@@ -1,10 +1,18 @@
 import React, { PropTypes, Component } from 'react'
 import axios from 'axios'
 
-class DataFetchList extends Component {
-  state = {
-    repos: [],
-    isFetching: false
+class RepoListContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchKeyword: '',
+      repos: [],
+      isFetching: false
+    };
+
+    this.handleUserInput = this.handleUserInput.bind(this);
+    this.getFilteredRepo = this.getFilteredRepo.bind(this);
   }
 
   static propTypes = {
@@ -17,16 +25,13 @@ class DataFetchList extends Component {
     username: 'Williammer'
   }
 
-  componentDidMount() {
-    this.fetchRepos(this.props.username);
-  }
-
   fetchRepos(username) {
     const apiUrl = `https://api.github.com/users/${username}/repos`;
 
     this.setState({ isFetching: true });
+
     return this.props.fetch(apiUrl).then(({ data: repos }) => {
-      console.log(`[fetch] success... ${repos}`, repos);
+      console.log(`[fetch] success...`, repos);
       this.setState({
         repos,
         isFetching: false
@@ -37,49 +42,112 @@ class DataFetchList extends Component {
     });
   }
 
+  handleUserInput(value) {
+    this.setState({
+      searchKeyword: value
+    });
+  }
+
+  getFilteredRepo() {
+    const { repos, searchKeyword } = this.state;
+    return repos.filter((repo) => repo.name.includes(searchKeyword));
+  }
+
+  componentDidMount() {
+    this.fetchRepos(this.props.username);
+  }
+
   render() {
-    return this.props.children(this.state);
+    const { isFetching, repos } = this.state;
+
+    return (
+      <div>
+        {
+          isFetching ? <span>fetching...</span> :
+            (repos && repos.length > 0) ?
+              <div>
+                <SearchBar
+                  onUserInput={this.handleUserInput}
+                />
+                <RepoList
+                  username={this.props.username}
+                  repos={this.getFilteredRepo()}
+                />
+              </div>
+            : <NoResult />
+        }
+      </div>
+    )
   }
 }
 
-function RepoListContainer({ username, ...rest }) {
-  return (
-    <DataFetchList username={username} {...rest}>
-      {({isFetching, repos}) =>
-        (<div>
-          {
-            isFetching ? <span>fetching...</span> :
-              (repos && repos.length > 0) ?
-              <RepoList username={username} repos={repos} /> :
-              "no result"
-          }
-        </div>)
-      }
-    </DataFetchList>
-  )
+class SearchBar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.inputSearch = this.inputSearch.bind(this);
+  }
+
+  static PropTypes = {
+    onUserInput: PropTypes.func.isRequired
+  }
+
+  inputSearch(evt) {
+    const val = evt.target.value;
+
+    this.props.onUserInput(val);
+  }
+
+  render() {
+    return (
+      <div>
+        <label htmlFor="searchbar">
+          Search:
+        </label>
+        <input
+          name="searchbar"
+          type="text"
+          onChange={this.inputSearch}
+        />
+      </div>
+    );
+  }
 }
 
-function _getRepoList(repos) {
+function NoResult() {
+  return (
+    <div>
+      "no result"
+    </div>
+  );
+}
+
+class RepoList extends Component {
+  static PropTypes = {
+    username: PropTypes.string.isRequired,
+    repos: PropTypes.array.isRequired
+  }
+
+  render() {
+    const { username, repos } = this.props;
+
+    return (
+      <div>
+        <h1>Repos of {username}:</h1>
+        <ul>{renderDataToList(repos)}</ul>
+      </div>
+    )
+  }
+}
+
+function renderDataToList(data) {
   let result = [];
-  if (repos && repos.length > 0) {
-    result = repos.map((repo) => <li key={repo.id}>{repo.name}</li>);
+  if (data && data.length > 0) {
+    result = data.map((repo) => <li key={repo.id}>{repo.name}</li>);
   }
 
   return result;
 }
 
-function RepoList({ username, repos }) {
-  return (
-    <div>
-      <h1>{username}'s repo:</h1>
-      <ul>{_getRepoList(repos)}</ul>
-    </div>
-  )
-}
-
-RepoList.PropTypes = {
-  username: PropTypes.string.isRequired,
-  repos: PropTypes.array.isRequired
-}
 
 export default RepoListContainer
