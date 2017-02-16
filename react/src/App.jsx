@@ -15,7 +15,7 @@ class App extends Component {
               alt="logo"
             />
           </NavLink>
-          <ul role="nav" className="App-router">
+          <ul className="App-router">
             <li><NavLink to="/repoList">repoList</NavLink></li>
             <li><NavLink to="/stopWatch">stopWatch</NavLink></li>
             <li><NavLink to="/form">sampleForm</NavLink></li>
