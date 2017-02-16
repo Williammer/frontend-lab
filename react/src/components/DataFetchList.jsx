@@ -1,18 +1,14 @@
 import React, { PropTypes, Component } from 'react'
 import axios from 'axios'
 
-class RepoListContainer extends Component {
+class DataFetchList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      searchKeyword: '',
       repos: [],
       isFetching: false
     };
-
-    this.handleUserInput = this.handleUserInput.bind(this);
-    this.getFilteredRepo = this.getFilteredRepo.bind(this);
   }
 
   static propTypes = {
@@ -42,17 +38,6 @@ class RepoListContainer extends Component {
     });
   }
 
-  handleUserInput(value) {
-    this.setState({
-      searchKeyword: value
-    });
-  }
-
-  getFilteredRepo() {
-    const { repos, searchKeyword } = this.state;
-    return repos.filter((repo) => repo.name.includes(searchKeyword));
-  }
-
   componentDidMount() {
     this.fetchRepos(this.props.username);
   }
@@ -65,17 +50,50 @@ class RepoListContainer extends Component {
         {
           isFetching ? <span>fetching...</span> :
             (repos && repos.length > 0) ?
-              <div>
-                <SearchBar
-                  onUserInput={this.handleUserInput}
-                />
-                <RepoList
-                  username={this.props.username}
-                  repos={this.getFilteredRepo()}
-                />
-              </div>
+              <SearchableList
+                repos={repos}
+                username={this.props.username}
+              />
             : <NoResult />
         }
+      </div>
+    )
+  }
+}
+
+class SearchableList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchKeyword: ''
+    };
+
+    this.handleUserInput = this.handleUserInput.bind(this);
+    this.getFilteredRepo = this.getFilteredRepo.bind(this);
+  }
+
+  handleUserInput(value) {
+    this.setState({
+      searchKeyword: value
+    });
+  }
+
+  getFilteredRepo() {
+    const { repos } = this.props;
+    return repos.filter((repo) => repo.name.includes(this.state.searchKeyword));
+  }
+
+  render() {
+    return (
+      <div>
+        <SearchBar
+          onUserInput={this.handleUserInput}
+        />
+        <RepoList
+          username={this.props.username}
+          repos={this.getFilteredRepo()}
+        />
       </div>
     )
   }
@@ -101,12 +119,10 @@ class SearchBar extends Component {
   render() {
     return (
       <div>
-        <label htmlFor="searchbar">
-          Search:
-        </label>
         <input
           name="searchbar"
           type="text"
+          placeholder="Search..."
           onChange={this.inputSearch}
         />
       </div>
@@ -150,4 +166,4 @@ function renderDataToList(data) {
 }
 
 
-export default RepoListContainer
+export default DataFetchList
