@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class SampleForm extends Component {
   state = {
     logs: [],
-    name: "default",
+    name: "df",
     age: 1,
     moreInfo: "moreInfo",
     isValidToSubmit: false
