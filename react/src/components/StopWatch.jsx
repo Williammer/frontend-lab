@@ -18,13 +18,13 @@ class StopWatch extends Component {
   _readyToReset = false
 
   start = () => {
+    this._now = Date.now() - this.state.timing;
+
     this._stopWatchTimer = setInterval(() => {
       this.setState({
         timing: Date.now() - this._now
       });
     });
-
-    this._now = Date.now() - this.state.timing;
 
     this.setState({ isRunning: true });
   }
@@ -101,10 +101,10 @@ class StopWatch extends Component {
     }
   }
 
-  _getResetCountDownRemain() {
+  _getResetCountDownText() {
     const remain = this.props.resetCountDown - this.state.resetCountedDown;
 
-    return (remain > 0) ? Math.ceil(remain / 1000) : 0;
+    return (remain > 0) ? `LongPress ${Math.ceil(remain / 1000)} secs to reset` : 'Ready to reset';
   }
 
   render() {
@@ -128,7 +128,7 @@ class StopWatch extends Component {
           onMouseDown={this._longPressResetStart}
           onMouseUp={this._longPressResetEnd}
         >
-        LongPress {this._getResetCountDownRemain()} secs to reset
+        {this._getResetCountDownText()}
         </button>
       </div>
     );
