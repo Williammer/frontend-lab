@@ -1,16 +1,23 @@
 <template>
   <div class="shortKey">
     <h1>{{ msg }}</h1>
+    <button v-shortkey="['ctrl', 'o']" @shortkey="theAction()">Open</button>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'shortKey',
   data() {
     return {
-      msg: 'ShortKey',
+      msg: 'ctrl+o',
     };
+  },
+  methods: {
+    theAction() {
+      console.log('theAction called.');
+    },
   },
 };
 </script>

@@ -6,6 +6,7 @@ import TypeWriter from 'components/TypeWriter';
 import ShortKey from 'components/ShortKey';
 
 Vue.use(Router);
+Vue.use(require('vue-shortkey'));
 
 export default new Router({
   routes: [
