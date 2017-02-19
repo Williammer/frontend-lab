@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Hello from 'components/Hello';
 import DataFetchList from 'components/DataFetchList';
 import TypeWriter from 'components/TypeWriter';
+import ShortKey from 'components/ShortKey';
 
 Vue.use(Router);
 
@@ -12,6 +13,11 @@ export default new Router({
       path: '/',
       name: 'Hello',
       component: Hello,
+    },
+    {
+      path: '/shortKey',
+      name: 'ShortKey',
+      component: ShortKey,
     },
     {
       path: '/dataFetchList',

@@ -4,6 +4,7 @@
     <ul class="nav-router">
         <li><router-link to="/dataFetchList">DataFetchList</router-link></li>
         <li><router-link to="/typeWriter">TypeWriter</router-link></li>
+        <li><router-link to="/shortkey">ShortKey</router-link></li>
     </ul>
     <router-view></router-view>
   </div>
