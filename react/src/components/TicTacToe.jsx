@@ -42,16 +42,19 @@ class TicTacToe extends Component {
 
     this.state = {
       squares: Array(9).fill(null),
-      onXPlay: true
+      onXPlay: true,
+      moveRecords: [
+        Array(9).fill(null),
+      ]
     };
 
-    this.restart = this.restart.bind(this);
     this.squareClicked = this.squareClicked.bind(this);
+    this.jumpTo = this.jumpTo.bind(this);
   }
 
   squareClicked(evt) {
     const { value, textContent } = evt.target;
-    const { onXPlay, squares } = this.state;
+    const { onXPlay, squares, moveRecords } = this.state;
 
     if (textContent || this.calculateWinner(squares)) {
       // skip if square already been marked or
@@ -59,15 +62,42 @@ class TicTacToe extends Component {
       return false;
     }
 
-    let newSquares = squares.slice();
+    let newSquares = squares.slice(),
+      newMoveRecords = moveRecords.slice();
+
     newSquares[value] = onXPlay ? 'X' : 'O';
+    newMoveRecords.push(newSquares);
 
     // update state
     this.setState((prevState, props) => {
       return {
         squares: newSquares,
         onXPlay: !prevState.onXPlay,
+        moveRecords: newMoveRecords
       }
+    });
+  }
+
+  renderTravelItems() {
+    const { moveRecords } = this.state;
+
+    return moveRecords.map((state, i) => {
+      return (
+        <li className="travel-item" key={i}>
+          <button onClick={() => this.jumpTo(i)}>Move #{i}</button>
+        </li>
+      )
+    })
+  }
+
+  jumpTo(index) {
+    const newSquares = this.state.moveRecords[index];
+    let newMoveRecords = this.state.moveRecords.slice(0, index+1);
+
+    this.setState({
+      squares: newSquares,
+      onXPlay: !(index % 2),
+      moveRecords: newMoveRecords
     });
   }
 
@@ -91,14 +121,6 @@ class TicTacToe extends Component {
     return null;
   }
 
-  restart() {
-    const initSquares = Array(9).fill(null);
-    this.setState({
-      squares: initSquares,
-      onXPlay: true
-    });
-  }
-
   render() {
     const { onXPlay, squares } = this.state;
     const winner = this.calculateWinner(squares);
@@ -111,8 +133,7 @@ class TicTacToe extends Component {
         </div>
         <div className="game-info">
           <div className="status">{ status }</div>
-          <button onClick={this.restart}>Restart</button>
-          <ol>{/* TODO time travel */}</ol>
+          <ol className="travel-list">{this.renderTravelItems()}</ol>
         </div>
       </div>
     );
