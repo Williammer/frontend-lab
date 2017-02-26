@@ -26,9 +26,9 @@ class SampleForm extends Component {
     const targetName = evt.target.name;
     let targetValue = evt.target.value;
 
-      if (targetName === "age") {
-        targetValue = Number(targetValue) >= 0 ? Number(targetValue) : "";
-      }
+    if (targetName === "age") {
+      targetValue = Number(targetValue) >= 0 ? Number(targetValue) : "";
+    }
 
     this.setState({
       [targetName]: targetValue
@@ -43,15 +43,16 @@ class SampleForm extends Component {
   }
 
   submit = (evt) => {
+    if (!this.state.isValidToSubmit) {
+      evt.preventDefault();
+    }
+
     this.setState((prevState, props) => {
       return {
         logs: prevState.logs.concat(`Submitting: this.state.name: ${this.state.name}; this.state.isValidToSubmit: ${this.state.isValidToSubmit}; `)
       };
     });
 
-    if (!this.state.isValidToSubmit) {
-      evt.preventDefault();
-    }
   }
 
   componentDidMount() {
