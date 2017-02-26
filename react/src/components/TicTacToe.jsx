@@ -42,8 +42,7 @@ class TicTacToe extends Component {
 
     this.state = {
       squares: Array(9).fill(null),
-      onFirstPlayer: true,
-      winner: null
+      onXPlay: true
     };
 
     this.restart = this.restart.bind(this);
@@ -52,33 +51,24 @@ class TicTacToe extends Component {
 
   squareClicked(evt) {
     const { value, textContent } = evt.target;
-    const { onFirstPlayer, squares, winner } = this.state;
+    const { onXPlay, squares } = this.state;
 
-    if (textContent || winner) {
+    if (textContent || this.calculateWinner(squares)) {
       // skip if square already been marked or
       // there is already a winner
       return false;
     }
 
-    let newSquares = squares;
-    newSquares[value] = onFirstPlayer ? 'X' : 'O';
+    let newSquares = squares.slice();
+    newSquares[value] = onXPlay ? 'X' : 'O';
 
     // update state
     this.setState((prevState, props) => {
       return {
         squares: newSquares,
-        onFirstPlayer: !prevState.onFirstPlayer,
+        onXPlay: !prevState.onXPlay,
       }
-    }, () => {
-      // callback after state set done
-      const winner = this.calculateWinner(this.state.squares);
-
-      if (winner) {
-        this.setState({
-          winner
-        })
-      }
-    })
+    });
   }
 
   calculateWinner(squares) {
@@ -105,14 +95,14 @@ class TicTacToe extends Component {
     const initSquares = Array(9).fill(null);
     this.setState({
       squares: initSquares,
-      onFirstPlayer: true,
-      winner: null
+      onXPlay: true
     });
   }
 
   render() {
-    const { onFirstPlayer, winner } = this.state;
-    const status = winner ? 'Winner ' + winner : 'Next player: ' + (onFirstPlayer ? 'X' : 'O');
+    const { onXPlay, squares } = this.state;
+    const winner = this.calculateWinner(squares);
+    const status = winner ? 'Winner ' + winner : 'Next player: ' + (onXPlay ? 'X' : 'O');
 
     return (
       <div className="game">
