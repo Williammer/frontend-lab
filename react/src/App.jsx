@@ -20,6 +20,7 @@ class App extends Component {
             <li><NavLink to="/stopWatch">stopWatch</NavLink></li>
             <li><NavLink to="/form">sampleForm</NavLink></li>
             <li><NavLink to="/typeWriter">typeWriter</NavLink></li>
+            <li><NavLink to="/ticTacToe">ticTacToeGame</NavLink></li>
           </ul>
         </div>
         <div className="App-main">

@@ -8,6 +8,7 @@ import StopWatch from './components/StopWatch';
 import SampleForm from './components/SampleForm';
 import RepoList from './components/DataFetchList';
 import TypeWriter from './components/TypeWriter';
+import TicTacToe from './components/TicTacToe';
 import './index.css'
 
 
@@ -31,7 +32,8 @@ ReactDOM.render(
 	    <Route path="/repoList" component={repoListContainer} />
 	    <Route path="/stopWatch" component={StopWatch} />
       <Route path="/form" component={SampleForm} />
-	    <Route path="/typeWriter" component={typeWriterContainer} />
+      <Route path="/typeWriter" component={typeWriterContainer} />
+	    <Route path="/ticTacToe" component={TicTacToe} />
     </Route>
 	</Router>,
   document.getElementById('root')
