@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../css/TicTacToe.css';
 
-class Square extends React.Component {
+class Square extends Component {
   render() {
     const { onClick, holder, index } = this.props;
 
@@ -13,7 +13,7 @@ class Square extends React.Component {
   }
 }
 
-class Board extends React.Component {
+class Board extends Component {
   renderSquare(i) {
     const holder = this.props.squares[i];
     return <Square onClick={this.props.squareClickHandler} index={i} holder={holder}/>;
@@ -36,7 +36,7 @@ class Board extends React.Component {
   }
 }
 
-class TicTacToe extends React.Component {
+class TicTacToe extends Component {
   constructor() {
     super();
 
