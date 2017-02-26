@@ -41,17 +41,7 @@ class TicTacToe extends Component {
     super();
 
     this.state = {
-      squares: [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-      ],
+      squares: Array(9).fill(null),
       onFirstPlayer: true,
       winner: null
     };
