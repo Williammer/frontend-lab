@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import '../css/TicTacToe.css';
 
 class Square extends Component {
@@ -7,16 +7,25 @@ class Square extends Component {
 
     return (
       <button className="square" onClick={onClick} value={index}>
-        {holder ? holder: ''}
+        {holder}
       </button>
     );
   }
 }
 
+Square.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  holder: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+};
+
+
 class Board extends Component {
   renderSquare(i) {
-    const holder = this.props.squares[i];
-    return <Square onClick={this.props.squareClickHandler} index={i} holder={holder}/>;
+    const { squares, squareClickHandler } = this.props;
+    const holder = squares[i] || '';
+
+    return <Square onClick={squareClickHandler} index={i} holder={holder}/>;
   }
 
   render() {
@@ -35,6 +44,12 @@ class Board extends Component {
     );
   }
 }
+
+Board.propTypes = {
+  squares: PropTypes.array.isRequired,
+  squareClickHandler: PropTypes.func.isRequired,
+};
+
 
 class TicTacToe extends Component {
   constructor() {
@@ -73,7 +88,7 @@ class TicTacToe extends Component {
       return {
         squares: newSquares,
         onXPlay: !prevState.onXPlay,
-        moveRecords: newMoveRecords
+        moveRecords: newMoveRecords,
       }
     });
   }
@@ -92,7 +107,7 @@ class TicTacToe extends Component {
 
   jumpTo(index) {
     const newSquares = this.state.moveRecords[index];
-    let newMoveRecords = this.state.moveRecords.slice(0, index+1);
+    let newMoveRecords = this.state.moveRecords.slice(0, index + 1);
 
     this.setState({
       squares: newSquares,
@@ -129,7 +144,7 @@ class TicTacToe extends Component {
     return (
       <div className="game">
         <div className="game-board">
-          <Board {...this.state} squareClickHandler={this.squareClicked} />
+          <Board squares={this.state.squares} squareClickHandler={this.squareClicked} />
         </div>
         <div className="game-info">
           <div className="status">{ status }</div>
@@ -139,5 +154,6 @@ class TicTacToe extends Component {
     );
   }
 }
+
 
 export default TicTacToe;

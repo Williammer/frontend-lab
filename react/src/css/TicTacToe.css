@@ -40,6 +40,7 @@
 
 .game-info {
   margin-left: 20px;
+  min-width: 120px;
 }
 
 .travel-list {
