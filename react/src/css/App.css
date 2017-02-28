@@ -46,30 +46,60 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* repollist */
+
+.repo-list {
+  list-style: none;
+  width: 260px;
+  text-align: left;
+  margin: 0 auto;
+  padding: 0;
+  line-height: 1.4;
 }
 
 
 /* stopwatch */
-.stopwatch-button {
 
-}
+.stopwatch-button {}
 
-.stopwatch-timing {
+.stopwatch-timing {}
 
-}
 
 /* sample form */
-.form-logger {
-  position: absolute;
-  bottom: 0;
-  background: #999;
-  color: white;
-  width: 100%;
-  text-align: left;
-  height: 500px;
+.sample-form-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
 }
-.form-logger li{
+
+.sample-form {
+  padding: 0;
+  margin: 0;
+  width: 70%;
+}
+
+.form-logger {
+  padding: 0;
+  margin: 0;
+  margin-top: -40px;
+  background: #AAA;
+  color: white;
+  width: 30%;
+  text-align: left;
+  min-height: 800px;
+}
+
+.form-logger li {
   list-style: none;
+  margin: 4px 12px 0;
 }

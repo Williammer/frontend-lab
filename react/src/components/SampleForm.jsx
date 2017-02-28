@@ -36,7 +36,7 @@ class SampleForm extends Component {
       this.setState((prevState, props) => {
         return {
           isValidToSubmit: this.readyToSubmit(),
-          logs: prevState.logs.concat(`this.state.${targetName}: ${this.state[targetName]}; this.state.isValidToSubmit: ${this.state.isValidToSubmit}; `)
+          logs: prevState.logs.concat(`${targetName}: ${this.state[targetName]}  ||  isValidToSubmit: ${this.state.isValidToSubmit} `)
         };
       });
     });
@@ -49,7 +49,7 @@ class SampleForm extends Component {
 
     this.setState((prevState, props) => {
       return {
-        logs: prevState.logs.concat(`Submitting: this.state.name: ${this.state.name}; this.state.isValidToSubmit: ${this.state.isValidToSubmit}; `)
+        logs: prevState.logs.concat(`Submitting: name: ${this.state.name}  ||  isValidToSubmit: ${this.state.isValidToSubmit} `)
       };
     });
 
@@ -65,8 +65,12 @@ class SampleForm extends Component {
     const { name, age, moreInfo, isValidToSubmit, logs } = this.state;
 
     return (
-      <div>
-        <form onSubmit={this.submit}>
+      <div className="sample-form-container" >
+        <ul className="form-logger">
+          {logs.map((log, index) => <li key={index}>{log}</li>)}
+        </ul>
+
+        <form className="sample-form" onSubmit={this.submit}>
           <label htmlFor="name">Name: </label>
           <input
             name="name"
@@ -106,10 +110,6 @@ class SampleForm extends Component {
             </span>
           }
         </form>
-
-        <ul className="form-logger">
-          {logs.map((log, index) => <li key={index}>{log}</li>)}
-        </ul>
       </div>
     )
   }

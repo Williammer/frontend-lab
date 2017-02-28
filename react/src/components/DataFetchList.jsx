@@ -150,7 +150,7 @@ class RepoList extends Component {
     return (
       <div>
         <h1>Repos of {username}:</h1>
-        <ul>{renderDataToList(repos)}</ul>
+        <ul className="repo-list">{renderDataToList(repos)}</ul>
       </div>
     )
   }
