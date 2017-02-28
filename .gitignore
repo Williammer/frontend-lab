@@ -13,3 +13,5 @@ coverage
 .DS_Store
 .env
 npm-debug.log
+
+react/build
