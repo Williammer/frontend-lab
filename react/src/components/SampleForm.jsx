@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 
 class SampleForm extends Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       logs: [],
@@ -41,7 +41,7 @@ class SampleForm extends Component {
     this.setState({
       [targetName]: targetValue
     }, () => {
-      this.setState((prevState, props) => {
+      this.setState((prevState) => {
         return {
           logs: prevState.logs.concat(`${targetName}: ${this.state[targetName]}  ||  ready: ${this.readyToSubmit()} `)
         };
@@ -52,7 +52,7 @@ class SampleForm extends Component {
   submit(evt) {
     evt.preventDefault();
 
-    this.setState((prevState, props) => {
+    this.setState((prevState) => {
       return {
         logs: prevState.logs.concat(`Submitting: name: ${this.state.name}  ||  age: ${this.state.age}  ||  moreInfo: ${this.state.moreInfo} `)
       };
