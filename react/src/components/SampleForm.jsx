@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 
 class SampleForm extends Component {
+
   constructor(props) {
     super(props);
+
     this.state = {
       logs: [],
       name: "df",
@@ -48,13 +50,11 @@ class SampleForm extends Component {
   }
 
   submit(evt) {
-    if (!this.readyToSubmit()) {
-      evt.preventDefault();
-    }
+    evt.preventDefault();
 
     this.setState((prevState, props) => {
       return {
-        logs: prevState.logs.concat(`Submitting: name: ${this.state.name}  ||  ready: ${this.readyToSubmit()} `)
+        logs: prevState.logs.concat(`Submitting: name: ${this.state.name}  ||  age: ${this.state.age}  ||  moreInfo: ${this.state.moreInfo} `)
       };
     });
   }
@@ -64,7 +64,7 @@ class SampleForm extends Component {
     const readyToSubmit = this.readyToSubmit();
 
     return (
-      <div className="sample-form-container" >
+      <div className="sample-form-container">
         <ul className="form-logger">
           {logs.map((log, index) => <li key={index}>{log}</li>)}
         </ul>
