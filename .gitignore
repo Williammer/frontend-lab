@@ -15,3 +15,4 @@ coverage
 npm-debug.log
 
 react/build
+redux/build
