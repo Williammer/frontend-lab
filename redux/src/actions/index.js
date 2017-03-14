@@ -1,9 +1,14 @@
-import * as types from '../constants/ActionTypes'
+// Tic Tac Toe
+export const updateGameMove = (newSquare) => {
+  return {
+    type: 'UPDATE_GAME_MOVE',
+    index
+  };
+}
 
-// export const addToCart = productId => (dispatch, getState) => {
-//   if (getState().products.byId[productId].inventory > 0) {
-//     dispatch(addToCartUnsafe(productId))
-//   }
-// }
-
-export default () => {}
+export const jumpToMove = (index) => {
+  return {
+    type: 'JUMP_TO_MOVE',
+    index
+  };
+}
