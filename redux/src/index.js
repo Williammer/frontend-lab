@@ -3,11 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
-// import configureStore from './store/configureStore';
-import { createStore, applyMiddleware } from 'redux'
-import createLogger from 'redux-logger'
-import thunk from 'redux-thunk'
-import reducer from './reducers'
+import configureStore from './store/configureStore';
 
 import App from './App';
 import DevTools from './containers/DevTools';
@@ -33,16 +29,7 @@ const typeWriterContainer = () => {
     return TypeWriter(str, speed);
 }
 
-// const store = configureStore();
-const middleware = [ thunk ];
-if (process.env.NODE_ENV !== 'production') {
-  middleware.push(createLogger());
-}
-
-const store = createStore(
-  reducer,
-  applyMiddleware(...middleware)
-)
+const store = configureStore();
 
 // const history = syncHistoryWithStore(hashHistory, store);
 
@@ -58,7 +45,6 @@ ReactDOM.render(
         <Route path="/typeWriter" component={typeWriterContainer} />
   	    <Route path="/ticTacToe" component={TicTacToe} />
       </Route>
-      <DevTools />
   	</Router>
   </Provider>,
   document.getElementById('root')
