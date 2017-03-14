@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import '../css/TicTacToe.css';
-
 import { connect } from 'react-redux'
 import { updateGameMove, jumpToMove } from '../actions'
+import '../css/TicTacToe.css';
 
 class Square extends Component {
   render() {
