@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux'
+import { updateGameMove, jumpToMove } from '../actions'
 import '../css/TicTacToe.css';
 
 class Square extends Component {
@@ -55,21 +57,12 @@ class TicTacToe extends Component {
   constructor() {
     super();
 
-    this.state = {
-      squares: Array(9).fill(null),
-      onXPlay: true,
-      moveRecords: [
-        Array(9).fill(null),
-      ]
-    };
-
     this.squareClicked = this.squareClicked.bind(this);
     this.jumpTo = this.jumpTo.bind(this);
   }
 
   squareClicked(evt) {
     const { value, textContent } = evt.target;
-    const { onXPlay, squares, moveRecords } = this.state;
 
     if (textContent || this.calculateWinner(squares)) {
       // skip if square already been marked or
@@ -77,43 +70,21 @@ class TicTacToe extends Component {
       return false;
     }
 
-    let newSquares = squares.slice(),
-      newMoveRecords = moveRecords.slice();
-
-    newSquares[value] = onXPlay ? 'X' : 'O';
-    newMoveRecords.push(newSquares);
-
-    // update state
-    this.setState((prevState, props) => {
-      return {
-        squares: newSquares,
-        onXPlay: !prevState.onXPlay,
-        moveRecords: newMoveRecords,
-      }
-    });
+    this.props.updateGameMove(value);
   }
 
   renderTravelItems() {
-    const { moveRecords } = this.state;
-
-    return moveRecords.map((state, i) => {
+    return this.props.moveRecords.map((squares, i) => {
       return (
         <li className="travel-item" key={i}>
-          <button onClick={() => this.jumpTo(i)}>Move #{i}</button>
+          <button onClick={this.jumpTo(i)}>Move #{i}</button>
         </li>
       )
-    })
+    });
   }
 
   jumpTo(index) {
-    const newSquares = this.state.moveRecords[index];
-    let newMoveRecords = this.state.moveRecords.slice(0, index + 1);
-
-    this.setState({
-      squares: newSquares,
-      onXPlay: !(index % 2),
-      moveRecords: newMoveRecords
-    });
+    return () => this.props.jumpToMove(index);
   }
 
   calculateWinner(squares) {
@@ -137,14 +108,14 @@ class TicTacToe extends Component {
   }
 
   render() {
-    const { onXPlay, squares } = this.state;
+    const { onXPlay, squares } = this.props;
     const winner = this.calculateWinner(squares);
     const status = winner ? 'Winner ' + winner : 'Next player: ' + (onXPlay ? 'X' : 'O');
 
     return (
       <div className="game">
         <div className="game-board">
-          <Board squares={this.state.squares} squareClickHandler={this.squareClicked} />
+          <Board squares={squares} squareClickHandler={this.squareClicked} />
         </div>
         <div className="game-info">
           <div className="status">{ status }</div>
@@ -155,5 +126,39 @@ class TicTacToe extends Component {
   }
 }
 
+TicTacToe.propTypes = {
+  onXPlay: PropTypes.boolean.isRequired,
+  squares: PropTypes.array.isRequired,
+  moveRecords: PropTypes.array.isRequired,
+  jumpToMove: PropTypes.func.isRequired,
+  updateGameMove: PropTypes.func.isRequired,
+};
 
-export default TicTacToe;
+
+// Redux handling
+const mapStateToProps = (state) => {
+  return {
+    squares: state.squares,
+    onXPlay: state.onXPlay,
+    moveRecords: state.moveRecords,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateGameMove: (index) => {
+      dispatch(updateGameMove(index))
+    },
+
+    jumpToMove: (index) => {
+      dispatch(jumpToMove(index))
+    },
+  }
+}
+
+const TicTacToeContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TicTacToe)
+
+export default TicTacToeContainer;
