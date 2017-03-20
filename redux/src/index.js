@@ -6,7 +6,6 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from './store/configureStore';
 
 import App from './App';
-import DevTools from './containers/DevTools';
 import Welcome from './components/Welcome';
 import StopWatch from './components/StopWatch';
 import SampleForm from './components/SampleForm';
