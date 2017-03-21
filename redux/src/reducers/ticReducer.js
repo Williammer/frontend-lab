@@ -1,12 +1,14 @@
-// Tic Tac Toe
-export const tictactoe = (state = {}, action) => {
+
+const ticReducer = (state = {}, action) => {
   const index = action.index;
   let newMoveRecords;
 
   switch (action.type) {
     case 'UPDATE_GAME_MOVE':
+      const newSquare = state.onXPlay ? 'X' : 'O';
+
       let cloneSquares = state.squares.slice();
-      cloneSquares[index] = state.onXPlay ? 'X' : 'O';
+      cloneSquares[index] = newSquare;
 
       newMoveRecords = [...state.moveRecords, cloneSquares];
 
@@ -30,3 +32,5 @@ export const tictactoe = (state = {}, action) => {
       return state;
   }
 }
+
+export default ticReducer;

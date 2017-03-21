@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateGameMove, jumpToMove } from '../actions'
 import '../css/TicTacToe.css';
@@ -64,7 +65,7 @@ class TicTacToe extends Component {
   squareClicked(evt) {
     const { value, textContent } = evt.target;
 
-    if (textContent || this.calculateWinner(squares)) {
+    if (textContent || this.calculateWinner(this.props.squares)) {
       // skip if square already been marked or
       // there is already a winner
       return false;
@@ -126,8 +127,9 @@ class TicTacToe extends Component {
   }
 }
 
+
 TicTacToe.propTypes = {
-  onXPlay: PropTypes.boolean.isRequired,
+  onXPlay: PropTypes.bool.isRequired,
   squares: PropTypes.array.isRequired,
   moveRecords: PropTypes.array.isRequired,
   jumpToMove: PropTypes.func.isRequired,
@@ -136,29 +138,18 @@ TicTacToe.propTypes = {
 
 
 // Redux handling
-const mapStateToProps = (state) => {
-  return {
-    squares: state.squares,
-    onXPlay: state.onXPlay,
-    moveRecords: state.moveRecords,
-  }
-}
+const mapStateToProps = state => ({
+  squares: state.squares,
+  onXPlay: state.onXPlay,
+  moveRecords: state.moveRecords,
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateGameMove: (index) => {
-      dispatch(updateGameMove(index))
-    },
+const mapDispatchToProps = dispatch => ({
+  updateGameMove: bindActionCreators(updateGameMove, dispatch),
+  jumpToMove: bindActionCreators(jumpToMove, dispatch)
+})
 
-    jumpToMove: (index) => {
-      dispatch(jumpToMove(index))
-    },
-  }
-}
-
-const TicTacToeContainer = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(TicTacToe)
-
-export default TicTacToeContainer;

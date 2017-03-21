@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import { tictactoe } from './tictactoe'
+import { ticReducer } from './ticReducer'
 
 const Reducers = combineReducers({
-  tictactoe
+  ticReducer
 })
 
 export default Reducers

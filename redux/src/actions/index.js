@@ -1,5 +1,5 @@
 // Tic Tac Toe
-export const updateGameMove = (newSquare) => {
+export const updateGameMove = (index) => {
   return {
     type: 'UPDATE_GAME_MOVE',
     index
