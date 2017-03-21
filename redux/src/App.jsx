@@ -33,11 +33,3 @@ class App extends Component {
 }
 
 export default App;
-// const mapStateToProps = (state, ownProps) => ({
-//   errorMessage: state.errorMessage,
-//   inputValue: ownProps.location.pathname.substring(1)
-// })
-
-// export default connect(mapStateToProps, {
-//   action
-// })(App)
