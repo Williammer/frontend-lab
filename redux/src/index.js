@@ -3,9 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 // import { syncHistoryWithStore } from 'react-router-redux';
-import Reducers from './reducers'
-import { createStore } from 'redux'
-// import configureStore from './store/configureStore';
+import configureStore from './store/configureStore';
 
 import App from './App';
 import Welcome from './components/Welcome';
@@ -30,7 +28,7 @@ const typeWriterContainer = () => {
     return TypeWriter(str, speed);
 }
 
-// const store = configureStore();
+
 const defaultState = {
   ticReducer: {
     onXPlay: true,
@@ -40,7 +38,8 @@ const defaultState = {
     ]
   }
 };
-const store = createStore(Reducers, defaultState);
+
+const store = configureStore(defaultState);
 
 
 // const history = syncHistoryWithStore(hashHistory, store);
