@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 // import { syncHistoryWithStore } from 'react-router-redux';
-import Reducers from './reducers/ticReducer'
+import Reducers from './reducers'
 import { createStore } from 'redux'
 // import configureStore from './store/configureStore';
 
@@ -32,11 +32,13 @@ const typeWriterContainer = () => {
 
 // const store = configureStore();
 const defaultState = {
-  onXPlay: true,
-  squares: Array(9).fill(null),
-  moveRecords: [
-    Array(9).fill(null),
-  ]
+  ticReducer: {
+    onXPlay: true,
+    squares: Array(9).fill(null),
+    moveRecords: [
+      Array(9).fill(null),
+    ]
+  }
 };
 const store = createStore(Reducers, defaultState);
 

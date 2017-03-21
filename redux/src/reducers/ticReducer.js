@@ -1,5 +1,4 @@
-
-const ticReducer = (state = {}, action) => {
+export const ticReducer = (state = {}, action) => {
   const index = action.index;
   let newMoveRecords;
 
@@ -33,4 +32,3 @@ const ticReducer = (state = {}, action) => {
   }
 }
 
-export default ticReducer;

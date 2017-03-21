@@ -139,15 +139,16 @@ TicTacToe.propTypes = {
 
 // Redux handling
 const mapStateToProps = state => ({
-  squares: state.squares,
-  onXPlay: state.onXPlay,
-  moveRecords: state.moveRecords,
+  squares: state.ticReducer.squares,
+  onXPlay: state.ticReducer.onXPlay,
+  moveRecords: state.ticReducer.moveRecords,
 })
 
 const mapDispatchToProps = dispatch => ({
   updateGameMove: bindActionCreators(updateGameMove, dispatch),
   jumpToMove: bindActionCreators(jumpToMove, dispatch)
 })
+
 
 export default connect(
   mapStateToProps,
