@@ -108,6 +108,10 @@ class TicTacToe extends Component {
     return null;
   }
 
+  componentWillUnmount() {
+    this.props.jumpToMove(0);
+  }
+
   render() {
     const { onXPlay, squares } = this.props;
     const winner = this.calculateWinner(squares);
