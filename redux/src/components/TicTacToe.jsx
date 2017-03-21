@@ -78,7 +78,7 @@ class TicTacToe extends Component {
     return this.props.moveRecords.map((squares, i) => {
       return (
         <li className="travel-item" key={i}>
-          <button onClick={this.jumpTo(i)}>Move #{i}</button>
+          <button onClick={this.jumpTo(i)}>State #{i+1}</button>
         </li>
       )
     });
