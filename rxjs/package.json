@@ -1,0 +1,17 @@
+{
+  "name": "rxjs-practice",
+  "version": "1.0.0",
+  "description": "Delibrate practice for rxjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rxjs"
+  ],
+  "author": "William",
+  "license": "ISC",
+  "dependencies": {
+    "rxjs-es": "^5.0.0-beta.12"
+  }
+}
