@@ -12,6 +12,6 @@
   "author": "William",
   "license": "ISC",
   "dependencies": {
-    "rxjs-es": "^5.0.0-beta.12"
+    "rxjs": "^5.2.0"
   }
 }
