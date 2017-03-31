@@ -6,12 +6,12 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 
 import App from './App';
-import Welcome from './components/Welcome';
 import StopWatch from './components/StopWatch';
 import SampleForm from './components/SampleForm';
 import RepoList from './components/DataFetchList';
 import TypeWriter from './components/TypeWriter';
 
+import Welcome from './containers/Welcome';
 import TicTacToe from './containers/TicTacToe';
 import './index.css'
 
