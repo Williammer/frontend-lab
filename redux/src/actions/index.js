@@ -12,3 +12,17 @@ export const jumpToMove = (index) => {
     index
   };
 }
+
+// Stop Watch
+export const updateTiming = (time) => {
+  return {
+    type: 'UPDATE_TIMING',
+    time
+  };
+}
+export const updateResetCountDown = (time) => {
+  return {
+    type: 'UPDATE_RESET_COUNTDOWN',
+    time
+  };
+}
