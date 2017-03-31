@@ -11,7 +11,8 @@ import StopWatch from './components/StopWatch';
 import SampleForm from './components/SampleForm';
 import RepoList from './components/DataFetchList';
 import TypeWriter from './components/TypeWriter';
-import TicTacToe from './components/TicTacToe';
+
+import TicTacToe from './containers/TicTacToe';
 import './index.css'
 
 
