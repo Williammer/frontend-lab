@@ -4,12 +4,20 @@ import Button from './Button';
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateTiming, updateResetCountDown } from '../actions'
+import { updateTiming, updateResetCountDown, setIsRunning } from '../actions'
 // import './StopWatch.css';
 
 class StopWatch extends Component {
+  constructor(props) {
+    super(props);
 
-  _isRunning = false
+    this.start = this.start.bind(this);
+    this.pause = this.pause.bind(this);
+    this.reset = this.reset.bind(this);
+    this._longPressResetStart = this._longPressResetStart.bind(this);
+    this._longPressResetEnd = this._longPressResetEnd.bind(this);
+  }
+
   _stopWatchTimer = null
   _longpressDelay = null
   _countProgressTimer = null
@@ -17,43 +25,44 @@ class StopWatch extends Component {
   _now = 0
   _readyToReset = false
 
-  start = () => {
+  start() {
     this._now = Date.now() - this.props.timing;
 
-    this._stopWatchTimer = setInterval(() => {
+    this._stopWatchTimer = window.setInterval(function(){
       this.props.updateTiming(Date.now() - this._now);
-    });
+    }.bind(this));
 
-    this._isRunning = true;
+
+    this.props.setIsRunning(true);
   }
 
-  pause = () => {
+  pause() {
     this.__clearStopWatchTimer();
-    this._isRunning = false;
+    this.props.setIsRunning(false);
   }
 
-  reset = () => {
+  reset() {
     this.__clearStopWatchTimer();
-    this._isRunning = false;
+    this.props.setIsRunning(false);
 
     this.props.updateTiming(0);
   }
 
-  _longPressResetStart = () => {
+  _longPressResetStart() {
     if (this.props.timing === 0) {
       return;
     }
 
     const now = Date.now();
 
-    this._longpressDelay = window.setTimeout(() => {
+    this._longpressDelay = window.setTimeout(function() {
       this._readyToReset = true;
-    }, this.props.resetCountDown);
+    }.bind(this), this.props.resetCountDownTime);
 
     this._showCountProgress(now);
   }
 
-  _longPressResetEnd = () => {
+  _longPressResetEnd() {
     this.__clearLongpressDelay();
 
     if (this._readyToReset) {
@@ -65,9 +74,9 @@ class StopWatch extends Component {
   }
 
   _showCountProgress(now) {
-    this._countProgressTimer = window.setInterval(() => {
+    this._countProgressTimer = window.setInterval(function() {
       this.props.updateResetCountDown(Date.now() - now);
-    }, 500);
+    }.bind(this), 500);
   }
 
   _resetCountProgress() {
@@ -107,14 +116,14 @@ class StopWatch extends Component {
       <div>
         <Label customClass="timing" text={`${this.props.timing}ms`}/>
         <br/>
-        <Label customClass="isRunning" text={`isRunning: ${this._isRunning}`}/>
+        <Label customClass="isRunning" text={`isRunning: ${this.props.isRunning}`}/>
         <br/>
         <br/>
         <Button
-          text={this._isRunning
+          text={this.props.isRunning
           ? "Pause"
           : "Start"}
-          onClick={this._isRunning
+          onClick={this.props.isRunning
           ? this.pause
           : this.start}
         />
@@ -134,24 +143,27 @@ StopWatch.propTypes = {
   resetCountDownTime: PropTypes.number.isRequired,
   resetCountedDown: PropTypes.number.isRequired,
   timing: PropTypes.number.isRequired,
+  isRunning: PropTypes.bool.isRequired,
   updateTiming: PropTypes.func.isRequired,
   updateResetCountDown: PropTypes.func.isRequired,
 }
 
 StopWatch.defaultProps = {
-  resetCountDownTime: 3000
+  resetCountDownTime: 3000,
 }
 
 
 // Redux handling
 const mapStateToProps = state => ({
-  resetCountedDown: state.stopWatchReducer.resetCountedDown,
   timing: state.stopWatchReducer.timing,
+  resetCountedDown: state.stopWatchReducer.resetCountedDown,
+  isRunning: state.stopWatchReducer.isRunning,
 })
 
 const mapDispatchToProps = dispatch => ({
   updateTiming: bindActionCreators(updateTiming, dispatch),
   updateResetCountDown: bindActionCreators(updateResetCountDown, dispatch),
+  setIsRunning: bindActionCreators(setIsRunning, dispatch),
 })
 
 

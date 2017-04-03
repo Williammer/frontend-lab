@@ -39,8 +39,9 @@ const defaultState = {
     ]
   },
   stopWatchReducer: {
+    timing: 0,
     resetCountedDown: 0,
-    timing: 0
+    isRunning: false,
   },
 };
 

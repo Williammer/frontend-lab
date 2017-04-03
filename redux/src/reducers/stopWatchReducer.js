@@ -3,14 +3,19 @@ export const stopWatchReducer = (state = {}, action) => {
 
   switch (action.type) {
     case 'UPDATE_TIMING':
-      return {
+      return Object.assign({}, state, {
         timing: time
-      };
+      });
 
     case 'UPDATE_RESET_COUNTDOWN':
-      return {
+      return Object.assign({}, state, {
         resetCountedDown: time
-      };
+      });
+
+    case 'SET_IS_RUNNING':
+      return Object.assign({}, state, {
+        isRunning: action.isRunning
+      });
 
     default:
       return state;
