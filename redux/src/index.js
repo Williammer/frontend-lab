@@ -43,6 +43,11 @@ const defaultState = {
     resetCountedDown: 0,
     isRunning: false,
   },
+  dataFetchListReducer: {
+    repos: [],
+    searchKeyword: '',
+    isFetching: false,
+  },
 };
 
 const store = configureStore(defaultState);

@@ -1,4 +1,6 @@
-// Tic Tac Toe
+/**
+ * Tic Tac Toe
+ */
 export const updateGameMove = (index) => {
   return {
     type: 'UPDATE_GAME_MOVE',
@@ -13,7 +15,10 @@ export const jumpToMove = (index) => {
   };
 }
 
-// Stop Watch
+
+/**
+ * Stop Watch
+ */
 export const updateTiming = (time) => {
   return {
     type: 'UPDATE_TIMING',
@@ -32,5 +37,30 @@ export const setIsRunning = (isRunning) => {
   return {
     type: 'SET_IS_RUNNING',
     isRunning
+  };
+}
+
+
+/**
+ * Data Fetch List
+ */
+export const updateSearchKeyword = (searchKeyword) => {
+  return {
+    type: 'UPDATE_SEARCH_KEYWORD',
+    searchKeyword
+  };
+}
+
+export const setIsFetching = (isFetching) => {
+  return {
+    type: 'SET_IS_FETCHING',
+    isFetching
+  };
+}
+
+export const updateRepos = (repos) => {
+  return {
+    type: 'UPDATE_REPOS',
+    repos
   };
 }
