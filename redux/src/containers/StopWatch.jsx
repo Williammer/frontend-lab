@@ -14,9 +14,9 @@ class StopWatch extends Component {
     this.startTiming = this.startTiming.bind(this);
     this.pauseTiming = this.pauseTiming.bind(this);
     this.resetTiming = this.resetTiming.bind(this);
-    this.reset = this.reset.bind(this);
     this.startLongPressReset = this.startLongPressReset.bind(this);
     this.endLongPressReset = this.endLongPressReset.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   // timers
