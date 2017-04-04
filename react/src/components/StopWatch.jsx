@@ -4,79 +4,113 @@ import Button from './Button';
 // import './StopWatch.css';
 
 class StopWatch extends Component {
-  state = {
-    timing: 0,
-    resetCountedDown: 0,
-    isRunning: false
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      timing: 0,
+      resetCountedDown: 0,
+      isRunning: false
+    }
+
+    this.startTiming = this.startTiming.bind(this);
+    this.pauseTiming = this.pauseTiming.bind(this);
+    this.resetTiming = this.resetTiming.bind(this);
+    this.startLongPressReset = this.startLongPressReset.bind(this);
+    this.endLongPressReset = this.endLongPressReset.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
+  // timers
   _stopWatchTimer = null
   _longpressDelay = null
   _countProgressTimer = null
 
-  _now = 0
-  _readyToReset = false
+  startTiming() {
+    const now = Date.now() - this.state.timing;
 
-  start = () => {
-    this._now = Date.now() - this.state.timing;
-
-    this._stopWatchTimer = setInterval(() => {
-      this.setState({
-        timing: Date.now() - this._now
+    this._stopWatchTimer = window.setInterval(function() {
+      this.setState((prevState, props) => {
+        return {
+          timing: Date.now() - now,
+          isRunning: true
+        };
       });
+    }.bind(this));
+  }
+
+  pauseTiming() {
+    this.__clearStopWatchTimer();
+    this.setState((prevState, props) => {
+      return {
+        isRunning: false
+      };
     });
-
-    this.setState({ isRunning: true });
   }
 
-  pause = () => {
+  resetTiming() {
     this.__clearStopWatchTimer();
-    this.setState({ isRunning: false });
+    this.setState((prevState, props) => {
+      return {
+        timing: 0,
+        isRunning: false
+      };
+    });
   }
 
-  reset = () => {
-    this.__clearStopWatchTimer();
-    this.setState({ timing: 0, isRunning: false });
-  }
-
-  _longPressResetStart = () => {
+  startLongPressReset() {
     if (this.state.timing === 0) {
       return;
     }
 
-    const now = Date.now();
-
-    this._longpressDelay = window.setTimeout(() => {
-      this._readyToReset = true;
-    }, this.props.resetCountDown);
-
-    this._showCountProgress(now);
+    this._showCountProgress(Date.now());
   }
 
-  _longPressResetEnd = () => {
-    this.__clearLongpressDelay();
-
-    if (this._readyToReset) {
-      this._readyToReset = false;
-      this.reset();
+  endLongPressReset() {
+    const remain = this.props.resetCountDownTime - this.state.resetCountedDown;
+    if (remain <= 0) {
+      this.resetTiming();
     }
 
+    this.__clearLongpressDelay();
     this._resetCountProgress();
   }
 
+  reset() {
+    this.resetTiming();
+    this._resetCountProgress();
+    this.__clearLongpressDelay();
+  }
+
+  getResetCountDownText() {
+    const remain = this.props.resetCountDownTime - this.state.resetCountedDown;
+    return remain > 0 ? `LongPress ${Math.ceil(remain / 1000)} secs to reset` : 'Ready to reset';
+  }
+
   _showCountProgress(now) {
-    this._countProgressTimer = window.setInterval(() => {
-      this.setState({
-        resetCountedDown: Date.now() - now
+    this._countProgressTimer = window.setInterval(function() {
+      if (Date.now() - now <= 0) {
+        // clear interval if reached countdown end
+        this.__clearCountProgressTimer();
+        return;
+      }
+
+      this.setState((prevState, props) => {
+        return {
+          resetCountedDown: Date.now() - now
+        };
       });
-    }, 500);
+    }.bind(this), 500);
   }
 
   _resetCountProgress() {
     this.__clearCountProgressTimer();
 
-    this.setState({
-      resetCountedDown: 0
+    this.setState((prevState, props) => {
+      return {
+        resetCountedDown: 0
+      };
     });
   }
 
@@ -101,10 +135,8 @@ class StopWatch extends Component {
     }
   }
 
-  _getResetCountDownText() {
-    const remain = this.props.resetCountDown - this.state.resetCountedDown;
-
-    return (remain > 0) ? `LongPress ${Math.ceil(remain / 1000)} secs to reset` : 'Ready to reset';
+  componentWillUnmount() {
+    this.reset();
   }
 
   render() {
@@ -116,30 +148,27 @@ class StopWatch extends Component {
         <br/>
         <br/>
         <Button
-          text={this.state.isRunning
-          ? "Pause"
-          : "Start"}
-          onClick={this.state.isRunning
-          ? this.pause
-          : this.start}
+          text={ this.state.isRunning ? "Pause" : "Start" }
+          onClick={ this.state.isRunning ? this.pauseTiming : this.startTiming }
         />
         <br/>
         <button
-          onMouseDown={this._longPressResetStart}
-          onMouseUp={this._longPressResetEnd}
+          onMouseDown={ this.startLongPressReset }
+          onMouseUp={ this.endLongPressReset }
         >
-        {this._getResetCountDownText()}
+        { this.getResetCountDownText() }
         </button>
       </div>
     );
   }
 }
 
+
 StopWatch.propTypes = {
-  resetCountDown: PropTypes.number.isRequired
+  resetCountDownTime: PropTypes.number.isRequired
 }
 StopWatch.defaultProps = {
-  resetCountDown: 3000
+  resetCountDownTime: 3000
 }
 
 export default StopWatch;
