@@ -1,6 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import '../css/TicTacToe.css';
 
+
+/**
+ * Square Component
+ */
 class Square extends Component {
   render() {
     const { onClick, holder, index } = this.props;
@@ -20,6 +24,9 @@ Square.propTypes = {
 };
 
 
+/**
+ * Board Component
+ */
 class Board extends Component {
   renderSquare(i) {
     const { squares, squareClickHandler } = this.props;
@@ -51,6 +58,9 @@ Board.propTypes = {
 };
 
 
+/**
+ * TicTacToe Component
+ */
 class TicTacToe extends Component {
   constructor() {
     super();
