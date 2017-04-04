@@ -75,6 +75,11 @@ class StopWatch extends Component {
 
   _showCountProgress(now) {
     this._countProgressTimer = window.setInterval(function() {
+      if (Date.now() - now <= 0) {
+        this.__clearCountProgressTimer();
+        return;
+      }
+
       this.props.updateResetCountDown(Date.now() - now);
     }.bind(this), 500);
   }
@@ -108,7 +113,7 @@ class StopWatch extends Component {
 
   _getResetCountDownText() {
     const remain = this.props.resetCountDownTime - this.props.resetCountedDown;
-    return remain ? `LongPress ${Math.ceil(remain / 1000)} secs to reset` : 'Ready to reset';
+    return remain > 0 ? `LongPress ${Math.ceil(remain / 1000)} secs to reset` : 'Ready to reset';
   }
 
   render() {
