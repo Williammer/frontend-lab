@@ -4,6 +4,10 @@ import { connect } from 'react-redux'
 import { updateGameMove, jumpToMove } from '../actions'
 import '../css/TicTacToe.css';
 
+
+/**
+ * Square Component
+ */
 class Square extends Component {
   render() {
     const { onClick, holder, index } = this.props;
@@ -23,6 +27,9 @@ Square.propTypes = {
 };
 
 
+/**
+ * Board Component
+ */
 class Board extends Component {
   renderSquare(i) {
     const { squares, squareClickHandler } = this.props;
@@ -49,11 +56,14 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-  squares: PropTypes.array.isRequired,
+  squares: PropTypes.arrayOf(PropTypes.string).isRequired,
   squareClickHandler: PropTypes.func.isRequired,
 };
 
 
+/**
+ * TicTacToe Component
+ */
 class TicTacToe extends Component {
   constructor() {
     super();
@@ -134,8 +144,12 @@ class TicTacToe extends Component {
 
 TicTacToe.propTypes = {
   onXPlay: PropTypes.bool.isRequired,
-  squares: PropTypes.array.isRequired,
-  moveRecords: PropTypes.array.isRequired,
+  squares: PropTypes.arrayOf(PropTypes.string).isRequired,
+  moveRecords: PropTypes.arrayOf(
+    PropTypes.arrayOf(
+      PropTypes.string
+    ).isRequired
+  ).isRequired,
   jumpToMove: PropTypes.func.isRequired,
   updateGameMove: PropTypes.func.isRequired,
 };
