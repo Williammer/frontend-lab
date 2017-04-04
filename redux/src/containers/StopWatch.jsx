@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import Label from './Label';
-import Button from './Button';
+import Label from '../components/Label';
+import Button from '../components/Button';
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -11,18 +11,20 @@ class StopWatch extends Component {
   constructor(props) {
     super(props);
 
-    this.start = this.start.bind(this);
-    this.pause = this.pause.bind(this);
+    this.startTiming = this.startTiming.bind(this);
+    this.pauseTiming = this.pauseTiming.bind(this);
+    this.resetTiming = this.resetTiming.bind(this);
     this.reset = this.reset.bind(this);
-    this.longPressResetStart = this.longPressResetStart.bind(this);
-    this.longPressResetEnd = this.longPressResetEnd.bind(this);
+    this.startLongPressReset = this.startLongPressReset.bind(this);
+    this.endLongPressReset = this.endLongPressReset.bind(this);
   }
 
+  // timers
   _stopWatchTimer = null
   _longpressDelay = null
   _countProgressTimer = null
 
-  start() {
+  startTiming() {
     const now = Date.now() - this.props.timing;
 
     this._stopWatchTimer = window.setInterval(function() {
@@ -32,18 +34,18 @@ class StopWatch extends Component {
     this.props.setIsRunning(true);
   }
 
-  pause() {
+  pauseTiming() {
     this.__clearStopWatchTimer();
     this.props.setIsRunning(false);
   }
 
-  reset() {
+  resetTiming() {
     this.__clearStopWatchTimer();
     this.props.setIsRunning(false);
     this.props.updateTiming(0);
   }
 
-  longPressResetStart() {
+  startLongPressReset() {
     if (this.props.timing === 0) {
       return;
     }
@@ -51,14 +53,20 @@ class StopWatch extends Component {
     this._showCountProgress(Date.now());
   }
 
-  longPressResetEnd() {
+  endLongPressReset() {
     const remain = this.props.resetCountDownTime - this.props.resetCountedDown;
     if (remain <= 0) {
-      this.reset();
+      this.resetTiming();
     }
 
     this.__clearLongpressDelay();
     this._resetCountProgress();
+  }
+
+  reset() {
+    this.resetTiming();
+    this._resetCountProgress();
+    this.__clearLongpressDelay();
   }
 
   getResetCountDownText() {
@@ -104,6 +112,10 @@ class StopWatch extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.reset();
+  }
+
   render() {
     return (
       <div>
@@ -114,12 +126,12 @@ class StopWatch extends Component {
         <br/>
         <Button
           text={ this.props.isRunning ? "Pause" : "Start" }
-          onClick={ this.props.isRunning ? this.pause : this.start }
+          onClick={ this.props.isRunning ? this.pauseTiming : this.startTiming }
         />
         <br/>
         <button
-          onMouseDown={ this.longPressResetStart }
-          onMouseUp={ this.longPressResetEnd }
+          onMouseDown={ this.startLongPressReset }
+          onMouseUp={ this.endLongPressReset }
         >
         { this.getResetCountDownText() }
         </button>
