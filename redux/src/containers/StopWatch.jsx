@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import Label from '../components/Label';
 import Button from '../components/Button';
 
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateTiming, updateResetCountDown, setIsRunning } from '../actions'
 // import './StopWatch.css';
@@ -161,14 +160,8 @@ const mapStateToProps = state => ({
   isRunning: state.stopWatchReducer.isRunning,
 })
 
-const mapDispatchToProps = dispatch => ({
-  updateTiming: bindActionCreators(updateTiming, dispatch),
-  updateResetCountDown: bindActionCreators(updateResetCountDown, dispatch),
-  setIsRunning: bindActionCreators(setIsRunning, dispatch),
-})
-
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(StopWatch)
+export default connect(mapStateToProps, {
+  updateTiming,
+  updateResetCountDown,
+  setIsRunning
+})(StopWatch)

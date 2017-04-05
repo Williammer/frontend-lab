@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import axios from 'axios'
 
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
   updateSearchKeyword,
@@ -176,13 +175,9 @@ const mapStateToProps = state => ({
   searchKeyword: state.dataFetchListReducer.searchKeyword,
 })
 
-const mapDispatchToProps = dispatch => ({
-  updateRepos: bindActionCreators(updateRepos, dispatch),
-  updateSearchKeyword: bindActionCreators(updateSearchKeyword, dispatch),
-  setIsFetching: bindActionCreators(setIsFetching, dispatch),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DataFetchList)
+export default connect(mapStateToProps, {
+  updateRepos,
+  updateSearchKeyword,
+  updateUsername,
+  setIsFetching
+})(DataFetchList)

@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateGameMove, jumpToMove } from '../actions'
 import '../css/TicTacToe.css';
@@ -162,13 +161,8 @@ const mapStateToProps = state => ({
   moveRecords: state.ticReducer.moveRecords,
 })
 
-const mapDispatchToProps = dispatch => ({
-  updateGameMove: bindActionCreators(updateGameMove, dispatch),
-  jumpToMove: bindActionCreators(jumpToMove, dispatch)
-})
 
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TicTacToe)
+export default connect(mapStateToProps, {
+  updateGameMove,
+  jumpToMove
+})(TicTacToe)
