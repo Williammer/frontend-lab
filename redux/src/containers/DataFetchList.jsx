@@ -4,27 +4,10 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import {
   updateSearchKeyword,
+  updateUsername,
   setIsFetching,
   updateRepos
 } from '../actions'
-
-
-function NoResult() {
-  return (
-    <div>
-      "no result"
-    </div>
-  );
-}
-
-function renderDataToList(data) {
-  let result = [];
-  if (data && data.length > 0) {
-    result = data.map((repo) => <li key={repo.id}>{repo.name}</li>);
-  }
-
-  return result;
-}
 
 
 /**
@@ -39,25 +22,33 @@ class SearchBar extends Component {
 
   inputSearch(evt) {
     const val = evt.target.value;
+    // TODO: how to handle throttle?
     this.props.onUserInput(val);
   }
 
   render() {
     return (
       <div>
-        <input
-          name="searchbar"
-          type="text"
-          placeholder="Search..."
-          onChange={this.inputSearch}
-        />
+        <label htmlFor="searchbar">
+          {this.props.label}
+          <input
+            name="searchbar"
+            type="text"
+            onChange={this.inputSearch}
+          />
+        </label>
       </div>
     );
   }
 }
 
 SearchBar.propTypes = {
+  placeholder: PropTypes.string.isRequired,
   onUserInput: PropTypes.func.isRequired
+}
+
+SearchBar.defaultProps = {
+  placeholder: 'Search:'
 }
 
 
@@ -65,6 +56,26 @@ SearchBar.propTypes = {
  * RepoList Component
  */
 class RepoList extends Component {
+  deepRepoCompare(a, b) {
+    if (a.length !== b.length) {
+      return false;
+    }
+
+    return a.every((aItem, index) => {
+      return aItem.id === b[index].id;
+    });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const { repos } = this.props;
+
+    if (this.deepRepoCompare(nextProps.repos, repos)) {
+      return false;
+    }
+
+    return true;
+  }
+
   render() {
     const { username, repos } = this.props;
 
@@ -92,57 +103,101 @@ class DataFetchList extends Component {
   constructor(props) {
     super(props);
 
-    this.handleUserInput = this.handleUserInput.bind(this);
-    this.getFilteredRepo = this.getFilteredRepo.bind(this);
+    this.updateKeyword = this.updateKeyword.bind(this);
+    this.getSearchedRepo = this.getSearchedRepo.bind(this);
+    this.handleUsernameKeyPress = this.handleUsernameKeyPress.bind(this);
   }
 
-  handleUserInput(value) {
+  handleUsernameKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.props.updateUsername(e.target.value);
+      this.fetchRepos(e.target.value); // use thunk to handle this async action
+    }
+  }
+
+  updateKeyword(value) {
     this.props.updateSearchKeyword(value);
   }
 
-  getFilteredRepo() {
-    const { repos } = this.props;
-    return repos.filter((repo) => repo.name.includes(this.props.searchKeyword));
-  }
-
   fetchRepos(username) {
+    if (!username) {
+      this.props.updateRepos([]);
+      return;
+    }
+
     const apiUrl = `https://api.github.com/users/${username}/repos`;
 
     this.props.setIsFetching(true);
 
-    return this.props.fetch(apiUrl).then(({ data: repos }) => {
-      console.log(`[fetch] success...`, repos);
+    return this.props.fetch(apiUrl)
+      .then(({
+        data: repos
+      }) => {
+        console.log('[fetch] success...', repos);
+        this.props.updateRepos(this.filterRepoContent(repos));
+        this.props.setIsFetching(false);
 
-      this.props.updateRepos(repos);
-      this.props.setIsFetching(false);
-    }, (error) => {
-      this.props.setIsFetching(false);
-      console.warn(`[fetch] error... ${error.message}`);
+      }, (error) => {
+        console.warn('[fetch] error... ', error.message);
+        this.props.updateRepos([]);
+        this.props.setIsFetching(false);
+      });
+  }
+
+  filterRepoContent(repos) {
+    return repos.map(repo => {
+      return {
+        id: repo.id,
+        name: repo.name,
+      };
     });
+  }
+
+  getSearchedRepo() {
+    const { repos } = this.props;
+    return repos.filter(repo => repo.name.includes(this.props.searchKeyword));
   }
 
   componentDidMount() {
     this.fetchRepos(this.props.username);
   }
 
+  componentWillUnmount() {
+    this.props.updateSearchKeyword('');
+    this.props.setIsFetching(false);
+    this.props.updateRepos([]);
+  }
+
   render() {
-    const { isFetching, repos } = this.props;
+    const { username, repos, isFetching } = this.props;
+
+    if (isFetching) {
+      return <Fetching />;
+    }
 
     return (
       <div>
-        {
-          isFetching ? <span>fetching...</span> :
-            (repos && repos.length) ?
-              <div>
-                <SearchBar
-                  onUserInput={this.handleUserInput}
-                />
-                <RepoList
-                  username={this.props.username}
-                  repos={this.getFilteredRepo()}
-                />
-              </div>
-            : <NoResult />
+        <label htmlFor="username">
+        Get repos of a hacker:
+        <input
+          name="username"
+          onKeyPress={this.handleUsernameKeyPress}
+        />
+        </label>
+            <br/>
+            <br/>
+        { username && repos && repos.length ?
+          <div>
+            <SearchBar
+              onUserInput={this.updateKeyword}
+              label='Search for certain repo:'
+            />
+            <RepoList
+              username={username}
+              repos={this.getSearchedRepo()}
+            />
+          </div>
+          : <NoResult username={username} />
         }
       </div>
     )
@@ -159,18 +214,37 @@ DataFetchList.propTypes = {
   fetch: PropTypes.func.isRequired,
   updateRepos: PropTypes.func.isRequired,
   updateSearchKeyword: PropTypes.func.isRequired,
+  updateUsername: PropTypes.func.isRequired,
   setIsFetching: PropTypes.func.isRequired,
 }
 
 DataFetchList.defaultProps = {
-  username: 'Williammer',
   fetch: axios.get,
+}
+
+
+function NoResult(props) {
+  return (<div>{props.username + ': no repo'}</div>);
+}
+
+function Fetching() {
+  return (<span>fetching...</span>);
+}
+
+function renderDataToList(data) {
+  let result = [];
+  if (data && data.length > 0) {
+    result = data.map((repo) => <li key={repo.id}>{repo.name}</li>);
+  }
+
+  return result;
 }
 
 
 // Redux handling
 const mapStateToProps = state => ({
   repos: state.dataFetchListReducer.repos,
+  username: state.dataFetchListReducer.username,
   isFetching: state.dataFetchListReducer.isFetching,
   searchKeyword: state.dataFetchListReducer.searchKeyword,
 })

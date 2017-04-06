@@ -5,6 +5,11 @@ export const dataFetchListReducer = (state = {}, action) => {
         repos: action.repos
       });
 
+    case 'UPDATE_USERNAME':
+      return Object.assign({}, state, {
+        username: action.username
+      });
+
     case 'UPDATE_SEARCH_KEYWORD':
       return Object.assign({}, state, {
         searchKeyword: action.searchKeyword

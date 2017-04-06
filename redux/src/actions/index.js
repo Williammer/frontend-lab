@@ -44,6 +44,13 @@ export const setIsRunning = (isRunning) => {
 /**
  * Data Fetch List
  */
+export const updateUsername = (username) => {
+  return {
+    type: 'UPDATE_USERNAME',
+    username
+  };
+}
+
 export const updateSearchKeyword = (searchKeyword) => {
   return {
     type: 'UPDATE_SEARCH_KEYWORD',
