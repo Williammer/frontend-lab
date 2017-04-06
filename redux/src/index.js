@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 // import { syncHistoryWithStore } from 'react-router-redux';
+import { defaultState } from './store/defaultState';
 import configureStore from './store/configureStore';
 
 import App from './App';
@@ -24,29 +25,7 @@ const typeWriterContainer = () => {
 }
 
 
-const defaultState = {
-  ticReducer: {
-    onXPlay: true,
-    squares: Array(9).fill(null),
-    moveRecords: [
-      Array(9).fill(null),
-    ]
-  },
-  stopWatchReducer: {
-    timing: 0,
-    resetCountedDown: 0,
-    isRunning: false,
-  },
-  dataFetchListReducer: {
-    repos: [],
-    searchKeyword: '',
-    username: 'williammer',
-    isFetching: false,
-  },
-};
-
 const store = configureStore(defaultState);
-
 
 // const history = syncHistoryWithStore(hashHistory, store);
 
