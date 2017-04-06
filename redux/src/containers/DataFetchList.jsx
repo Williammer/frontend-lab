@@ -1,14 +1,13 @@
-import React, { PropTypes, Component } from 'react'
-import axios from 'axios'
+import React, { PropTypes, Component } from 'react';
+import axios from 'axios';
 
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import {
   updateSearchKeyword,
   updateUsername,
   setIsFetching,
   updateRepos
-} from '../actions'
-
+} from '../actions';
 
 /**
  * SearchBar Component
@@ -31,11 +30,7 @@ class SearchBar extends Component {
       <div>
         <label htmlFor="searchbar">
           {this.props.label}
-          <input
-            name="searchbar"
-            type="text"
-            onChange={this.inputSearch}
-          />
+          <input name="searchbar" type="text" onChange={this.inputSearch} />
         </label>
       </div>
     );
@@ -45,12 +40,11 @@ class SearchBar extends Component {
 SearchBar.propTypes = {
   placeholder: PropTypes.string.isRequired,
   onUserInput: PropTypes.func.isRequired
-}
+};
 
 SearchBar.defaultProps = {
   placeholder: 'Search:'
-}
-
+};
 
 /**
  * RepoList Component
@@ -84,17 +78,18 @@ class RepoList extends Component {
         <h1>Repos of {username}:</h1>
         <ul className="repo-list">{renderDataToList(repos)}</ul>
       </div>
-    )
+    );
   }
 }
 
 RepoList.propTypes = {
   username: PropTypes.string.isRequired,
-  repos: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired
-  })).isRequired
-}
-
+  repos: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired
+    })
+  ).isRequired
+};
 
 /**
  * DataFetchList Component
@@ -129,26 +124,29 @@ class DataFetchList extends Component {
 
     this.props.setIsFetching(true);
 
-    return this.props.fetch(apiUrl)
-      .then(({
-        data: repos
-      }) => {
+    return this.props.fetch(apiUrl).then(
+      (
+        {
+          data: repos
+        }
+      ) => {
         console.log('[fetch] success...', repos);
         this.props.updateRepos(this.filterRepoContent(repos));
         this.props.setIsFetching(false);
-
-      }, (error) => {
+      },
+      error => {
         console.warn('[fetch] error... ', error.message);
         this.props.updateRepos([]);
         this.props.setIsFetching(false);
-      });
+      }
+    );
   }
 
   filterRepoContent(repos) {
     return repos.map(repo => {
       return {
         id: repo.id,
-        name: repo.name,
+        name: repo.name
       };
     });
   }
@@ -179,35 +177,30 @@ class DataFetchList extends Component {
       <div>
         <label htmlFor="username">
           Get repos of a hacker:
-          <input
-            name="username"
-            onKeyPress={this.handleUsernameKeyPress}
-          />
+          <input name="username" onKeyPress={this.handleUsernameKeyPress} />
         </label>
-        <br/>
-        <br/>
-        { username && repos && repos.length ?
-          <div>
-            <SearchBar
-              onUserInput={this.updateKeyword}
-              label='Search for certain repo:'
-            />
-            <RepoList
-              username={username}
-              repos={this.getSearchedRepo()}
-            />
-          </div>
-          : <NoResult username={username} />
-        }
+        <br />
+        <br />
+        {username && repos && repos.length
+          ? <div>
+              <SearchBar
+                onUserInput={this.updateKeyword}
+                label="Search for certain repo:"
+              />
+              <RepoList username={username} repos={this.getSearchedRepo()} />
+            </div>
+          : <NoResult username={username} />}
       </div>
-    )
+    );
   }
 }
 
 DataFetchList.propTypes = {
-  repos: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired
-  })).isRequired,
+  repos: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired
+    })
+  ).isRequired,
   isFetching: PropTypes.bool.isRequired,
   searchKeyword: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
@@ -215,43 +208,41 @@ DataFetchList.propTypes = {
   updateRepos: PropTypes.func.isRequired,
   updateSearchKeyword: PropTypes.func.isRequired,
   updateUsername: PropTypes.func.isRequired,
-  setIsFetching: PropTypes.func.isRequired,
-}
+  setIsFetching: PropTypes.func.isRequired
+};
 
 DataFetchList.defaultProps = {
-  fetch: axios.get,
-}
-
+  fetch: axios.get
+};
 
 function NoResult(props) {
-  return (<div>{props.username + ': no repo'}</div>);
+  return <div>{props.username + ': no repo'}</div>;
 }
 
 function Fetching() {
-  return (<span>fetching...</span>);
+  return <span>fetching...</span>;
 }
 
 function renderDataToList(data) {
   let result = [];
   if (data && data.length > 0) {
-    result = data.map((repo) => <li key={repo.id}>{repo.name}</li>);
+    result = data.map(repo => <li key={repo.id}>{repo.name}</li>);
   }
 
   return result;
 }
-
 
 // Redux handling
 const mapStateToProps = state => ({
   repos: state.dataFetchListReducer.repos,
   username: state.dataFetchListReducer.username,
   isFetching: state.dataFetchListReducer.isFetching,
-  searchKeyword: state.dataFetchListReducer.searchKeyword,
-})
+  searchKeyword: state.dataFetchListReducer.searchKeyword
+});
 
 export default connect(mapStateToProps, {
   updateRepos,
   updateSearchKeyword,
   updateUsername,
   setIsFetching
-})(DataFetchList)
+})(DataFetchList);

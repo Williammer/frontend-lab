@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux'
-import { updateGameMove, jumpToMove } from '../actions'
+import { connect } from 'react-redux';
+import { updateGameMove, jumpToMove } from '../actions';
 import '../css/TicTacToe.css';
-
 
 /**
  * Square Component
@@ -22,9 +21,8 @@ class Square extends Component {
 Square.propTypes = {
   onClick: PropTypes.func.isRequired,
   holder: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired
 };
-
 
 /**
  * Board Component
@@ -34,13 +32,13 @@ class Board extends Component {
     const { squares, squareClickHandler } = this.props;
     const holder = squares[i] || '';
 
-    return <Square onClick={squareClickHandler} index={i} holder={holder}/>;
+    return <Square onClick={squareClickHandler} index={i} holder={holder} />;
   }
 
   render() {
     return (
       <div>
-         <div className="board-row">
+        <div className="board-row">
           {this.renderSquare(0)} {this.renderSquare(1)} {this.renderSquare(2)}
         </div>
         <div className="board-row">
@@ -56,9 +54,8 @@ class Board extends Component {
 
 Board.propTypes = {
   squares: PropTypes.arrayOf(PropTypes.string).isRequired,
-  squareClickHandler: PropTypes.func.isRequired,
+  squareClickHandler: PropTypes.func.isRequired
 };
-
 
 /**
  * TicTacToe Component
@@ -87,9 +84,9 @@ class TicTacToe extends Component {
     return this.props.moveRecords.map((squares, i) => {
       return (
         <li className="travel-item" key={i}>
-          <button onClick={this.jumpTo(i)}>State #{i+1}</button>
+          <button onClick={this.jumpTo(i)}>State #{i + 1}</button>
         </li>
-      )
+      );
     });
   }
 
@@ -106,11 +103,13 @@ class TicTacToe extends Component {
       [1, 4, 7],
       [2, 5, 8],
       [0, 4, 8],
-      [2, 4, 6],
+      [2, 4, 6]
     ];
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
-      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      if (
+        squares[a] && squares[a] === squares[b] && squares[a] === squares[c]
+      ) {
         return squares[a];
       }
     }
@@ -124,7 +123,9 @@ class TicTacToe extends Component {
   render() {
     const { onXPlay, squares } = this.props;
     const winner = this.calculateWinner(squares);
-    const status = winner ? 'Winner ' + winner : 'Next player: ' + (onXPlay ? 'X' : 'O');
+    const status = winner
+      ? 'Winner ' + winner
+      : 'Next player: ' + (onXPlay ? 'X' : 'O');
 
     return (
       <div className="game">
@@ -132,7 +133,7 @@ class TicTacToe extends Component {
           <Board squares={squares} squareClickHandler={this.squareClicked} />
         </div>
         <div className="game-info">
-          <div className="status">{ status }</div>
+          <div className="status">{status}</div>
           <ol className="travel-list">{this.renderTravelItems()}</ol>
         </div>
       </div>
@@ -140,29 +141,24 @@ class TicTacToe extends Component {
   }
 }
 
-
 TicTacToe.propTypes = {
   onXPlay: PropTypes.bool.isRequired,
   squares: PropTypes.arrayOf(PropTypes.string).isRequired,
   moveRecords: PropTypes.arrayOf(
-    PropTypes.arrayOf(
-      PropTypes.string
-    ).isRequired
+    PropTypes.arrayOf(PropTypes.string).isRequired
   ).isRequired,
   jumpToMove: PropTypes.func.isRequired,
-  updateGameMove: PropTypes.func.isRequired,
+  updateGameMove: PropTypes.func.isRequired
 };
-
 
 // Redux handling
 const mapStateToProps = state => ({
   squares: state.ticReducer.squares,
   onXPlay: state.ticReducer.onXPlay,
-  moveRecords: state.ticReducer.moveRecords,
-})
-
+  moveRecords: state.ticReducer.moveRecords
+});
 
 export default connect(mapStateToProps, {
   updateGameMove,
   jumpToMove
-})(TicTacToe)
+})(TicTacToe);
