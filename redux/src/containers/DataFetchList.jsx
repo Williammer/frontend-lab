@@ -178,14 +178,14 @@ class DataFetchList extends Component {
     return (
       <div>
         <label htmlFor="username">
-        Get repos of a hacker:
-        <input
-          name="username"
-          onKeyPress={this.handleUsernameKeyPress}
-        />
+          Get repos of a hacker:
+          <input
+            name="username"
+            onKeyPress={this.handleUsernameKeyPress}
+          />
         </label>
-            <br/>
-            <br/>
+        <br/>
+        <br/>
         { username && repos && repos.length ?
           <div>
             <SearchBar
