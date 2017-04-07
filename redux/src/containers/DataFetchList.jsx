@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import Button from '../components/Button';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
@@ -101,12 +102,17 @@ class DataFetchList extends Component {
     this.updateKeyword = this.updateKeyword.bind(this);
     this.getSearchedRepo = this.getSearchedRepo.bind(this);
     this.handleUsernameKeyPress = this.handleUsernameKeyPress.bind(this);
+    this.handleUsernameBtnClick = this.handleUsernameBtnClick.bind(this);
   }
 
   handleUsernameKeyPress(e) {
     if (e.key === 'Enter') {
       this.fetchRepos(e.target.value);
     }
+  }
+
+  handleUsernameBtnClick() {
+    this.fetchRepos(this.usernameInput.value);
   }
 
   updateKeyword(value) {
@@ -177,8 +183,13 @@ class DataFetchList extends Component {
       <div>
         <label htmlFor="username">
           Get repos of a hacker:
-          <input name="username" onKeyPress={this.handleUsernameKeyPress} />
+          <input
+            name="username"
+            ref={input => this.usernameInput = input}
+            onKeyPress={this.handleUsernameKeyPress}
+          />
         </label>
+        <Button text="GO" onClick={this.handleUsernameBtnClick} />
         <br />
         <br />
         {username && repos && repos.length
