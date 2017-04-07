@@ -105,8 +105,7 @@ class DataFetchList extends Component {
 
   handleUsernameKeyPress(e) {
     if (e.key === 'Enter') {
-      this.props.updateUsername(e.target.value);
-      this.fetchRepos(e.target.value); // use thunk to handle this async action
+      this.fetchRepos(e.target.value);
     }
   }
 
@@ -123,6 +122,7 @@ class DataFetchList extends Component {
     const apiUrl = `https://api.github.com/users/${username}/repos`;
 
     this.props.setIsFetching(true);
+    this.props.updateUsername(username);
 
     return this.props.fetch(apiUrl).then(
       (
