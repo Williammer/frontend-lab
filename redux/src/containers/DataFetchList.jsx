@@ -130,7 +130,7 @@ class DataFetchList extends Component {
     this.props.setIsFetching(true);
     this.props.updateUsername(username);
 
-    return this.props.fetch(apiUrl).then(
+    return axios.get(apiUrl).then(
       (
         {
           data: repos
@@ -215,15 +215,10 @@ DataFetchList.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   searchKeyword: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
-  fetch: PropTypes.func.isRequired,
   updateRepos: PropTypes.func.isRequired,
   updateSearchKeyword: PropTypes.func.isRequired,
   updateUsername: PropTypes.func.isRequired,
   setIsFetching: PropTypes.func.isRequired
-};
-
-DataFetchList.defaultProps = {
-  fetch: axios.get
 };
 
 function NoResult(props) {
