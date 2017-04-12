@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import Button from '../components/Button';
+import '../css/DataFetchList.css';
 
 import { connect } from 'react-redux';
 import {
@@ -120,6 +121,7 @@ class DataFetchList extends Component {
       return;
     }
 
+    this.props.updateUsername(username);
     this.props.loadUserRepos(username);
   }
 
@@ -183,7 +185,17 @@ DataFetchList.propTypes = {
 };
 
 function NoResult(props) {
-  return <div>{props.username + ': no repo <br/> error: ' + props.error}</div>;
+  const { username, error } = props;
+
+  return (
+    <div>
+      <span className="label-no-repo">
+        {username + ': no repo :/'}
+      </span>
+      <br />
+      {error && <span className="label-error">{'error: ' + error}</span>}
+    </div>
+  );
 }
 
 function Fetching() {
