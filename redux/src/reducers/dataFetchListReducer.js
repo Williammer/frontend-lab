@@ -15,12 +15,28 @@ export const dataFetchListReducer = (state = {}, action) => {
         searchKeyword: action.searchKeyword
       });
 
-    case 'SET_IS_FETCHING':
-      return Object.assign({}, state, {
-        isFetching: action.isFetching
-      });
+    case 'USER_REPOS_REQUEST':
+      return {
+        ...state,
+        isFetching: true
+      };
+
+    case 'USER_REPOS_SUCCESS':
+      return {
+        ...state,
+        isFetching: false,
+        repos: action.repos.result
+      };
+
+    case 'USER_REPOS_FAILURE':
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+        repos: []
+      };
 
     default:
       return state;
   }
-}
+};

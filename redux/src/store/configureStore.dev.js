@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-// import api from '../middleware/api'
+import api from '../middleware/api';
 import rootReducer from '../reducers';
 
 const composeEnhancers = typeof window === 'object' &&
@@ -12,7 +12,7 @@ const composeEnhancers = typeof window === 'object' &&
     )
   : compose;
 
-const middleware = [thunk];
+const middleware = [thunk, api];
 
 const enhancer = composeEnhancers(applyMiddleware(...middleware));
 

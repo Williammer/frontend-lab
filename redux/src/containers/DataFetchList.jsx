@@ -1,12 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import Button from '../components/Button';
-import axios from 'axios';
 
 import { connect } from 'react-redux';
 import {
   updateSearchKeyword,
   updateUsername,
-  setIsFetching,
+  loadUserRepos,
   updateRepos
 } from '../actions';
 
@@ -57,7 +56,7 @@ class RepoList extends Component {
     }
 
     return a.every((aItem, index) => {
-      return aItem.id === b[index].id;
+      return aItem === b[index];
     });
   }
 
@@ -85,11 +84,7 @@ class RepoList extends Component {
 
 RepoList.propTypes = {
   username: PropTypes.string.isRequired,
-  repos: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired
-    })
-  ).isRequired
+  repos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
 /**
@@ -125,41 +120,12 @@ class DataFetchList extends Component {
       return;
     }
 
-    const apiUrl = `https://api.github.com/users/${username}/repos`;
-
-    this.props.setIsFetching(true);
-    this.props.updateUsername(username);
-
-    return axios.get(apiUrl).then(
-      (
-        {
-          data: repos
-        }
-      ) => {
-        console.log('[fetch] success...', repos);
-        this.props.updateRepos(this.filterRepoContent(repos));
-        this.props.setIsFetching(false);
-      },
-      error => {
-        console.warn('[fetch] error... ', error.message);
-        this.props.updateRepos([]);
-        this.props.setIsFetching(false);
-      }
-    );
-  }
-
-  filterRepoContent(repos) {
-    return repos.map(repo => {
-      return {
-        id: repo.id,
-        name: repo.name
-      };
-    });
+    this.props.loadUserRepos(username);
   }
 
   getSearchedRepo() {
     const { repos } = this.props;
-    return repos.filter(repo => repo.name.includes(this.props.searchKeyword));
+    return repos.filter(repo => repo.includes(this.props.searchKeyword));
   }
 
   componentDidMount() {
@@ -168,12 +134,11 @@ class DataFetchList extends Component {
 
   componentWillUnmount() {
     this.props.updateSearchKeyword('');
-    this.props.setIsFetching(false);
     this.props.updateRepos([]);
   }
 
   render() {
-    const { username, repos, isFetching } = this.props;
+    const { username, repos, isFetching, error } = this.props;
 
     if (isFetching) {
       return <Fetching />;
@@ -200,29 +165,25 @@ class DataFetchList extends Component {
               />
               <RepoList username={username} repos={this.getSearchedRepo()} />
             </div>
-          : <NoResult username={username} />}
+          : <NoResult username={username} error={error} />}
       </div>
     );
   }
 }
 
 DataFetchList.propTypes = {
-  repos: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired
-    })
-  ).isRequired,
+  repos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   isFetching: PropTypes.bool.isRequired,
   searchKeyword: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired,
   updateRepos: PropTypes.func.isRequired,
   updateSearchKeyword: PropTypes.func.isRequired,
-  updateUsername: PropTypes.func.isRequired,
-  setIsFetching: PropTypes.func.isRequired
+  updateUsername: PropTypes.func.isRequired
 };
 
 function NoResult(props) {
-  return <div>{props.username + ': no repo'}</div>;
+  return <div>{props.username + ': no repo <br/> error: ' + props.error}</div>;
 }
 
 function Fetching() {
@@ -231,8 +192,8 @@ function Fetching() {
 
 function renderDataToList(data) {
   let result = [];
-  if (data && data.length > 0) {
-    result = data.map(repo => <li key={repo.id}>{repo.name}</li>);
+  if (data && data.length) {
+    result = data.map((repo, index) => <li key={index}>{repo}</li>);
   }
 
   return result;
@@ -243,12 +204,13 @@ const mapStateToProps = state => ({
   repos: state.dataFetchListReducer.repos,
   username: state.dataFetchListReducer.username,
   isFetching: state.dataFetchListReducer.isFetching,
+  error: state.dataFetchListReducer.error,
   searchKeyword: state.dataFetchListReducer.searchKeyword
 });
 
 export default connect(mapStateToProps, {
+  loadUserRepos,
   updateRepos,
   updateSearchKeyword,
-  updateUsername,
-  setIsFetching
+  updateUsername
 })(DataFetchList);
