@@ -2,6 +2,9 @@ import { normalize, schema } from 'normalizr';
 import { camelizeKeys } from 'humps';
 
 
+// Action key that carries API call info interpreted by this Redux middleware.
+export const CALL_API = 'API_Call';
+
 const callApi = (endpoint, schema) => {
     return fetch(endpoint).then(response => response.json().then(json => {
             if (!response.ok) {
@@ -14,14 +17,11 @@ const callApi = (endpoint, schema) => {
         }));
 };
 
-// Action key that carries API call info interpreted by this Redux middleware.
-export const CALL_API = 'API_Call';
-
 const userSchema = new schema.Entity(
     'users',
     {},
     {
-        idAttribute: user => user.login.toLowerCase()
+        idAttribute: user => user.login
     }
 );
 
@@ -34,6 +34,7 @@ const repoSchema = new schema.Entity(
         idAttribute: repo => repo.name
     }
 );
+
 // Schemas for Github API responses.
 export const Schemas = {
     USER: userSchema,
