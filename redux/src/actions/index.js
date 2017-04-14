@@ -75,7 +75,6 @@ export const USER_REPOS_REQUEST = 'USER_REPOS_REQUEST';
 export const USER_REPOS_SUCCESS = 'USER_REPOS_SUCCESS';
 export const USER_REPOS_FAILURE = 'USER_REPOS_FAILURE';
 
-// Fetches a single user from Github API.
 // Relies on the custom API middleware defined in ../middleware/api.js.
 const fetchUserRepos = username => ({
   [CALL_API]: {
@@ -85,15 +84,14 @@ const fetchUserRepos = username => ({
   }
 });
 
-// Fetches a single user from Github API unless it is cached.
 // Relies on Redux Thunk middleware.
 export const loadUserRepos = (username, requiredFields = []) =>
   (dispatch, getState) => {
-    // [cache]
-    // const user = getState().entities.users[username];
-    // if (user && requiredFields.every(key => user.hasOwnProperty(key))) {
-    //   return null;
-    // }
+    // get cached user info
+    const user = getState().githubEntity.users[username];
+    if (user && requiredFields.every(key => user.hasOwnProperty(key))) {
+      return null;
+    }
 
     return dispatch(fetchUserRepos(username));
   };
