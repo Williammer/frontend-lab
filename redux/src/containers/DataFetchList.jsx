@@ -135,6 +135,7 @@ class DataFetchList extends Component {
   }
 
   componentWillUnmount() {
+    // TODO: cancel fetching request upon unmount
     this.props.updateSearchKeyword('');
     this.props.updateRepos([]);
   }
