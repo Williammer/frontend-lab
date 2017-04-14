@@ -21,7 +21,7 @@ const userSchema = new schema.Entity(
     'users',
     {},
     {
-        idAttribute: user => user.login
+        idAttribute: user => user.login.toLowerCase()
     }
 );
 
@@ -31,7 +31,7 @@ const repoSchema = new schema.Entity(
         owner: userSchema
     },
     {
-        idAttribute: repo => repo.name
+        idAttribute: repo => repo.name.toLowerCase()
     }
 );
 
@@ -87,7 +87,7 @@ export default store =>
                 response =>
                     next(
                         actionWith({
-                            repos: response,
+                            response,
                             type: successType
                         })
                     ),

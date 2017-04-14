@@ -25,7 +25,7 @@ export const dataFetchListReducer = (state = {}, action) => {
       return {
         ...state,
         isFetching: false,
-        repos: action.repos.result
+        repos: action.response.result
       };
 
     case 'USER_REPOS_FAILURE':
