@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
-// import { syncHistoryWithStore } from 'react-router-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
 import { defaultState } from './store/defaultState';
 import configureStore from './store/configureStore';
 
@@ -26,13 +26,12 @@ const typeWriterContainer = () => {
 
 
 const store = configureStore(defaultState);
-
-// const history = syncHistoryWithStore(hashHistory, store);
+const history = syncHistoryWithStore(hashHistory, store);
 
 // TODO: extract to routes.js
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory}>
+    <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Welcome} />
         <Route path="/repoList" component={DataFetchList} />
