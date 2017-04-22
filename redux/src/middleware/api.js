@@ -3,7 +3,7 @@ import { camelizeKeys } from 'humps';
 
 
 // Action key that carries API call info interpreted by this Redux middleware.
-export const CALL_API = 'API_Call';
+export const CALL_API = Symbol('API_Call');
 
 const callApi = (endpoint, schema) => {
     return fetch(endpoint).then(response => response.json().then(json => {
