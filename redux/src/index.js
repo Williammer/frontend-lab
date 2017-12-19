@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import { Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { createBrowserHistory } from 'history';
+import { ConnectedRouter, syncHistoryWithStore } from 'react-router-redux';
 import { defaultState } from './store/defaultState';
 import configureStore from './store/configureStore';
 
@@ -11,7 +12,7 @@ import SampleForm from './containers/SampleForm';
 import DataFetchList from './containers/DataFetchList';
 import TypeWriter from './containers/TypeWriter';
 
-import Welcome from './containers/Welcome';
+// import Welcome from './containers/Welcome';
 import TicTacToe from './containers/TicTacToe';
 import StopWatch from './containers/StopWatch';
 import './index.css'
@@ -26,21 +27,21 @@ const typeWriterContainer = () => {
 
 
 const store = configureStore(defaultState);
-const history = syncHistoryWithStore(hashHistory, store);
+const history = syncHistoryWithStore(createBrowserHistory(), store);
 
 // TODO: extract to routes.js
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={App}>
-        <IndexRoute component={Welcome} />
+    <ConnectedRouter history={history}>
+      <div>
+        <Route exact path="/" component={App} />
         <Route path="/repoList" component={DataFetchList} />
         <Route path="/stopWatch" component={StopWatch} />
         <Route path="/form" component={SampleForm} />
         <Route path="/typeWriter" component={typeWriterContainer} />
         <Route path="/ticTacToe" component={TicTacToe} />
-      </Route>
-    </Router>
+      </div>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 )

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Label extends Component {
   render() {
@@ -10,7 +11,7 @@ class Label extends Component {
   }
 }
 
-Label.PropTypes = {
+Label.propTypes = {
   text: PropTypes.string
 }
 
