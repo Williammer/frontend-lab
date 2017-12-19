@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory, IndexRoute } from 'react-router'
+import createReactClass from 'create-react-class';
+
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 import Welcome from './components/Welcome';
@@ -12,7 +14,7 @@ import TicTacToe from './components/TicTacToe';
 import './index.css'
 
 
-const repoListContainer = React.createClass({
+const repoListContainer = createReactClass({
   render() {
     return <RepoList username="Williammer" />
   }
@@ -25,16 +27,22 @@ const typeWriterContainer = () => {
     return TypeWriter(str, speed);
 }
 
+// const App = () => (
+//   <div>
+  
+//   </div>
+// );
+
 ReactDOM.render(
-  <Router history={hashHistory}>
-    <Route path="/" component={App}>
-    	<IndexRoute component={Welcome} />
-	    <Route path="/repoList" component={repoListContainer} />
-	    <Route path="/stopWatch" component={StopWatch} />
+  <BrowserRouter>
+    <Switch>
+      <Route exact path="/" component={App} />
+      <Route path="/repoList" component={repoListContainer} />
+      <Route path="/stopWatch" component={StopWatch} />
       <Route path="/form" component={SampleForm} />
       <Route path="/typeWriter" component={typeWriterContainer} />
-	    <Route path="/ticTacToe" component={TicTacToe} />
-    </Route>
-	</Router>,
+      <Route path="/ticTacToe" component={TicTacToe} />
+    </Switch>
+  </BrowserRouter>,
   document.getElementById('root')
-)
+);
