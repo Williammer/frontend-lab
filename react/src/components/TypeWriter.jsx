@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 
 class TypeWriter extends Component {
-  state = {
-    typedPos: 0,
-    isRunning: false,
-    finished: false
-  }
-
   _typingInterval = null
 
   constructor(props) {
     super(props);
+    this.state = {
+      typedPos: 0,
+      isRunning: false,
+      finished: false
+    };
+
     this.startTyping = this.startTyping.bind(this);
     this.stopTyping = this.stopTyping.bind(this);
     this.pauseTyping = this.pauseTyping.bind(this);

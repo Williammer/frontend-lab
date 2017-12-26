@@ -11,12 +11,6 @@ import logo from './logo.svg'
 import './css/App.css';
 
 
-const repoListContainer = createReactClass({
-  render() {
-    return <RepoList username="Williammer" />;
-  }
-});
-
 const typeWriterContainer = () => {
   const str =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultrices dolor ac dolor imperdiet ullamcorper. Suspendisse quam libero, luctus auctor mollis sed, malesuada condimentum magna. Quisque in ante tellus, in placerat est. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec a mi magna, quis mattis dolor. Etiam sit amet ligula quis urna auctor imperdiet nec faucibus ante. Mauri";
@@ -55,7 +49,9 @@ class App extends Component {
           <div className="App-main">
             <Switch>
               <Route exact path="/" component={Welcome} />
-              <Route path="/repoList" component={repoListContainer} />
+              <Route path="/repoList" component={
+                () => <RepoList username="Williammer" />
+              } />
               <Route path="/stopWatch" component={StopWatch} />
               <Route path="/form" component={SampleForm} />
               <Route path="/typeWriter" component={typeWriterContainer} />
