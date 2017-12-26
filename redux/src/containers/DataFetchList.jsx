@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from "react-router-dom";
 import Button from '../components/Button';
 import '../css/DataFetchList.css';
 
@@ -222,9 +223,11 @@ const mapStateToProps = state => ({
   searchKeyword: state.dataFetchListReducer.searchKeyword
 });
 
-export default connect(mapStateToProps, {
-  loadUserRepos,
-  updateRepos,
-  updateSearchKeyword,
-  updateUsername
-})(DataFetchList);
+export default withRouter(
+  connect(mapStateToProps, {
+    loadUserRepos,
+    updateRepos,
+    updateSearchKeyword,
+    updateUsername
+  })(DataFetchList)
+);
