@@ -143,9 +143,9 @@ class StopWatch extends Component {
   render() {
     return (
       <div>
-        <Label customClass="timing" text={`${this.state.timing}ms`}/>
+        <Label styleClass="timing" text={`${this.state.timing}ms`}/>
         <br/>
-        <Label customClass="isRunning" text={`isRunning: ${this.state.isRunning}`}/>
+        <Label styleClass="isRunning" text={`isRunning: ${this.state.isRunning}`}/>
         <br/>
         <br/>
         <Button

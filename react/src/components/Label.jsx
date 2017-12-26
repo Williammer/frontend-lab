@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class Label extends Component {
   render() {
     return (
-      <span className={`label ${this.props.customClass}`}>
+      <span className={`label ${this.props.styleClass}`}>
 				{this.props.text}
 			</span>
     );
@@ -12,7 +12,8 @@ class Label extends Component {
 }
 
 Label.propTypes = {
+  styleClass: PropTypes.string,
   text: PropTypes.string
-}
+};
 
 export default Label;
