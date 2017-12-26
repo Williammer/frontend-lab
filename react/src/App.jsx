@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, BrowserRouter } from "react-router-dom";
+import { NavLink, Route, Switch, BrowserRouter } from "react-router-dom";
 import createReactClass from "create-react-class";
 import Welcome from './components/Welcome';
 import StopWatch from './components/StopWatch';
@@ -7,7 +7,6 @@ import SampleForm from './components/SampleForm';
 import RepoList from './components/DataFetchList';
 import TypeWriter from './components/TypeWriter';
 import TicTacToe from './components/TicTacToe';
-import NavLink from './components/NavLink'
 import logo from './logo.svg'
 import './css/App.css';
 
