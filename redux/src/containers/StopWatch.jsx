@@ -1,8 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
 import Label from '../components/Label';
 import Button from '../components/Button';
 
-import { connect } from 'react-redux';
 import { updateTiming, updateResetCountDown, setIsRunning } from '../actions';
 // import './StopWatch.css';
 
@@ -169,8 +172,10 @@ const mapStateToProps = state => ({
   isRunning: state.stopWatchReducer.isRunning
 });
 
-export default connect(mapStateToProps, {
-  updateTiming,
-  updateResetCountDown,
-  setIsRunning
-})(StopWatch);
+export default withRouter(
+  connect(mapStateToProps, {
+    updateTiming,
+    updateResetCountDown,
+    setIsRunning
+  })(StopWatch)
+);
