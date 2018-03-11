@@ -1,0 +1,13 @@
+<div>
+  <h3>Hero detail:</h3>
+  <button (click)="onIdTimerClicked()">Increment hero Id</button>
+  <button (click)="clearIdTimer()">cancel increment</button>
+  <ul class="heroes">
+    <li *ngFor="let hero of heroes">
+      <a routerLink="/detail/{{hero.id}}">
+        <span class="badge">{{hero.id}}</span> {{hero.name}}
+      </a>
+    </li>
+  </ul>
+  <app-hero-detail [hero]="selectedHero"></app-hero-detail>
+</div>
