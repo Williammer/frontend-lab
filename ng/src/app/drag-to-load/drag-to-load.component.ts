@@ -27,9 +27,10 @@ export class DragToLoadComponent implements OnInit {
           return movePageY - startPageY;
         });
       })
+      .delay(100)
       .do(this._onMouseMoved.bind(this))
       .takeUntil(end$)
-      .repeat(-1)
+      .repeat()
       .subscribe();
 
     // how to append this to drag$?
