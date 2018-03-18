@@ -1,5 +1,6 @@
 <div>
   <h3>Hero detail:</h3>
+  <drag-to-load></drag-to-load>
   <button (click)="onIdTimerClicked()">Increment hero Id</button>
   <button (click)="clearIdTimer()">cancel increment</button>
   <ul class="heroes">
@@ -9,5 +10,4 @@
       </a>
     </li>
   </ul>
-  <app-hero-detail [hero]="selectedHero"></app-hero-detail>
 </div>

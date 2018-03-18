@@ -10,6 +10,8 @@ import { MessagesComponent } from './messages/messages.component';
 import { MessagesService } from './messages.service';
 import { AppRouterModule } from './/app-router.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DragToLoadComponent } from './drag-to-load/drag-to-load.component';
+import { ReloadService } from './reload.service';
 
 
 @NgModule({
@@ -18,14 +20,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HeroComponent,
     HeroDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    DragToLoadComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRouterModule
   ],
-  providers: [HeroService, MessagesService],
+  providers: [HeroService, MessagesService, ReloadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

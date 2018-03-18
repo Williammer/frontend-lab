@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from "../types/hero";
 import { HeroService } from '../hero.service';
-import { Observable } from 'rxjs/Observable';
-import { interval } from "rxjs/observable/interval";
+import { Observable } from 'rxjs/Rx';
+import { ReloadService } from '../reload.service';
 
 @Component({
   selector: "app-hero",
@@ -14,21 +14,39 @@ export class HeroComponent implements OnInit {
   heroes: Hero[];
   idTimer: any;
 
-  constructor(private heroService: HeroService) {}
+  constructor(
+    private heroService: HeroService,
+    private reloadService: ReloadService
+  ) {}
+
   ngOnInit() {
     this.syncHeroes();
+    this.reloadService.requestLoad$
+      .subscribe({ next: (value) => {
+          console.warn("1. reload request received! value: ", value);
+          // this.syncHeroes();
+          this.clearIdTimer();
+          this.reloadService.reloadComplete$.next("搞定！");
+        } });
   }
 
-  syncHeroes(): void {
-    this.heroService.getHeroes().subscribe(heroes => (this.heroes = heroes));
+  syncHeroes(): any {
+    return this.heroService
+      .getHeroes()
+      .subscribe(heroes => {
+        this.heroes = heroes.slice();
+      });
   }
   onIdTimerClicked(): void {
-    this.idTimer = interval(1000).subscribe(() => {
-      this.heroes[0].id++;
-    });
+    this.idTimer = Observable.timer(0, 1000)
+      .subscribe(() => {
+        this.heroes[0].id++;
+      });
   }
   clearIdTimer(): void {
-    this.idTimer.unsubscribe();
+    if (this.idTimer) {
+      this.idTimer.unsubscribe();
+    }
   }
   onHeroClicked(hero: Hero): void {
     this.selectedHero = hero;
