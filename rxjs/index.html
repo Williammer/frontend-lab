@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rxjs Experiment UI</title>
+</head>
+
+<body>
+    <div id="root">
+        <nav>
+            <ul id="nav-list">
+                <li id="dblclick">dblclick</li>
+                <li id="amplify">amplify</li>
+            </ul>
+        </nav>
+        <iframe id="main"></iframe>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    const navList = document.querySelector('#nav-list');
+    const mainStage = document.getElementById('main');
+    navList.addEventListener('click', ({ target: { id } }) => {
+        mainStage.src = id + '.html';
+    })
+</script>
