@@ -1,0 +1,40 @@
+#root {
+    display: flex;
+}
+
+#page-title {
+    text-align: center;
+}
+#navigation {
+    width: 6rem;
+}
+
+#nav-list {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+
+#nav-list>li {
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #CCC;
+    border-bottom: none;
+    padding: 0.4rem 1rem;
+}
+#nav-list>li:last-child {
+    border-bottom: 1px solid #CCC;
+}
+
+#nav-list>li:hover {
+    background: #BBB;
+}
+
+#main {
+    width: 93%;
+    height: 100%;
+    border: 1px solid #DEDEDE;
+}
