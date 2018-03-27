@@ -4,6 +4,7 @@
   "description": "Delibrate practice for rxjs",
   "main": "index.js",
   "scripts": {
+    "do": "node cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -13,5 +14,9 @@
   "license": "ISC",
   "dependencies": {
     "rxjs": "^5.5.7"
+  },
+  "devDependencies": {
+    "fs-extra": "^5.0.0",
+    "open": "0.0.5"
   }
 }
