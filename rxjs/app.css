@@ -6,7 +6,7 @@
     text-align: center;
 }
 #navigation {
-    width: 6rem;
+    min-width: 6rem;
 }
 
 #nav-list {
@@ -34,7 +34,8 @@
 }
 
 #main {
-    width: 93%;
+    min-width: 92%;
+    max-width: 94%;
     height: 100%;
     border: 1px solid #DEDEDE;
 }
