@@ -1,36 +1,3 @@
-// concat, merge, switchMap
-const source1$ = Rx.Observable.interval(1000)
-  .map(x => `Source 1 ${x}`)
-  .take(3);
-const source2$ = Rx.Observable.interval(1000)
-  .map(y => `Source 2 ${y}`)
-  .take(3);
-const ssource1$ = Rx.Observable.of([1,2,3]);
-
-source2$
-  .do(console.log)
-  .switchMap(() => ssource1$.delay(500))
-  // .map(() => ssource1$.delay(500))
-  // .switch()
-  .subscribe(console.log);
-// source2$.merge(source1$).subscribe(console.log);
-// Rx.Observable.merge(source2$, source1$).subscribe(console.log);
-
-
-// the Do side effect
-const candidates = [1, 2, 3, 4];
-const do$ = Rx.Observable.from(candidates)
-  .take(2)
-  .do(val => {
-    console.log(`DO show: ${val}`);
-    return val * 1000;
-  })
-  .subscribe(value => {
-    console.log("sub: " + value);
-  });
-do$.unsubscribe();
-
-
 // mess with creator under the hood
 const intervalObserable$ = Rx.Observable.create(observer => {
   let num = 0;
@@ -57,26 +24,42 @@ setTimeout(function() {
 }, 6000);
 
 
-// timer - Debounce/throttle
-const deRottle$ = Rx.Observable.fromEvent(document, "mousemove")
-  .debounceTime(2000) // invoke func 2000ms after not bounced(use the end value of 2s)
-  // .throttleTime(2000) // invoke func after 2000ms's bouncing(ignore within 2000ms)
-  .subscribe(event => {
-    console.log(`Mouse at: ${event.x} and ${event.y}`);
-  });
-deRottle$.unsubscribe();
+// `using` for dispsable like objects
+class SessionDisposable {
+  constructor(sessionToken) {
+    this.token = sessionToken;
+    this.disposed = false;
+    let expiration = moment().add(1, 'days').toDate(); //#A
+    document.cookie = `session_token=${sessionToken}; expires=${expiration.toUTCString()}`;   //#B
+    console.log('Session created: ' + this.token);
+  }
 
+  getToken() {
+    return this.token;
+  }
 
-// timer - Buffer
-const shBtn = document.getElementById("sth-happen");
-const shClicked = Rx.Observable.fromEvent(shBtn, "click");
+  unsubscribe() { //#C
+    if (!this.disposed) {
+      this.disposed = true;
+      this.token = null;
+      document.cookie = 'session_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      console.log('Ended session! This object has been disposed.');
+    }
+  }
+}
 
-const buffer$ = Rx.Observable.timer(0, 50)
-  .bufferWhen(() => shClicked)
-  // .bufferTime(1000)
-  // .bufferCount(15)
-  // .buffer(Rx.Observable.timer(500))
-  .subscribe(function(val) {
-    console.log(`Data in buffer: [${val}]`);
-  });
-buffer$.unsubscribe();
+function generateSessionToken() {
+     return 'xyxyxyxy'.replace(/[xy]/g, c => {
+         return Math.floor(Math.random() * 10);
+     });
+}
+
+const $countDownSession = Rx.Observable.using(
+   () => new SessionDisposable(generateSessionToken()),
+   () => Rx.Observable.interval(1000)
+     .startWith(10)
+     .scan(val => val - 1)
+     .take(10)
+);
+
+$countDownSession.subscribe(console.log);
