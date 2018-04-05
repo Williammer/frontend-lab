@@ -14,7 +14,7 @@ const errorPanel = document.querySelector(".error");  //-> <ul>
 const notEmpty = input => !!input && input.trim().length > 0;
 
 // Proxy around CORS -> https://en.wikipedia.org
-const URL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=';
+const URL = '/external/wiki/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=';
 const search$ = Rx.Observable.fromEvent(searchBox, "keyup")
   .pluck("target", "value")
   .debounceTime(1000)
