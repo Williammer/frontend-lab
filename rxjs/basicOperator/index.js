@@ -42,18 +42,25 @@ deRottle$.unsubscribe();
 
 
 // timer - Buffer
-const shBtn = document.getElementById("sth-happen");
-const shClicked = Rx.Observable.fromEvent(shBtn, "click");
+const startBufferBtn = document.getElementById("start-buffer");
+const startBufferBtnClicked = Rx.Observable.fromEvent(startBufferBtn, "click");
 
 const buffer$ = Rx.Observable.timer(0, 50)
-  .bufferWhen(() => shClicked)
+  // .bufferWhen(() => shClicked)
+  .bufferWhen(() =>
+    Rx.Observable.race(
+      // handled window closed
+      startBufferBtnClicked,
+      Rx.Observable.fromEvent(window, "beforeunload")
+    )
+  )
   // .bufferTime(1000)
   // .bufferCount(15)
   // .buffer(Rx.Observable.timer(500))
   .subscribe(function(val) {
     console.log(`Data in buffer: [${val}]`);
   });
-buffer$.unsubscribe();
+// buffer$.unsubscribe();
 
 
 // combineLatest
