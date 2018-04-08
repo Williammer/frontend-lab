@@ -12,7 +12,6 @@
         "sourceType": "module"
     },
     "rules": {
-        "no-extra-parens": 1,
         "no-console": 1
     },
     "extends": "eslint:recommended"
