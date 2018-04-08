@@ -1,56 +1,55 @@
-const fs = require("fs-extra"),
-  open = require("open"),
-  action = process.argv[2],
-  targetName = process.argv[3],
-  newTargetName = process.argv[4];
+const fs = require("fs-extra");
+const open = require("open");
 
-if (!targetName || !action) {
-  throw "Invalid `action` or `targetName` provided.";
-  return;
+const action = process.argv[2];
+let targetPath = process.argv[3];
+
+if (!action || (action !== "run" && !targetPath)) {
+  throw "Invalid `action` or `targetPath` provided.";
 }
 
-const toPwdPath = name => `./${name}`;
-const templatePath = toPwdPath("_template");
-const tartoPwdPath = toPwdPath(targetName);
-const targetHtmlPath = `${tartoPwdPath}/index.html`;
+const templatePath = "./_template";
 
 switch (action) {
-  case "run":
-    open(targetHtmlPath, "Google Chrome");
+  case "run": {
+    targetPath = targetPath || ".";
+    open(`${targetPath}/index.html`);
     break;
+  }
 
   case "rm": {
-    fs.remove(tartoPwdPath, function(err) {
+    fs.remove(targetPath, function(err) {
       if (err) throw err;
 
-      console.log(`Removed '${targetName}'!`);
+      console.log(`Removed '${targetPath}'!`);
     });
     break;
   }
 
   case "fork": {
-    if (!newTargetName) {
-      throw new Error("invalid input(newTargetName) provided.");
+    const newTargetPath = process.argv[4];
+
+    if (!newTargetPath) {
+      throw new Error("invalid input(newTargetPath) provided.");
     }
 
-    fs.copy(tartoPwdPath, toPwdPath(newTargetName), err => {
+    fs.copy(targetPath, newTargetPath, err => {
       if (err) throw err;
 
-      console.log(`Forked '${targetName}' to ${newTargetName}!`);
+      console.log(`Forked '${targetPath}' to ${newTargetPath}!`);
     });
     break;
   }
 
   case "create": {
-    fs.copy(templatePath, tartoPwdPath, err => {
+    fs.copy(templatePath, targetPath, err => {
       if (err) throw err;
 
-      console.log(`Created '${targetName}'!`);
+      console.log(`Created '${targetPath}'!`);
     });
     break;
   }
 
   default:
-    throw new Error("unknown action, please use 'create'/'fork'/'rm'/'run' with a targetName.");
-    return;
+    throw new Error("unknown action, please use 'create'/'fork'/'rm'/'run' with a targetPath.");
 }
