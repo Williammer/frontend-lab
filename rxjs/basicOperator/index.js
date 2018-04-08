@@ -21,10 +21,10 @@ source2$
 const candidates = [1, 2, 3, 4];
 const do$ = Rx.Observable.from(candidates)
   .take(2)
-  .do(val => {
-    console.log(`DO show: ${val}`);
-    return val * 1000;
-  })
+  // .do(val => {
+    // console.log(`DO show: ${val}`);
+  //   return val * 1000;
+  // })
   .subscribe(value => {
     console.log("sub: " + value);
   });
@@ -60,11 +60,24 @@ const buffer$ = Rx.Observable.timer(0, 50)
   .subscribe(function(val) {
     console.log(`Data in buffer: [${val}]`);
   });
-// buffer$.unsubscribe();
+buffer$.unsubscribe();
 
 
-// combineLatest
+// combineLatest, forkJoin, zip
 const letter$ = Rx.Observable.from(["a", "b", "c"]);
-const number$ = Rx.Observable.from([1, 2, 3]);
-Rx.Observable.combineLatest(letter$, number$).subscribe(console.log);
-// [c, 1], [c, 2], [c, 3]
+const number$ = Rx.Observable.from([1, 2, 3, 4]);
+Rx.Observable.combineLatest(letter$, number$)
+  .subscribe(
+    v => console.log("combineLatest: ", v)
+    // [c, 1], [c, 2], [c, 3], [c, 4]
+  );
+Rx.Observable.forkJoin(letter$, number$)
+  .subscribe(
+    v => console.log("forkJoin: ", v)
+    // [c, 4]
+  );
+Rx.Observable.zip(letter$, number$, (l, n) => l + ' - ' + n)
+  .subscribe(
+    v => console.log("zip: ", v)
+    // [a, 1], [b, 2], [c, 3]
+  );
