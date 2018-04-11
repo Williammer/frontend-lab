@@ -1,2 +1,2 @@
 # FrontEnd-deliberate-practices
-My deliberate practices of Frontend techs like ReactJs and VueJs, etc. 
+My deliberate practices of frontend tech like React, Rxjs, Vue, etc. 
