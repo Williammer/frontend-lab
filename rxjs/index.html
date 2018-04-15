@@ -25,15 +25,22 @@
                 <li id="animation">animation</li>
             </ul>
         </nav>
+        <a target="_blank" id="new-tab"></a>
         <iframe id="main"></iframe>
     </div>
 </body>
 
 </html>
 <script type="text/javascript">
+    function setupOpenInNewTab(id) {
+        const newWin = document.getElementById('new-tab');
+        newWin.href = id + '/index.html';
+        newWin.className = 'new-tab-icon';
+    }
     const navList = document.querySelector('#nav-list');
     const mainStage = document.getElementById('main');
     navList.addEventListener('click', ({ target: { id } }) => {
         mainStage.src = id + '/index.html';
+        setupOpenInNewTab(id);
     })
 </script>

@@ -34,8 +34,21 @@
 }
 
 #main {
-    min-width: 92%;
-    max-width: 94%;
+    width: 100rem;
     min-height: 100rem;
     border: 1px solid #DEDEDE;
+}
+
+.new-tab-icon {
+    font-size: 0;
+    position: absolute;
+    left: 8rem;
+    top: 56px;
+    transform: scale(1.5);
+}
+.new-tab-icon:hover {
+    background: #42b983;
+}
+.new-tab-icon::before {
+    content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
 }
