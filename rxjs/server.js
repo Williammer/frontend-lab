@@ -1,4 +1,5 @@
 var proxy = require("express-http-proxy");
+var open = require("open");
 var express = require("express");
 var app = express();
 
@@ -13,4 +14,6 @@ app.listen(3000, function(error) {
   }
 
   console.info('started server on port 3000...');
+
+  open('http://localhost:3000/');
 });
