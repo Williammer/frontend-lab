@@ -1,48 +1,51 @@
 .App {
   text-align: center;
-  font-family: serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: row;
 }
 
 .App-logo {
+  width: 100px;
   animation: App-logo-spin infinite 20s linear;
-  height: 80px;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  background: #404040;
+  padding: 10px 0;
 }
 
 .App-router {
-  background: white;
   text-decoration: none;
-  text-align: left;
-  padding: 10px 20px;
+  text-align: center;
+  padding: 10px;
+  margin: 0;
 }
 
 .App-router li {
-  display: inline-block;
-  margin-right: 10px;
+  line-height: 1.8;
 }
 
 .App-router li a {
   text-decoration: none;
-  color: #333;
+  color: #DFDFDF;
+  font-size: 14px;
 }
 
 .App-router li a.active {
   font-weight: bold;
-  border-bottom: 1px solid #333;
-}
-
-.App-intro {
-  font-size: large;
+  border-bottom: 1px solid #DFDFDF;
 }
 
 .App-main {
-  margin-top: 40px;
+  margin: 40px 0 0 40px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 @keyframes App-logo-spin {
@@ -54,9 +57,7 @@
   }
 }
 
-
 /* repollist */
-
 .repo-list {
   list-style: none;
   width: 260px;
@@ -66,13 +67,8 @@
   line-height: 1.4;
 }
 
-
 /* stopwatch */
-
-.stopwatch-button {}
-
 .stopwatch-timing {}
-
 
 /* sample form */
 .sample-form-container {
@@ -92,7 +88,7 @@
   padding: 0;
   margin: 0;
   margin-top: -40px;
-  background: #AAA;
+  background: #aaa;
   color: white;
   width: 30%;
   text-align: left;
