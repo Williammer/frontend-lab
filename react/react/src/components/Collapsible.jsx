@@ -5,29 +5,23 @@ import posed from "react-pose";
 const collapsibleItems = [
   {
     title: "Kiwifruit 🥝",
-    contents: `
-    The kiwifruit, native to northern China, first arrived in New Zealand at the turn of the 20th
-    century; it was then known as the Chinese Gooseberry.
-    Consuming fruits and vegetables of all kinds is associated with a reduced risk of heart disease,
-    diabetes, cancer, and other conditions.
-    `
+    contents: `The kiwifruit, native to northern China, first arrived in New Zealand at the turn of
+the 20th century; it was then known as the Chinese Gooseberry.
+Consuming fruits and vegetables of all kinds is associated with a reduced risk of heart disease,
+diabetes, cancer, and other conditions.`
   },
   {
     title: "Avocado 🥑",
-    contents: `
-    The avocado (Persea americana) is a tree, long thought to have originated in South Central Mexico,
-    classified as a member of the flowering plant family Lauraceae. The fruit of the plant, also
-    called an avocado (or avocado pear or alligator pear), is botanically a large berry containing
-    a single large seed known as a "pit" or a "stone".
-    `
+    contents: `The avocado (Persea americana) is a tree, long thought to have originated in South
+Central Mexico, classified as a member of the flowering plant family Lauraceae.
+The fruit of the plant, also called an avocado (or avocado pear or alligator pear), is botanically
+a large berry containing a single large seed known as a "pit" or a "stone".`
   },
   {
     title: "Pineapple 🍍",
-    contents: `
-    The pineapple (Ananas comosus) is a tropical plant with an edible multiple fruit consisting of
-    coalesced berries, also called pineapples, and the most economically significant plant in the family
-    Bromeliaceae.
-    `
+    contents: `The pineapple (Ananas comosus) is a tropical plant with an edible multiple fruit
+consisting of coalesced berries, also called pineapples, and the most economically significant plant
+in the family Bromeliaceae.`
   }
 ];
 
@@ -68,11 +62,11 @@ const CollapsibleButton = styled.button`
   cursor: pointer;
 `;
 
-const CollapsibleContent = styled.p`
+const CollapsibleContent = styled.pre`
   margin: 2px 0;
 `;
 
-const AnimatedCollapsibleContent = posed.div({
+const AnimatedCollapsibleContent = posed.pre({
   active: { opacity: 1, top: 30 },
   inactive: { opacity: 0, top: 100 }
 });
@@ -228,7 +222,7 @@ const DemoContainer = styled.div`
 `;
 
 const DemoItem = styled.li`
-  margin-down: 50px;
+  margin-bottom: 100px;
   list-style: none;
 `;
 
