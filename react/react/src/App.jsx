@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { NavLink, Route, Switch, BrowserRouter } from "react-router-dom";
-import createReactClass from "create-react-class";
 import Welcome from './components/Welcome';
 import StopWatch from './components/StopWatch';
 import SampleForm from './components/SampleForm';
 import RepoList from './components/DataFetchList';
 import TypeWriter from './components/TypeWriter';
 import TicTacToe from './components/TicTacToe';
+import Collapsible from './components/Collapsible';
 import logo from './logo.svg'
 import './css/App.css';
 
@@ -30,19 +30,22 @@ class App extends Component {
             </NavLink>
             <ul className="App-router">
               <li>
-                <NavLink to="/repoList">repoList</NavLink>
+                <NavLink to="/repoList">Repo list</NavLink>
               </li>
               <li>
-                <NavLink to="/stopWatch">stopWatch</NavLink>
+                <NavLink to="/stopWatch">Stop watch</NavLink>
               </li>
               <li>
-                <NavLink to="/form">sampleForm</NavLink>
+                <NavLink to="/form">Form sample</NavLink>
               </li>
               <li>
-                <NavLink to="/typeWriter">typeWriter</NavLink>
+                <NavLink to="/typeWriter">Type writer</NavLink>
               </li>
               <li>
-                <NavLink to="/ticTacToe">ticTacToeGame</NavLink>
+                <NavLink to="/ticTacToe">TicTacToe game</NavLink>
+              </li>
+              <li>
+                <NavLink to="/collapsible">Collapsible</NavLink>
               </li>
             </ul>
           </div>
@@ -56,6 +59,7 @@ class App extends Component {
               <Route path="/form" component={SampleForm} />
               <Route path="/typeWriter" component={typeWriterContainer} />
               <Route path="/ticTacToe" component={TicTacToe} />
+              <Route path="/collapsible" component={Collapsible} />
             </Switch>
           </div>
         </div>
