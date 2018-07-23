@@ -7,6 +7,7 @@ import RepoList from "./components/DataFetchList";
 import TypeWriter from "./components/TypeWriter";
 import TicTacToe from "./components/TicTacToe";
 import Collapsible from "./components/Collapsible";
+import Draggable from "./components/Draggable";
 import logo from "./logo.svg";
 import "./css/App.css";
 
@@ -49,6 +50,11 @@ const menus = [
     path: "/collapsible",
     title: "Collapsible",
     component: Collapsible
+  },
+  {
+    path: "/draggable",
+    title: "Draggable",
+    component: Draggable
   }
 ];
 
@@ -63,7 +69,7 @@ class App extends Component {
             </NavLink>
             <ul className="App-router">
               {menus.map(({ path, title }) => (
-                <li>
+                <li key={path}>
                   <NavLink to={path}>{title}</NavLink>
                 </li>
               ))}
@@ -73,7 +79,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Welcome} />
               {menus.map(({ path, component }) => (
-                <Route path={path} component={component} />
+                <Route key={path} path={path} component={component} />
               ))}
             </Switch>
           </div>
