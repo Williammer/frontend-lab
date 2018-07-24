@@ -2,6 +2,7 @@
   "name": "redux-practices",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "devDependencies": {
     "react-scripts": "^1.1.4",
     "react-test-renderer": "^16.4.1"
