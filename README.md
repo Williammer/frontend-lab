@@ -1,2 +1,3 @@
-# FrontEnd-deliberate-practices
-My deliberate practices of frontend tech like React, Rxjs, Vue, etc. 
+# frontend-lab
+
+My fun practices of React(react, redux, next), Rxjs, Vue, Angular, babel-plugin, etc.
