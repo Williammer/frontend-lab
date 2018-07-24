@@ -1,1 +1,0 @@
-// use rxjs through global variable `Rx`
