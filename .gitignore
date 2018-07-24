@@ -14,5 +14,5 @@ coverage
 .env
 npm-debug.log
 
-react/build
-redux/build
+react/*/build
+vue/dist
