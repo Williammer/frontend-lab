@@ -22,37 +22,37 @@ const RepoListDemo = () => <RepoList username="Williammer" />;
 
 const menus = [
   {
-    path: "/repoList",
+    path: "/frontend-lab/repoList",
     title: "Repo list",
     component: RepoListDemo
   },
   {
-    path: "/stopWatch",
+    path: "/frontend-lab/stopWatch",
     title: "Stop watch",
     component: StopWatch
   },
   {
-    path: "/form",
+    path: "/frontend-lab/form",
     title: "Form sample",
     component: SampleForm
   },
   {
-    path: "/typeWriter",
+    path: "/frontend-lab/typeWriter",
     title: "Type writer",
     component: TypeWriterDemo
   },
   {
-    path: "/ticTacToe",
+    path: "/frontend-lab/ticTacToe",
     title: "TicTacToe game",
     component: TicTacToe
   },
   {
-    path: "/collapsible",
+    path: "/frontend-lab/collapsible",
     title: "Collapsible",
     component: Collapsible
   },
   {
-    path: "/draggable",
+    path: "/frontend-lab/draggable",
     title: "Draggable",
     component: Draggable
   }
@@ -64,7 +64,7 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <div className="App-header">
-            <NavLink to="/">
+            <NavLink to="/frontend-lab">
               <img src={logo} className="App-logo" alt="logo" />
             </NavLink>
             <ul className="App-router">
@@ -77,7 +77,7 @@ class App extends Component {
           </div>
           <div className="App-main">
             <Switch>
-              <Route exact path="/" component={Welcome} />
+              <Route exact path="/frontend-lab" component={Welcome} />
               {menus.map(({ path, component }) => (
                 <Route key={path} path={path} component={component} />
               ))}
