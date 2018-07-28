@@ -13,7 +13,6 @@
     <div id="root">
         <nav id="navigation">
             <ul id="nav-list">
-                <li id="basics">basics</li>
                 <li id="operators">operators</li>
                 <li id="dblclick">dblclick</li>
                 <li id="amplify">amplify</li>
@@ -39,7 +38,11 @@
     }
     const navList = document.querySelector('#nav-list');
     const mainStage = document.getElementById('main');
-    navList.addEventListener('click', ({ target: { id } }) => {
+    navList.addEventListener('click', ({
+        target: {
+            id
+        }
+    }) => {
         mainStage.src = id + '/index.html';
         setupOpenInNewTab(id);
     })
