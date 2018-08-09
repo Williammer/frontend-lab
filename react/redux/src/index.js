@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter } from 'react-router-redux';
@@ -11,11 +11,19 @@ import './index.css';
 const store = configureStore(defaultState);
 const history = createHistory();
 
-ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
-  </Provider>,
-  document.getElementById('root'),
-);
+const renderApp = () =>
+  render(
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
+    </Provider>,
+    document.getElementById('root'),
+  );
+renderApp();
+
+if (process.env.NODE_ENV !== 'production' && module.hot) {
+  module.hot.accept('./App', () => {
+    renderApp();
+  });
+}
