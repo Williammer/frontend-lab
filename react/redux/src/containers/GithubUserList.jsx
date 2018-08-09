@@ -9,7 +9,6 @@ import {
   updateSearchKeyword,
   updateUsername,
   fetchUserRepos,
-  // loadUserRepos,
   updateRepos,
 } from '../actions';
 
@@ -114,9 +113,8 @@ class GithubUserList extends Component {
       this.props.updateRepos([]);
       return;
     }
+    this.props.updateUsername(username);
     this.props.fetchUserRepos(username);
-    // this.props.updateUsername(username);
-    // this.props.loadUserRepos(username);
   }
 
   getSearchedRepo() {
@@ -215,7 +213,6 @@ export default withRouter(
   connect(
     mapStateToProps,
     {
-      // loadUserRepos,
       updateRepos,
       updateSearchKeyword,
       updateUsername,

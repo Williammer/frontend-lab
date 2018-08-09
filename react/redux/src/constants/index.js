@@ -1,9 +1,6 @@
-// Github user repo list
+// User repo list
 export const FETCH_REPOS = 'FETCH_REPOS';
-export const FETCH_REPOS_SUCCESS = 'FETCH_REPOS_SUCCESS';
+export const UPDATE_REPOS = 'UPDATE_REPOS';
 export const FETCH_REPOS_FAILURE = 'FETCH_REPOS_FAILURE';
-
 export const UPDATE_USERNAME = 'UPDATE_USERNAME';
 export const UPDATE_SEARCH_KEYWORD = 'UPDATE_SEARCH_KEYWORD';
-export const SET_IS_FETCHING = 'SET_IS_FETCHING';
-export const UPDATE_REPOS = 'UPDATE_REPOS';

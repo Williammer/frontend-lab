@@ -1,12 +1,16 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-// import api from '../middleware/api';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
+import { get } from 'axios';
 import rootReducer from '../reducers';
 import rootEpic from '../epics';
 
-const epics = createEpicMiddleware();
+const epics = createEpicMiddleware({
+  dependencies: {
+    fetch: get,
+  },
+});
 const middleware = [thunk, epics];
 const enhancer = composeWithDevTools(applyMiddleware(...middleware));
 

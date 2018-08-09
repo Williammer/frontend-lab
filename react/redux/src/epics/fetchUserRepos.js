@@ -1,10 +1,10 @@
 import { normalize, schema } from 'normalizr';
 import { camelizeKeys } from 'humps';
 import { ofType } from 'redux-observable';
-import { mergeMap, map } from 'rxjs/operators';
-import { fromPromise } from 'rxjs/observable/fromPromise';
-import { FETCH_REPOS, FETCH_REPOS_SUCCESS } from '../constants';
-import { fetchReposSuccess } from '../actions';
+import { switchMap, map, catchError } from 'rxjs/operators';
+import { of, from } from 'rxjs';
+import { FETCH_REPOS } from '../constants';
+import { updateRepos, fetchReposFailure } from '../actions';
 
 const userSchema = new schema.Entity(
   'users',
@@ -23,22 +23,23 @@ const repoSchema = new schema.Entity(
   },
 );
 
-async function fetchUserRepos(username) {
+async function fetchUserRepos(fetch, username) {
   const endpoint = `https://api.github.com/users/${username}/repos`;
-  const response = await fetch(endpoint);
-  const json = await response.json();
-  if (!response.ok) {
-    throw json;
+  try {
+    const { data } = await fetch(endpoint);
+    return data.map(({ name }) => name);
+  } catch (e) {
+    throw e;
   }
-  const camelizedJson = camelizeKeys(json);
-
-  return normalize(camelizedJson, [repoSchema]);
 }
 
-export const fetchUserReposEpic = (action$, state$, dep) =>
+export const fetchUserReposEpic = (action$, state$, { fetch }) =>
   action$.pipe(
     ofType(FETCH_REPOS),
-    mergeMap(({ username }) =>
-      fromPromise(fetchUserRepos(username)).pipe(map(fetchReposSuccess)),
+    switchMap(({ username }) =>
+      from(fetchUserRepos(fetch, username)).pipe(
+        map(updateRepos),
+        catchError(({ message }) => of(fetchReposFailure(message))),
+      ),
     ),
   );
