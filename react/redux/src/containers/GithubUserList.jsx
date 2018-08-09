@@ -8,7 +8,8 @@ import { connect } from 'react-redux';
 import {
   updateSearchKeyword,
   updateUsername,
-  loadUserRepos,
+  fetchUserRepos,
+  // loadUserRepos,
   updateRepos,
 } from '../actions';
 
@@ -113,8 +114,9 @@ class GithubUserList extends Component {
       this.props.updateRepos([]);
       return;
     }
-    this.props.updateUsername(username);
-    this.props.loadUserRepos(username);
+    this.props.fetchUserRepos(username);
+    // this.props.updateUsername(username);
+    // this.props.loadUserRepos(username);
   }
 
   getSearchedRepo() {
@@ -173,6 +175,7 @@ GithubUserList.propTypes = {
   updateRepos: PropTypes.func.isRequired,
   updateSearchKeyword: PropTypes.func.isRequired,
   updateUsername: PropTypes.func.isRequired,
+  fetchUserRepos: PropTypes.func.isRequired,
 };
 
 function NoResult(props) {
@@ -212,10 +215,11 @@ export default withRouter(
   connect(
     mapStateToProps,
     {
-      loadUserRepos,
+      // loadUserRepos,
       updateRepos,
       updateSearchKeyword,
       updateUsername,
+      fetchUserRepos,
     },
   )(GithubUserList),
 );

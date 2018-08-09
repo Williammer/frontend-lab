@@ -1,14 +1,19 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import api from '../middleware/api';
+// import api from '../middleware/api';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { createEpicMiddleware } from 'redux-observable';
 import rootReducer from '../reducers';
+import rootEpic from '../epics';
 
-const middleware = [thunk, api];
+const epics = createEpicMiddleware();
+const middleware = [thunk, epics];
 const enhancer = composeWithDevTools(applyMiddleware(...middleware));
 
 const configureStore = preloadedState => {
   const store = createStore(rootReducer, preloadedState, enhancer);
+
+  epics.run(rootEpic);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

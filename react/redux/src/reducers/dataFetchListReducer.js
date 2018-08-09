@@ -1,5 +1,5 @@
 export const dataFetchListReducer = (state = {}, action) => {
-  const { type, repos, username, searchKeyword, response, error } = action;
+  const { type, repos, username, searchKeyword, error } = action;
 
   switch (type) {
     case 'UPDATE_REPOS':
@@ -30,7 +30,7 @@ export const dataFetchListReducer = (state = {}, action) => {
       return {
         ...state,
         isFetching: false,
-        repos: response.result,
+        repos,
       };
 
     case 'FETCH_REPOS_FAILURE':

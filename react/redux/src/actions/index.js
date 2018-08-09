@@ -59,6 +59,13 @@ export const updateUsername = username => {
   };
 };
 
+export const fetchUserRepos = username => {
+  return {
+    type: FETCH_REPOS,
+    username,
+  };
+};
+
 export const updateSearchKeyword = searchKeyword => {
   return {
     type: UPDATE_SEARCH_KEYWORD,
@@ -80,25 +87,32 @@ export const updateRepos = repos => {
   };
 };
 
-// Relies on the custom API middleware defined in ../middleware/api.js.
-const fetchUserRepos = username => ({
-  [CALL_API]: {
-    types: [FETCH_REPOS, FETCH_REPOS_SUCCESS, FETCH_REPOS_FAILURE],
-    endpoint: `https://api.github.com/users/${username}/repos`,
-    schema: Schemas.REPO_ARRAY,
-  },
-});
-
-// Relies on Redux Thunk middleware.
-export const loadUserRepos = (username, requiredFields = []) => (
-  dispatch,
-  getState,
-) => {
-  // get cached user info
-  const user = getState().githubEntity.users[username];
-  if (user && requiredFields.every(key => user.hasOwnProperty(key))) {
-    return null;
-  }
-
-  return dispatch(fetchUserRepos(username));
+export const fetchReposSuccess = repos => {
+  return {
+    type: FETCH_REPOS_SUCCESS,
+    repos,
+  };
 };
+
+// Relies on the custom API middleware defined in ../middleware/api.js.
+// const fetchUserRepos = username => ({
+//   [CALL_API]: {
+//     types: [FETCH_REPOS, FETCH_REPOS_SUCCESS, FETCH_REPOS_FAILURE],
+//     endpoint: `https://api.github.com/users/${username}/repos`,
+//     schema: Schemas.REPO_ARRAY,
+//   },
+// });
+
+// // Relies on Redux Thunk middleware.
+// export const loadUserRepos = (username, requiredFields = []) => (
+//   dispatch,
+//   getState,
+// ) => {
+//   // get cached user info
+//   const user = getState().githubEntity.users[username];
+//   if (user && requiredFields.every(key => user.hasOwnProperty(key))) {
+//     return null;
+//   }
+
+//   return dispatch(fetchUserRepos(username));
+// };
