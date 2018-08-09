@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import { createEpicMiddleware } from 'redux-observable';
 import { get } from 'axios';
 import rootReducer from '../reducers';
@@ -12,6 +11,6 @@ const epic = createEpicMiddleware({
 });
 
 const configureStore = preloadedState =>
-  createStore(rootReducer, preloadedState, applyMiddleware(thunk, epic));
+  createStore(rootReducer, preloadedState, applyMiddleware(epic));
 
 export default configureStore;

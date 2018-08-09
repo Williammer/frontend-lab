@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
 import { get } from 'axios';
@@ -11,12 +10,10 @@ const epics = createEpicMiddleware({
     fetch: get,
   },
 });
-const middleware = [thunk, epics];
-const enhancer = composeWithDevTools(applyMiddleware(...middleware));
+const enhancer = composeWithDevTools(applyMiddleware(epics));
 
 const configureStore = preloadedState => {
   const store = createStore(rootReducer, preloadedState, enhancer);
-
   epics.run(rootEpic);
 
   if (module.hot) {
