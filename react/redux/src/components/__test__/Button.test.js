@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Button from '../components/Button';
+import Button from '../Button';
 import renderer from 'react-test-renderer';
 
 it('renders Button without crashing', () => {
@@ -9,7 +9,7 @@ it('renders Button without crashing', () => {
 });
 
 it('render correctly', () => {
-	const clickHandler = () => {};
+  const clickHandler = () => {};
   const button = renderer
     .create(<Button text="dumb button" onClick={clickHandler} />)
     .toJSON();
