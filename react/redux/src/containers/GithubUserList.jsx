@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import Button from '../components/Button';
-import '../css/DataFetchList.css';
+import '../css/GithubUserList.css';
 
 import { connect } from 'react-redux';
 import {
   updateSearchKeyword,
   updateUsername,
   loadUserRepos,
-  updateRepos
+  updateRepos,
 } from '../actions';
 
 /**
@@ -18,7 +18,6 @@ import {
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-
     this.inputSearch = this.inputSearch.bind(this);
   }
 
@@ -39,14 +38,12 @@ class SearchBar extends Component {
     );
   }
 }
-
 SearchBar.propTypes = {
   placeholder: PropTypes.string.isRequired,
-  onUserInput: PropTypes.func.isRequired
+  onUserInput: PropTypes.func.isRequired,
 };
-
 SearchBar.defaultProps = {
-  placeholder: 'Search:'
+  placeholder: 'Search:',
 };
 
 /**
@@ -57,10 +54,7 @@ class RepoList extends Component {
     if (a.length !== b.length) {
       return false;
     }
-
-    return a.every((aItem, index) => {
-      return aItem === b[index];
-    });
+    return a.every((aItem, index) => aItem === b[index]);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -69,13 +63,11 @@ class RepoList extends Component {
     if (this.deepRepoCompare(nextProps.repos, repos)) {
       return false;
     }
-
     return true;
   }
 
   render() {
     const { username, repos } = this.props;
-
     return (
       <div>
         <h1>Repos of {username}:</h1>
@@ -84,32 +76,31 @@ class RepoList extends Component {
     );
   }
 }
-
 RepoList.propTypes = {
   username: PropTypes.string.isRequired,
-  repos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+  repos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
 /**
- * DataFetchList Component
+ * GithubUserList Component
  */
-class DataFetchList extends Component {
+class GithubUserList extends Component {
   constructor(props) {
     super(props);
 
     this.updateKeyword = this.updateKeyword.bind(this);
     this.getSearchedRepo = this.getSearchedRepo.bind(this);
-    this.handleUsernameKeyPress = this.handleUsernameKeyPress.bind(this);
-    this.handleUsernameBtnClick = this.handleUsernameBtnClick.bind(this);
+    this.onUsernameKeyPress = this.onUsernameKeyPress.bind(this);
+    this.onUsernameBtnClick = this.onUsernameBtnClick.bind(this);
   }
 
-  handleUsernameKeyPress(e) {
+  onUsernameKeyPress(e) {
     if (e.key === 'Enter') {
       this.fetchRepos(e.target.value);
     }
   }
 
-  handleUsernameBtnClick() {
+  onUsernameBtnClick() {
     this.fetchRepos(this.usernameInput.value);
   }
 
@@ -122,7 +113,6 @@ class DataFetchList extends Component {
       this.props.updateRepos([]);
       return;
     }
-
     this.props.updateUsername(username);
     this.props.loadUserRepos(username);
   }
@@ -144,10 +134,7 @@ class DataFetchList extends Component {
 
   render() {
     const { username, repos, isFetching, error } = this.props;
-
-    if (isFetching) {
-      return <Fetching />;
-    }
+    if (isFetching) return <Fetching />;
 
     return (
       <div>
@@ -155,28 +142,29 @@ class DataFetchList extends Component {
           Get repos of a hacker:
           <input
             name="username"
-            ref={input => this.usernameInput = input}
-            onKeyPress={this.handleUsernameKeyPress}
+            ref={input => (this.usernameInput = input)}
+            onKeyPress={this.onUsernameKeyPress}
           />
         </label>
-        <Button text="GO" onClick={this.handleUsernameBtnClick} />
+        <Button text="GO" onClick={this.onUsernameBtnClick} />
         <br />
         <br />
-        {username && repos && repos.length
-          ? <div>
-              <SearchBar
-                onUserInput={this.updateKeyword}
-                label="Search for certain repo:"
-              />
-              <RepoList username={username} repos={this.getSearchedRepo()} />
-            </div>
-          : <NoResult username={username} error={error} />}
+        {username && repos && repos.length ? (
+          <div>
+            <SearchBar
+              onUserInput={this.updateKeyword}
+              label="Search for certain repo:"
+            />
+            <RepoList username={username} repos={this.getSearchedRepo()} />
+          </div>
+        ) : (
+          <NoResult username={username} error={error} />
+        )}
       </div>
     );
   }
 }
-
-DataFetchList.propTypes = {
+GithubUserList.propTypes = {
   repos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   isFetching: PropTypes.bool.isRequired,
   searchKeyword: PropTypes.string.isRequired,
@@ -184,7 +172,7 @@ DataFetchList.propTypes = {
   error: PropTypes.string.isRequired,
   updateRepos: PropTypes.func.isRequired,
   updateSearchKeyword: PropTypes.func.isRequired,
-  updateUsername: PropTypes.func.isRequired
+  updateUsername: PropTypes.func.isRequired,
 };
 
 function NoResult(props) {
@@ -192,9 +180,7 @@ function NoResult(props) {
 
   return (
     <div>
-      <span className="label-no-repo">
-        {username + ': no repo :/'}
-      </span>
+      <span className="label-no-repo">{username + ': no repo :/'}</span>
       <br />
       {error && <span className="label-error">{'error: ' + error}</span>}
     </div>
@@ -210,7 +196,6 @@ function renderDataToList(data) {
   if (data && data.length) {
     result = data.map((repo, index) => <li key={index}>{repo}</li>);
   }
-
   return result;
 }
 
@@ -220,14 +205,17 @@ const mapStateToProps = state => ({
   username: state.dataFetchListReducer.username,
   isFetching: state.dataFetchListReducer.isFetching,
   error: state.dataFetchListReducer.error,
-  searchKeyword: state.dataFetchListReducer.searchKeyword
+  searchKeyword: state.dataFetchListReducer.searchKeyword,
 });
 
 export default withRouter(
-  connect(mapStateToProps, {
-    loadUserRepos,
-    updateRepos,
-    updateSearchKeyword,
-    updateUsername
-  })(DataFetchList)
+  connect(
+    mapStateToProps,
+    {
+      loadUserRepos,
+      updateRepos,
+      updateSearchKeyword,
+      updateUsername,
+    },
+  )(GithubUserList),
 );

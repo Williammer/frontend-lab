@@ -1,39 +1,44 @@
 export const dataFetchListReducer = (state = {}, action) => {
-  switch (action.type) {
+  const { type, repos, username, searchKeyword, response, error } = action;
+
+  switch (type) {
     case 'UPDATE_REPOS':
-      return Object.assign({}, state, {
-        repos: action.repos
-      });
+      return {
+        ...state,
+        repos,
+      };
 
     case 'UPDATE_USERNAME':
-      return Object.assign({}, state, {
-        username: action.username
-      });
+      return {
+        ...state,
+        username,
+      };
 
     case 'UPDATE_SEARCH_KEYWORD':
-      return Object.assign({}, state, {
-        searchKeyword: action.searchKeyword
-      });
-
-    case 'USER_REPOS_REQUEST':
       return {
         ...state,
-        isFetching: true
+        searchKeyword,
       };
 
-    case 'USER_REPOS_SUCCESS':
+    case 'FETCH_REPOS':
+      return {
+        ...state,
+        isFetching: true,
+      };
+
+    case 'FETCH_REPOS_SUCCESS':
       return {
         ...state,
         isFetching: false,
-        repos: action.response.result
+        repos: response.result,
       };
 
-    case 'USER_REPOS_FAILURE':
+    case 'FETCH_REPOS_FAILURE':
       return {
         ...state,
         isFetching: false,
-        error: action.error,
-        repos: []
+        error: error,
+        repos: [],
       };
 
     default:

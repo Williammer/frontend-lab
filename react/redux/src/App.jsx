@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { NavLink, Route, Switch, BrowserRouter } from "react-router-dom";
-import Welcome from "./containers/Welcome";
-import StopWatch from "./containers/StopWatch";
-import SampleForm from "./containers/SampleForm";
-import RepoList from "./containers/DataFetchList";
-import TypeWriter from "./containers/TypeWriter";
-import TicTacToe from "./containers/TicTacToe";
-import logo from "./logo.svg";
-import "./css/App.css";
+import React, { Component } from 'react';
+import { NavLink, Route, Switch, BrowserRouter } from 'react-router-dom';
+import Welcome from './containers/Welcome';
+import StopWatch from './containers/StopWatch';
+import SampleForm from './containers/SampleForm';
+import RepoList from './containers/GithubUserList';
+import TypeWriter from './containers/TypeWriter';
+import TicTacToe from './containers/TicTacToe';
+import logo from './logo.svg';
+import './css/App.css';
 
 const typeWriterContainer = () => {
   const str =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultrices dolor ac dolor imperdiet ullamcorper. Suspendisse quam libero, luctus auctor mollis sed, malesuada condimentum magna. Quisque in ante tellus, in placerat est. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec a mi magna, quis mattis dolor. Etiam sit amet ligula quis urna auctor imperdiet nec faucibus ante. Mauri";
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultrices dolor ac dolor imperdiet ullamcorper. Suspendisse quam libero, luctus auctor mollis sed, malesuada condimentum magna. Quisque in ante tellus, in placerat est. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec a mi magna, quis mattis dolor. Etiam sit amet ligula quis urna auctor imperdiet nec faucibus ante. Mauri';
   const speed = 20;
   // [Todo] how to handle these config inputs more nicely?
   return TypeWriter(str, speed);
