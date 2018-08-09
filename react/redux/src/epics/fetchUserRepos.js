@@ -14,7 +14,7 @@ async function fetchUserRepos(fetch, username) {
   }
 }
 
-export const fetchUserReposEpic = (action$, state$, { fetch }) =>
+const fetchUserReposEpic = (action$, state$, { fetch }) =>
   action$.pipe(
     ofType(FETCH_REPOS),
     switchMap(({ username }) =>
@@ -24,3 +24,5 @@ export const fetchUserReposEpic = (action$, state$, { fetch }) =>
       ),
     ),
   );
+
+export default fetchUserReposEpic;
