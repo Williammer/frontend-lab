@@ -28,19 +28,19 @@ class App extends Component {
             </NavLink>
             <ul className="App-router">
               <li>
-                <NavLink to="/repoList">repoList</NavLink>
+                <NavLink to="/repoList">Repo List</NavLink>
               </li>
               <li>
-                <NavLink to="/stopWatch">stopWatch</NavLink>
+                <NavLink to="/stopWatch">StopWatch</NavLink>
               </li>
               <li>
-                <NavLink to="/form">sampleForm</NavLink>
+                <NavLink to="/form">Form Sample</NavLink>
               </li>
               <li>
-                <NavLink to="/typeWriter">typeWriter</NavLink>
+                <NavLink to="/typeWriter">Type Writer</NavLink>
               </li>
               <li>
-                <NavLink to="/ticTacToe">ticTacToeGame</NavLink>
+                <NavLink to="/ticTacToe">Tic Tac Toe</NavLink>
               </li>
             </ul>
           </div>
