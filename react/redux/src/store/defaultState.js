@@ -14,6 +14,6 @@ export const defaultState = {
     error: '',
     searchKeyword: '',
     username: '',
-    isFetching: false,
+    fetching: false,
   },
 };

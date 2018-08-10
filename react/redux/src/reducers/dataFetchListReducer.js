@@ -17,20 +17,20 @@ export const dataFetchListReducer = (state = {}, action) => {
     case 'FETCH_REPOS':
       return {
         ...state,
-        isFetching: true,
+        fetching: true,
       };
 
     case 'UPDATE_REPOS':
       return {
         ...state,
-        isFetching: false,
+        fetching: false,
         repos,
       };
 
     case 'FETCH_REPOS_FAILURE':
       return {
         ...state,
-        isFetching: false,
+        fetching: false,
         repos: [],
         error,
       };
