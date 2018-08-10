@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: row;
 }
@@ -11,17 +10,17 @@
 }
 
 .App-header {
-  width: 150px;
+  min-width: 170px;
   display: flex;
   flex-direction: column;
-  background: #404040;
+  background: #222;
   padding: 10px 0;
 }
 
 .App-router {
   text-decoration: none;
   text-align: center;
-  padding: 10px;
+  padding: 10px 0;
   margin: 0;
 }
 
@@ -57,11 +56,8 @@
   }
 }
 
-/* stopwatch */
-.stopwatch-timing {
-}
-
 /* sample form */
+
 .sample-form-container {
   display: flex;
   flex-direction: row;

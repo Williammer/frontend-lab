@@ -4,13 +4,15 @@ import { get } from 'axios';
 import rootReducer from '../reducers';
 import rootEpic from '../epics';
 
-const epic = createEpicMiddleware({
+const epics = createEpicMiddleware({
   dependencies: {
     fetch: get,
   },
 });
 
-const configureStore = preloadedState =>
-  createStore(rootReducer, preloadedState, applyMiddleware(epic));
+const configureStore = preloadedState => {
+  createStore(rootReducer, preloadedState, applyMiddleware(epics));
+  epics.run(rootEpic);
+};
 
 export default configureStore;
