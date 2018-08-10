@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
 
-export default class SearchBar extends Component {
+export default class SearchBar extends PureComponent {
   constructor(props) {
     super(props);
     this.searchInput = React.createRef();
