@@ -45,6 +45,7 @@ class GithubUserList extends Component {
   }
 
   fetch(username) {
+    this.props.updateSearchKeyword('');
     this.props.updateUsername(username);
     if (!username) {
       this.props.updateRepos([]);

@@ -1,7 +1,12 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import isEqual from 'lodash/isEqual';
 
-export default class List extends PureComponent {
+export default class List extends Component {
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(nextProps.list, this.props.list);
+  }
+
   render() {
     const { list, renderHeader } = this.props;
     return (
