@@ -1,17 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export default class List extends Component {
-  isSameList(a, b) {
-    if (a.length !== b.length) return false;
-    return a.every((aItem, index) => aItem === b[index]);
-  }
-
-  shouldComponentUpdate(nextProps) {
-    if (this.isSameList(nextProps.list, this.props.list)) return false;
-    return true;
-  }
-
+export default class List extends PureComponent {
   render() {
     const { list, renderHeader } = this.props;
     return (

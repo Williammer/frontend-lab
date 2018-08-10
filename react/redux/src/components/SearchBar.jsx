@@ -33,11 +33,11 @@ export default class SearchBar extends PureComponent {
             type="text"
             ref={this.searchInput}
             onChange={instant ? this.search : null}
-            onKeyPress={this.onKeyPress}
+            onKeyPress={instant ? null : this.onKeyPress}
             placeholder={placeholder}
           />
         </label>
-        <Button text="Search" onClick={this.search} />
+        {instant ? null : <Button text="Search" onClick={this.search} />}
       </div>
     );
   }

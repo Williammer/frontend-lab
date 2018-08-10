@@ -81,6 +81,7 @@ class GithubUserList extends Component {
               searchHandler={this.updateKeyword}
               name="searchBar"
               label="Search certain repository:"
+              placeholder="input to filter"
               instant
             />
             <List
