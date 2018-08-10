@@ -13,6 +13,24 @@ import {
   updateRepos,
 } from '../actions';
 
+function NoResult(props) {
+  return (
+    <div>
+      <span className="label-no-repo">
+        {`No repository found for "${props.username}"`}
+      </span>
+      <br />
+      <span className="label-error-message">
+        {`Error message: ${props.message || ''}`}
+      </span>
+    </div>
+  );
+}
+
+function Fetching() {
+  return <span>fetching...</span>;
+}
+
 class GithubUserList extends Component {
   constructor(props) {
     super(props);
@@ -65,7 +83,10 @@ class GithubUserList extends Component {
               label="Search certain repository:"
               instant
             />
-            <List username={username} repos={this.filter()} />
+            <List
+              renderHeader={() => <h3>Repositories of {username}:</h3>}
+              list={this.filter()}
+            />
           </div>
         ) : (
           <NoResult username={username} message={error} />
@@ -85,24 +106,6 @@ GithubUserList.propTypes = {
   updateUsername: PropTypes.func.isRequired,
   fetchUserRepos: PropTypes.func.isRequired,
 };
-
-function NoResult(props) {
-  return (
-    <div>
-      <span className="label-no-repo">
-        {`No repository found for "${props.username}"`}
-      </span>
-      <br />
-      <span className="label-error-message">
-        {`Error message: ${props.message || ''}`}
-      </span>
-    </div>
-  );
-}
-
-function Fetching() {
-  return <span>fetching...</span>;
-}
 
 // Redux handling
 const mapStateToProps = state => ({

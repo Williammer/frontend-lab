@@ -31,13 +31,13 @@
 
 .App-router li a {
   text-decoration: none;
-  color: #DFDFDF;
+  color: #dfdfdf;
   font-size: 14px;
 }
 
 .App-router li a.active {
   font-weight: bold;
-  border-bottom: 1px solid #DFDFDF;
+  border-bottom: 1px solid #dfdfdf;
 }
 
 .App-main {
@@ -57,18 +57,9 @@
   }
 }
 
-/* repollist */
-.repo-list {
-  list-style: none;
-  width: 260px;
-  text-align: left;
-  margin: 0 auto;
-  padding: 0;
-  line-height: 1.4;
-}
-
 /* stopwatch */
-.stopwatch-timing {}
+.stopwatch-timing {
+}
 
 /* sample form */
 .sample-form-container {

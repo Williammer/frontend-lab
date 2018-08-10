@@ -2,30 +2,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class List extends Component {
-  compareList(a, b) {
-    if (a.length !== b.length) {
-      return false;
-    }
+  isSameList(a, b) {
+    if (a.length !== b.length) return false;
     return a.every((aItem, index) => aItem === b[index]);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const { repos } = this.props;
-
-    if (this.compareList(nextProps.repos, repos)) {
-      return false;
-    }
+  shouldComponentUpdate(nextProps) {
+    if (this.isSameList(nextProps.list, this.props.list)) return false;
     return true;
   }
 
   render() {
-    const { username, repos } = this.props;
+    const { list, renderHeader } = this.props;
     return (
       <div>
-        <h1>Repositories of {username}:</h1>
-        <ul className="repo-list">
-          {repos.map((repo, index) => (
-            <li key={index}>{repo}</li>
+        {renderHeader()}
+        <ul className="list">
+          {list.map((item, index) => (
+            <li key={index}>{item}</li>
           ))}
         </ul>
       </div>
@@ -33,6 +27,10 @@ export default class List extends Component {
   }
 }
 List.propTypes = {
-  username: PropTypes.string.isRequired,
-  repos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  list: PropTypes.array.isRequired,
+  renderHeader: PropTypes.func.isRequired,
+};
+List.defaultProps = {
+  list: [],
+  renderHeader: () => {},
 };
