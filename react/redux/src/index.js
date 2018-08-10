@@ -6,7 +6,6 @@ import { ConnectedRouter } from 'react-router-redux';
 import { defaultState } from './store/defaultState';
 import configureStore from './store/configureStore';
 import App from './App';
-import './index.css';
 
 const store = configureStore(defaultState);
 const history = createHistory();
