@@ -70,8 +70,12 @@ class RepoList extends Component {
     const { username, repos } = this.props;
     return (
       <div>
-        <h1>Repos of {username}:</h1>
-        <ul className="repo-list">{renderDataToList(repos)}</ul>
+        <h1>Repositories of {username}:</h1>
+        <ul className="repo-list">
+          {repos.map((repo, index) => (
+            <li key={index}>{repo}</li>
+          ))}
+        </ul>
       </div>
     );
   }
@@ -88,6 +92,7 @@ class GithubUserList extends Component {
   constructor(props) {
     super(props);
 
+    this.usernameInput = React.createRef();
     this.updateKeyword = this.updateKeyword.bind(this);
     this.getSearchedRepo = this.getSearchedRepo.bind(this);
     this.onUsernameKeyPress = this.onUsernameKeyPress.bind(this);
@@ -101,7 +106,7 @@ class GithubUserList extends Component {
   }
 
   onUsernameBtnClick() {
-    this.fetchRepos(this.usernameInput.value);
+    this.fetchRepos(this.usernameInput.current.value);
   }
 
   updateKeyword(value) {
@@ -109,17 +114,17 @@ class GithubUserList extends Component {
   }
 
   fetchRepos(username) {
+    this.props.updateUsername(username);
     if (!username) {
       this.props.updateRepos([]);
       return;
     }
-    this.props.updateUsername(username);
     this.props.fetchUserRepos(username);
   }
 
   getSearchedRepo() {
-    const { repos } = this.props;
-    return repos.filter(repo => repo.includes(this.props.searchKeyword));
+    const { repos, searchKeyword } = this.props;
+    return repos.filter(repo => repo.includes(searchKeyword));
   }
 
   componentDidMount() {
@@ -134,31 +139,31 @@ class GithubUserList extends Component {
 
   render() {
     const { username, repos, isFetching, error } = this.props;
-    if (isFetching) return <Fetching />;
-
     return (
       <div>
         <label htmlFor="username">
-          Get repos of a hacker:
+          Get the repositories of a Github user:
           <input
             name="username"
-            ref={input => (this.usernameInput = input)}
+            ref={this.usernameInput}
             onKeyPress={this.onUsernameKeyPress}
           />
         </label>
-        <Button text="GO" onClick={this.onUsernameBtnClick} />
+        <Button text="Search" onClick={this.onUsernameBtnClick} />
         <br />
         <br />
-        {username && repos && repos.length ? (
+        {isFetching ? (
+          <Fetching />
+        ) : repos.length ? (
           <div>
             <SearchBar
               onUserInput={this.updateKeyword}
-              label="Search for certain repo:"
+              label="Search certain repository:"
             />
             <RepoList username={username} repos={this.getSearchedRepo()} />
           </div>
         ) : (
-          <NoResult username={username} error={error} />
+          <NoResult username={username} message={error} />
         )}
       </div>
     );
@@ -175,29 +180,28 @@ GithubUserList.propTypes = {
   updateUsername: PropTypes.func.isRequired,
   fetchUserRepos: PropTypes.func.isRequired,
 };
+GithubUserList.defaultProps = {
+  username: '',
+  repos: [],
+  isFetching: false,
+};
 
 function NoResult(props) {
-  const { username, error } = props;
-
   return (
     <div>
-      <span className="label-no-repo">{username + ': no repo :/'}</span>
+      <span className="label-no-repo">
+        {`No repository found for "${props.username}"`}
+      </span>
       <br />
-      {error && <span className="label-error">{'error: ' + error}</span>}
+      <span className="label-error-message">
+        {`Error message: ${props.message || ''}`}
+      </span>
     </div>
   );
 }
 
 function Fetching() {
   return <span>fetching...</span>;
-}
-
-function renderDataToList(data) {
-  let result = [];
-  if (data && data.length) {
-    result = data.map((repo, index) => <li key={index}>{repo}</li>);
-  }
-  return result;
 }
 
 // Redux handling
