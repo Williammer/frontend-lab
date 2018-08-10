@@ -1,14 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import createHistory from 'history/createBrowserHistory';
-import { ConnectedRouter } from 'react-router-redux';
+import { createBrowserHistory } from 'history';
+import { ConnectedRouter } from 'connected-react-router';
 import { defaultState } from './store/defaultState';
 import configureStore from './store/configureStore';
 import App from './App';
 
 const store = configureStore(defaultState);
-const history = createHistory();
+const history = createBrowserHistory();
 
 const renderApp = () =>
   render(

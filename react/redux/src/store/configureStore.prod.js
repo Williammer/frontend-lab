@@ -1,18 +1,30 @@
 import { createStore, applyMiddleware } from 'redux';
+import { createBrowserHistory } from 'history';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
 import { get } from 'axios';
 import rootReducer from '../reducers';
 import rootEpic from '../epics';
 
+const history = createBrowserHistory();
 const epics = createEpicMiddleware({
   dependencies: {
     fetch: get,
   },
 });
+const middlewares = [epics, routerMiddleware(history)];
+const enhancer = composeWithDevTools(applyMiddleware(...middlewares));
 
 const configureStore = preloadedState => {
-  createStore(rootReducer, preloadedState, applyMiddleware(epics));
+  const store = createStore(
+    connectRouter(history)(rootReducer),
+    preloadedState,
+    enhancer,
+  );
   epics.run(rootEpic);
+
+  return store;
 };
 
 export default configureStore;
