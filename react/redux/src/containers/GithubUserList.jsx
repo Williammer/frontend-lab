@@ -127,12 +127,8 @@ class GithubUserList extends Component {
     return repos.filter(repo => repo.includes(searchKeyword));
   }
 
-  componentDidMount() {
-    this.fetchRepos(this.props.username);
-  }
-
   componentWillUnmount() {
-    // TODO: cancel fetching request upon unmount
+    this.props.updateUsername('');
     this.props.updateSearchKeyword('');
     this.props.updateRepos([]);
   }
@@ -154,7 +150,7 @@ class GithubUserList extends Component {
         <br />
         {isFetching ? (
           <Fetching />
-        ) : repos.length ? (
+        ) : !username.length ? null : repos.length ? (
           <div>
             <SearchBar
               onUserInput={this.updateKeyword}
@@ -179,11 +175,6 @@ GithubUserList.propTypes = {
   updateSearchKeyword: PropTypes.func.isRequired,
   updateUsername: PropTypes.func.isRequired,
   fetchUserRepos: PropTypes.func.isRequired,
-};
-GithubUserList.defaultProps = {
-  username: '',
-  repos: [],
-  isFetching: false,
 };
 
 function NoResult(props) {

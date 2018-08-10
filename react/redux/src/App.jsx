@@ -47,10 +47,7 @@ class App extends Component {
           <div className="App-main">
             <Switch>
               <Route exact path="/" component={Welcome} />
-              <Route
-                path="/repoList"
-                component={() => <RepoList username="Williammer" />}
-              />
+              <Route path="/repoList" component={RepoList} />
               <Route path="/stopWatch" component={StopWatch} />
               <Route path="/form" component={SampleForm} />
               <Route path="/typeWriter" component={typeWriterContainer} />
