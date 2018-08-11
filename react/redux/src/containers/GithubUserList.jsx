@@ -83,6 +83,7 @@ class GithubUserList extends Component {
               name="searchBar"
               label="Search certain repository:"
               placeholder="input to filter"
+              debounce="1000"
               instant
             />
             <List

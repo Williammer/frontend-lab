@@ -1,13 +1,18 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
 import Button from './Button';
 
 export default class SearchBar extends PureComponent {
   constructor(props) {
     super(props);
+
     this.searchInput = React.createRef();
-    this.search = this.search.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
+
+    const { debounce: debounceTime } = props;
+    const search = this.search.bind(this);
+    this.search = debounceTime > 0 ? debounce(search, debounceTime) : search;
   }
 
   onKeyPress(e) {
@@ -18,7 +23,6 @@ export default class SearchBar extends PureComponent {
 
   search() {
     const value = this.searchInput.current.value;
-    // TODO: how to handle throttle?
     this.props.searchHandler(value);
   }
 
