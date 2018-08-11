@@ -3,9 +3,9 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import { ConnectedRouter } from 'connected-react-router';
-import { defaultState } from './store/defaultState';
-import configureStore from './store/configureStore';
-import App from './App';
+import { defaultState } from './core/store/defaultState';
+import configureStore from './core/store/configureStore';
+import App from './core/App';
 
 const store = configureStore(defaultState);
 const history = createBrowserHistory();
@@ -22,7 +22,7 @@ const renderApp = () =>
 renderApp();
 
 if (process.env.NODE_ENV !== 'production' && module.hot) {
-  module.hot.accept('./App', () => {
+  module.hot.accept('./core/App', () => {
     renderApp();
   });
 }

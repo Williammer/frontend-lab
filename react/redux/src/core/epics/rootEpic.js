@@ -1,5 +1,5 @@
 import { combineEpics } from 'redux-observable';
-import fetchUserReposEpic from './fetchUserRepos';
+import fetchUserReposEpic from '../../epics/fetchUserRepos';
 
 const rootEpic = combineEpics(fetchUserReposEpic);
 

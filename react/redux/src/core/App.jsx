@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { NavLink, Route, Switch, BrowserRouter } from 'react-router-dom';
-import Welcome from './containers/Welcome';
-import StopWatch from './containers/StopWatch';
-import SampleForm from './containers/SampleForm';
-import RepoList from './containers/GithubUserList';
-import TypeWriter from './containers/TypeWriter';
-import TicTacToe from './containers/TicTacToe';
-import Collapsible from './containers/Collapsible';
-import Draggable from './containers/Draggable';
-import Counters from './containers/Counters';
-import logo from './logo.svg';
-import './css/App.css';
+import Welcome from '../containers/Welcome';
+import StopWatch from '../containers/StopWatch';
+import SampleForm from '../containers/SampleForm';
+import RepoList from '../containers/GithubUserList';
+import TypeWriter from '../containers/TypeWriter';
+import TicTacToe from '../containers/TicTacToe';
+import Collapsible from '../containers/Collapsible';
+import Draggable from '../containers/Draggable';
+import Counters from '../containers/Counters';
+import logo from './img/logo.svg';
+import './App.css';
 
 const TypeWriterDemo = () => {
   const str =

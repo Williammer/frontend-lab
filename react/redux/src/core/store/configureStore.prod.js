@@ -4,8 +4,8 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
 import { get } from 'axios';
-import rootReducer from '../reducers';
-import rootEpic from '../epics';
+import rootReducer from '../reducers/rootReducer';
+import rootEpic from '../epics/rootEpic';
 
 const history = createBrowserHistory();
 const epics = createEpicMiddleware({
@@ -24,13 +24,6 @@ const configureStore = preloadedState => {
   );
   epics.run(rootEpic);
 
-  if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('../reducers').default;
-      store.replaceReducer(nextRootReducer);
-    });
-  }
   return store;
 };
 
