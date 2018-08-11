@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { NavLink, Route, Switch, BrowserRouter } from 'react-router-dom';
-import Welcome from '../containers/welcome/Welcome';
-import StopWatch from '../containers/stopWatch/StopWatch';
-import FormSample from '../containers/formSample/FormSample';
-import RepoList from '../containers/githubUserList/GithubUserList';
-import TypeWriter from '../containers/typeWriter/TypeWriter';
-import TicTacToe from '../containers/ticTacToe/TicTacToe';
-import Collapsible from '../containers/collapsible/Collapsible';
-import Draggable from '../containers/draggable/Draggable';
-import Counters from '../containers/counters/Counters';
+import Welcome from '../features/welcome/Welcome';
+import StopWatch from '../features/stopWatch/StopWatch';
+import FormSample from '../features/formSample/FormSample';
+import RepoList from '../features/githubUserList/GithubUserList';
+import TypeWriter from '../features/typeWriter/TypeWriter';
+import TicTacToe from '../features/ticTacToe/TicTacToe';
+import Collapsible from '../features/collapsible/Collapsible';
+import Draggable from '../features/draggable/Draggable';
+import Counters from '../features/counters/Counters';
 import logo from './img/logo.svg';
 import './App.css';
 

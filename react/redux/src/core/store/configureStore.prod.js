@@ -4,8 +4,8 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
 import { get } from 'axios';
-import rootReducer from '../reducers/rootReducer';
-import rootEpic from '../epics/rootEpic';
+import rootReducer from '../rootReducer';
+import rootEpic from '../rootEpic';
 
 const history = createBrowserHistory();
 const epics = createEpicMiddleware({
