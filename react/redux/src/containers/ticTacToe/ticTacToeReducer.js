@@ -1,11 +1,10 @@
-export const ticReducer = (state = {}, action) => {
-  const index = action.index;
+export const ticTacToeReducer = (state = {}, action) => {
+  const { index, type } = action;
   let newMoveRecords;
 
-  switch (action.type) {
+  switch (type) {
     case 'UPDATE_GAME_MOVE':
       const newSquare = state.onXPlay ? 'X' : 'O';
-
       let cloneSquares = state.squares.slice();
       cloneSquares[index] = newSquare;
 
@@ -14,7 +13,7 @@ export const ticReducer = (state = {}, action) => {
       return {
         squares: cloneSquares,
         onXPlay: !state.onXPlay,
-        moveRecords: newMoveRecords
+        moveRecords: newMoveRecords,
       };
 
     case 'JUMP_TO_MOVE':
@@ -24,11 +23,10 @@ export const ticReducer = (state = {}, action) => {
       return {
         squares: newSquares,
         onXPlay: !(index % 2),
-        moveRecords: newMoveRecords
+        moveRecords: newMoveRecords,
       };
 
     default:
       return state;
   }
-}
-
+};

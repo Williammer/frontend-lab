@@ -1,8 +1,8 @@
 import { ofType } from 'redux-observable';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of, from } from 'rxjs';
-import { FETCH_REPOS } from '../constants';
-import { updateRepos, fetchReposFailure } from '../actions';
+import { FETCH_REPOS } from './githubUserListConstants';
+import { updateRepos, fetchReposFailure } from './githubUserListActions';
 
 async function fetchUserRepos(fetch, username) {
   const endpoint = `https://api.github.com/users/${username}/repos`;

@@ -1,4 +1,4 @@
-export const dataFetchListReducer = (state = {}, action) => {
+export const githubUserListReducer = (state = {}, action) => {
   const { type, repos, username, searchKeyword, error } = action;
 
   switch (type) {

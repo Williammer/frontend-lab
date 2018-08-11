@@ -1,7 +1,7 @@
 import { TestScheduler } from 'rxjs/testing';
 import { of } from 'rxjs';
 
-import fetchUserReposEpic from '../fetchUserRepos';
+import fetchUserReposEpic from './fetchUserRepos';
 import { toArray } from 'rxjs/internal/operators/toArray';
 
 it('should fetch and return the update repos action', done => {

@@ -1,15 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-class SampleForm extends Component {
-
+class FormSample extends Component {
   constructor() {
     super();
 
     this.state = {
       logs: [],
-      name: "df",
+      name: 'df',
       age: 1,
-      moreInfo: "moreInfo",
+      moreInfo: 'moreInfo',
     };
 
     // bind eventHandlers
@@ -34,27 +33,38 @@ class SampleForm extends Component {
     const targetName = evt.target.name;
     let targetValue = evt.target.value;
 
-    if (targetName === "age") {
-      targetValue = Number(targetValue) >= 0 ? Number(targetValue) : "";
+    if (targetName === 'age') {
+      targetValue = Number(targetValue) >= 0 ? Number(targetValue) : '';
     }
 
-    this.setState({
-      [targetName]: targetValue
-    }, () => {
-      this.setState((prevState) => {
-        return {
-          logs: prevState.logs.concat(`${targetName}: ${this.state[targetName]}  ||  ready: ${this.readyToSubmit()} `)
-        };
-      });
-    });
+    this.setState(
+      {
+        [targetName]: targetValue,
+      },
+      () => {
+        this.setState(prevState => {
+          return {
+            logs: prevState.logs.concat(
+              `${targetName}: ${
+                this.state[targetName]
+              }  ||  ready: ${this.readyToSubmit()} `,
+            ),
+          };
+        });
+      },
+    );
   }
 
   submit(evt) {
     evt.preventDefault();
 
-    this.setState((prevState) => {
+    this.setState(prevState => {
       return {
-        logs: prevState.logs.concat(`Submitting: name: ${this.state.name}  ||  age: ${this.state.age}  ||  moreInfo: ${this.state.moreInfo} `)
+        logs: prevState.logs.concat(
+          `Submitting: name: ${this.state.name}  ||  age: ${
+            this.state.age
+          }  ||  moreInfo: ${this.state.moreInfo} `,
+        ),
       };
     });
   }
@@ -66,7 +76,9 @@ class SampleForm extends Component {
     return (
       <div className="sample-form-container">
         <ul className="form-logger">
-          {logs.map((log, index) => <li key={index}>{log}</li>)}
+          {logs.map((log, index) => (
+            <li key={index}>{log}</li>
+          ))}
         </ul>
 
         <form className="sample-form" onSubmit={this.submit}>
@@ -76,9 +88,9 @@ class SampleForm extends Component {
             type="text"
             onChange={this.updateInputValue}
             value={name}
-            style={{width: "200px"}}
+            style={{ width: '200px' }}
           />
-          <br/>
+          <br />
 
           <label htmlFor="age">Age: </label>
           <input
@@ -86,32 +98,30 @@ class SampleForm extends Component {
             type="text"
             onChange={this.updateInputValue}
             value={age}
-            style={{width: "200px"}}
+            style={{ width: '200px' }}
           />
-          <br/>
+          <br />
 
           <label htmlFor="moreInfo">MoreInfo: </label>
           <textarea
             name="moreInfo"
             onChange={this.updateInputValue}
-            value={moreInfo}>
-          </textarea>
-          <br/>
+            value={moreInfo}
+          />
+          <br />
 
-          { readyToSubmit ?
-            <input
-              type="submit"
-              value="Submit"
-            />
-            :
-            <span style={{color: 'red'}}>
-              Invalid input to submit. Name needs to be at least 4 chars, age needs to be non-negative number.
+          {readyToSubmit ? (
+            <input type="submit" value="Submit" />
+          ) : (
+            <span style={{ color: 'red' }}>
+              Invalid input to submit. Name needs to be at least 4 chars, age
+              needs to be non-negative number.
             </span>
-          }
+          )}
         </form>
       </div>
-    )
+    );
   }
 }
 
-export default SampleForm
+export default FormSample;

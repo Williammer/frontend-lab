@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { NavLink, Route, Switch, BrowserRouter } from 'react-router-dom';
-import Welcome from '../containers/Welcome';
-import StopWatch from '../containers/StopWatch';
-import SampleForm from '../containers/SampleForm';
-import RepoList from '../containers/GithubUserList';
-import TypeWriter from '../containers/TypeWriter';
-import TicTacToe from '../containers/TicTacToe';
-import Collapsible from '../containers/Collapsible';
-import Draggable from '../containers/Draggable';
-import Counters from '../containers/Counters';
+import Welcome from '../containers/welcome/Welcome';
+import StopWatch from '../containers/stopWatch/StopWatch';
+import FormSample from '../containers/formSample/FormSample';
+import RepoList from '../containers/githubUserList/GithubUserList';
+import TypeWriter from '../containers/typeWriter/TypeWriter';
+import TicTacToe from '../containers/ticTacToe/TicTacToe';
+import Collapsible from '../containers/collapsible/Collapsible';
+import Draggable from '../containers/draggable/Draggable';
+import Counters from '../containers/counters/Counters';
 import logo from './img/logo.svg';
 import './App.css';
 
@@ -34,7 +34,7 @@ const menus = [
   {
     path: '/frontend-lab/form',
     title: 'Form sample',
-    component: SampleForm,
+    component: FormSample,
   },
   {
     path: '/frontend-lab/typeWriter',

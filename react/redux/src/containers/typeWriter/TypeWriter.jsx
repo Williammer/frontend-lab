@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from '../components/Button';
+import Button from '../../components/Button';
 
 class TypeWriter extends Component {
   state = {
     typedPos: 0,
     isRunning: false,
-    finished: false
-  }
+    finished: false,
+  };
 
-  _typingInterval = null
+  _typingInterval = null;
 
   constructor(props) {
     super(props);
@@ -29,7 +29,7 @@ class TypeWriter extends Component {
       this.setState((prevState, props) => {
         return {
           isRunning: true,
-          typedPos: prevState.typedPos + 1
+          typedPos: prevState.typedPos + 1,
         };
       });
     }, this.props.speed);
@@ -42,7 +42,7 @@ class TypeWriter extends Component {
     }
 
     this.setState({
-      isRunning: false
+      isRunning: false,
     });
   }
 
@@ -50,15 +50,18 @@ class TypeWriter extends Component {
     this.pauseTyping();
     this.setState({
       typedPos: 0,
-      finished: true
+      finished: true,
     });
   }
 
   restartTyping() {
-    this.setState({
-      typedPos: 0,
-      finished: false
-    }, this.startTyping);
+    this.setState(
+      {
+        typedPos: 0,
+        finished: false,
+      },
+      this.startTyping,
+    );
   }
 
   componentDidMount() {
@@ -72,32 +75,44 @@ class TypeWriter extends Component {
   render() {
     return (
       <div>
-        <p className='typeParagraph'>
-          {this.state.finished ? this.props.inputStr : this.props.inputStr.slice(0, this.state.typedPos)}
+        <p className="typeParagraph">
+          {this.state.finished
+            ? this.props.inputStr
+            : this.props.inputStr.slice(0, this.state.typedPos)}
         </p>
         <Button
-          text={this.state.finished ? 'Restart' : this.state.isRunning ? 'Pause' : 'Resume'}
-          onClick={this.state.finished ? this.restartTyping : this.state.isRunning ? this.pauseTyping : this.startTyping}
+          text={
+            this.state.finished
+              ? 'Restart'
+              : this.state.isRunning
+                ? 'Pause'
+                : 'Resume'
+          }
+          onClick={
+            this.state.finished
+              ? this.restartTyping
+              : this.state.isRunning
+                ? this.pauseTyping
+                : this.startTyping
+          }
         />
       </div>
-    )
+    );
   }
-};
+}
 
 TypeWriter.propTypes = {
   inputStr: PropTypes.string.isRequired,
-  speed: PropTypes.number.isRequired
+  speed: PropTypes.number.isRequired,
 };
 
 TypeWriter.defaultProps = {
-  inputStr: "This is default string.",
-  speed: 100
+  inputStr: 'This is default string.',
+  speed: 100,
 };
 
 function TypeWriterContainer(inputStr, speed) {
-  return (
-    <TypeWriter inputStr={inputStr} speed={speed} />
-  );
+  return <TypeWriter inputStr={inputStr} speed={speed} />;
 }
 
 export default TypeWriterContainer;

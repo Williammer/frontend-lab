@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import Label from '../components/Label';
-import Button from '../components/Button';
+import Label from '../../components/Label';
+import Button from '../../components/Button';
 
-import { updateTiming, updateResetCountDown, setIsRunning } from '../actions';
-// import './StopWatch.css';
+import {
+  updateTiming,
+  updateResetCountDown,
+  setIsRunning,
+} from './stopWatchActions';
 
 class StopWatch extends Component {
   constructor(props) {
@@ -32,7 +35,7 @@ class StopWatch extends Component {
     this._stopWatchTimer = window.setInterval(
       function() {
         this.props.updateTiming(Date.now() - now);
-      }.bind(this)
+      }.bind(this),
     );
 
     this.props.setIsRunning(true);
@@ -91,7 +94,7 @@ class StopWatch extends Component {
 
         this.props.updateResetCountDown(Date.now() - now);
       }.bind(this),
-      500
+      500,
     );
   }
 
@@ -143,8 +146,7 @@ class StopWatch extends Component {
         <br />
         <button
           onMouseDown={this.startLongPressReset}
-          onMouseUp={this.endLongPressReset}
-        >
+          onMouseUp={this.endLongPressReset}>
           {this.getResetCountDownText()}
         </button>
       </div>
@@ -158,24 +160,27 @@ StopWatch.propTypes = {
   timing: PropTypes.number.isRequired,
   isRunning: PropTypes.bool.isRequired,
   updateTiming: PropTypes.func.isRequired,
-  updateResetCountDown: PropTypes.func.isRequired
+  updateResetCountDown: PropTypes.func.isRequired,
 };
 
 StopWatch.defaultProps = {
-  resetCountDownTime: 3000 // long press 3s to be able to reset
+  resetCountDownTime: 3000, // long press 3s to be able to reset
 };
 
 // Redux handling
 const mapStateToProps = state => ({
   timing: state.stopWatchReducer.timing,
   resetCountedDown: state.stopWatchReducer.resetCountedDown,
-  isRunning: state.stopWatchReducer.isRunning
+  isRunning: state.stopWatchReducer.isRunning,
 });
 
 export default withRouter(
-  connect(mapStateToProps, {
-    updateTiming,
-    updateResetCountDown,
-    setIsRunning
-  })(StopWatch)
+  connect(
+    mapStateToProps,
+    {
+      updateTiming,
+      updateResetCountDown,
+      setIsRunning,
+    },
+  )(StopWatch),
 );

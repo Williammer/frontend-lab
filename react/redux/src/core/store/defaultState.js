@@ -1,5 +1,5 @@
 export const defaultState = {
-  ticReducer: {
+  ticTacToeReducer: {
     onXPlay: true,
     squares: Array(9).fill(null),
     moveRecords: [Array(9).fill(null)],
@@ -9,7 +9,7 @@ export const defaultState = {
     resetCountedDown: 0,
     isRunning: false,
   },
-  dataFetchListReducer: {
+  githubUserListReducer: {
     repos: [],
     error: '',
     searchKeyword: '',

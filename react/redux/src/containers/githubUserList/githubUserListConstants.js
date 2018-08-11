@@ -1,4 +1,3 @@
-// User repo list
 export const FETCH_REPOS = 'FETCH_REPOS';
 export const UPDATE_REPOS = 'UPDATE_REPOS';
 export const FETCH_REPOS_FAILURE = 'FETCH_REPOS_FAILURE';

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import SearchBar from '../components/SearchBar';
-import List from '../components/List';
-import '../css/GithubUserList.css';
+import SearchBar from '../../components/SearchBar';
+import List from '../../components/List';
+import './GithubUserList.css';
 
 import { connect } from 'react-redux';
 import {
@@ -11,7 +11,7 @@ import {
   updateUsername,
   fetchUserRepos,
   updateRepos,
-} from '../actions';
+} from './githubUserListActions';
 
 function NoResult(props) {
   return (
@@ -112,11 +112,11 @@ GithubUserList.propTypes = {
 
 // Redux handling
 const mapStateToProps = state => ({
-  repos: state.dataFetchListReducer.repos,
-  username: state.dataFetchListReducer.username,
-  fetching: state.dataFetchListReducer.fetching,
-  error: state.dataFetchListReducer.error,
-  searchKeyword: state.dataFetchListReducer.searchKeyword,
+  repos: state.githubUserListReducer.repos,
+  username: state.githubUserListReducer.username,
+  fetching: state.githubUserListReducer.fetching,
+  error: state.githubUserListReducer.error,
+  searchKeyword: state.githubUserListReducer.searchKeyword,
 });
 
 export default withRouter(

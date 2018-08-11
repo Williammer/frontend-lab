@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import { ticReducer } from '../../reducers/ticReducer';
-import { stopWatchReducer } from '../../reducers/stopWatchReducer';
-import { dataFetchListReducer } from '../../reducers/dataFetchListReducer';
+import { ticTacToeReducer } from '../../containers/ticTacToe/ticTacToeReducer';
+import { stopWatchReducer } from '../../containers/stopWatch/stopWatchReducer';
+import { githubUserListReducer } from '../../containers/githubUserList/githubUserListReducer';
 
 const Reducers = combineReducers({
-  ticReducer,
+  ticTacToeReducer,
   stopWatchReducer,
-  dataFetchListReducer,
+  githubUserListReducer,
 });
 
 export default Reducers;

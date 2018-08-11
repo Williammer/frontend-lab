@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { updateGameMove, jumpToMove } from '../actions';
-import '../css/TicTacToe.css';
+import { updateGameMove, jumpToMove } from './ticTacToeActions';
+import './TicTacToe.css';
 
 /**
  * Square Component
@@ -23,7 +23,7 @@ class Square extends Component {
 Square.propTypes = {
   onClick: PropTypes.func.isRequired,
   holder: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired
+  index: PropTypes.number.isRequired,
 };
 
 /**
@@ -56,7 +56,7 @@ class Board extends Component {
 
 Board.propTypes = {
   squares: PropTypes.arrayOf(PropTypes.string).isRequired,
-  squareClickHandler: PropTypes.func.isRequired
+  squareClickHandler: PropTypes.func.isRequired,
 };
 
 /**
@@ -105,12 +105,14 @@ class TicTacToe extends Component {
       [1, 4, 7],
       [2, 5, 8],
       [0, 4, 8],
-      [2, 4, 6]
+      [2, 4, 6],
     ];
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (
-        squares[a] && squares[a] === squares[b] && squares[a] === squares[c]
+        squares[a] &&
+        squares[a] === squares[b] &&
+        squares[a] === squares[c]
       ) {
         return squares[a];
       }
@@ -146,23 +148,25 @@ class TicTacToe extends Component {
 TicTacToe.propTypes = {
   onXPlay: PropTypes.bool.isRequired,
   squares: PropTypes.arrayOf(PropTypes.string).isRequired,
-  moveRecords: PropTypes.arrayOf(
-    PropTypes.arrayOf(PropTypes.string).isRequired
-  ).isRequired,
+  moveRecords: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string).isRequired)
+    .isRequired,
   jumpToMove: PropTypes.func.isRequired,
-  updateGameMove: PropTypes.func.isRequired
+  updateGameMove: PropTypes.func.isRequired,
 };
 
 // Redux handling
 const mapStateToProps = state => ({
-  squares: state.ticReducer.squares,
-  onXPlay: state.ticReducer.onXPlay,
-  moveRecords: state.ticReducer.moveRecords
+  squares: state.ticTacToeReducer.squares,
+  onXPlay: state.ticTacToeReducer.onXPlay,
+  moveRecords: state.ticTacToeReducer.moveRecords,
 });
 
 export default withRouter(
-  connect(mapStateToProps, {
-    updateGameMove,
-    jumpToMove
-  })(TicTacToe)
+  connect(
+    mapStateToProps,
+    {
+      updateGameMove,
+      jumpToMove,
+    },
+  )(TicTacToe),
 );
