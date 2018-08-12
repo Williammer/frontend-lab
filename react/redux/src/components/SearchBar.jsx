@@ -26,6 +26,12 @@ export default class SearchBar extends PureComponent {
     this.props.searchHandler(value);
   }
 
+  componentWillUnmount() {
+    if (this.props.debounceTime > 0) {
+      this.search.cancel();
+    }
+  }
+
   render() {
     const { name, label, instant, placeholder } = this.props;
     return (
