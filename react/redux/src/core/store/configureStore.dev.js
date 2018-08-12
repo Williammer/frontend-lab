@@ -3,6 +3,7 @@ import { createBrowserHistory } from 'history';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
+import thunk from 'redux-thunk';
 import { get } from 'axios';
 import rootReducer from '../rootReducer';
 import rootEpic from '../rootEpic';
@@ -13,7 +14,7 @@ const epics = createEpicMiddleware({
     fetch: get,
   },
 });
-const middlewares = [epics, routerMiddleware(history)];
+const middlewares = [thunk, epics, routerMiddleware(history)];
 const enhancer = composeWithDevTools(applyMiddleware(...middlewares));
 
 const configureStore = preloadedState => {

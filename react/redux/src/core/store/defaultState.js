@@ -16,4 +16,7 @@ export const defaultState = {
     username: '',
     fetching: false,
   },
+  counterListReducer: {
+    items: [],
+  },
 };

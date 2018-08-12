@@ -8,7 +8,7 @@ import TypeWriter from '../features/typeWriter/TypeWriter';
 import TicTacToe from '../features/ticTacToe/TicTacToe';
 import Collapsible from '../features/collapsible/Collapsible';
 import Draggable from '../features/draggable/Draggable';
-import Counters from '../features/counters/Counters';
+import CounterList from '../features/counters/CounterList';
 import logo from './img/logo.svg';
 import './App.css';
 
@@ -57,9 +57,9 @@ const menus = [
     component: Draggable,
   },
   {
-    path: '/frontend-lab/counters',
-    title: 'Counters',
-    component: Counters,
+    path: '/frontend-lab/counterList',
+    title: 'CounterList',
+    component: CounterList,
   },
 ];
 
