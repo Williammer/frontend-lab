@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
-import Button from './Button';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 export default class SearchBar extends PureComponent {
   constructor(props) {
@@ -10,14 +11,14 @@ export default class SearchBar extends PureComponent {
     this.searchInput = React.createRef();
     this.onKeyPress = this.onKeyPress.bind(this);
 
-    const { debounce: debounceTime } = props;
-    const search = this.search.bind(this);
-    this.search = debounceTime > 0 ? debounce(search, debounceTime) : search;
+    const { debounce: debounceTime = 0 } = props;
+    this.search = this.search.bind(this);
+    this.searchDebounced = debounceTime > 0 ? debounce(this.search, debounceTime) : this.search;
   }
 
-  onKeyPress(e) {
-    if (e.key === 'Enter') {
-      this.search(e.target.value);
+  onKeyPress({ key }) {
+    if (key === 'Enter') {
+      this.search();
     }
   }
 
@@ -28,7 +29,7 @@ export default class SearchBar extends PureComponent {
 
   componentWillUnmount() {
     if (this.props.debounceTime > 0) {
-      this.search.cancel();
+      this.searchDebounced.cancel();
     }
   }
 
@@ -36,18 +37,26 @@ export default class SearchBar extends PureComponent {
     const { name, label, instant, placeholder } = this.props;
     return (
       <div>
-        <label htmlFor={name}>
-          {label}
-          <input
+          <label htmlFor={name}>
+            {`${label} `}
+          </label>
+          <TextField
             name={name}
-            type="text"
-            ref={this.searchInput}
-            onChange={instant ? this.search : null}
+            margin="normal"
+            inputRef={this.searchInput}
+            onChange={!instant ? null : this.searchDebounced}
             onKeyPress={instant ? null : this.onKeyPress}
             placeholder={placeholder}
-          />
-        </label>
-        {instant ? null : <Button text="Search" onClick={this.search} />}
+          />{' '}
+        {instant ? null : (
+          <Button
+            color="primary"
+            variant="outlined"
+            size="small"
+            onClick={this.search}>
+            Search
+          </Button>
+        )}
       </div>
     );
   }

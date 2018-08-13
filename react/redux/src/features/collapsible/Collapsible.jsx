@@ -215,6 +215,7 @@ function AnimatedTabs(props) {
 
 const DemoContainer = styled.div`
   text-align: left;
+  margin-left: 40px;
 `;
 
 const DemoItem = styled.li`

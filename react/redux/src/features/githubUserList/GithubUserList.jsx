@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 import SearchBar from '../../components/SearchBar';
 import List from '../../components/List';
 import './GithubUserList.css';
@@ -30,6 +32,15 @@ function NoResult(props) {
 function Fetching() {
   return <span>fetching...</span>;
 }
+
+const styles = theme => ({
+  container: {
+    width: 600,
+    margin: '20px auto',
+    paddingTop: 10,
+    paddingBottom: 30,
+  },
+});
 
 class GithubUserList extends Component {
   constructor(props) {
@@ -66,9 +77,9 @@ class GithubUserList extends Component {
   }
 
   render() {
-    const { username, repos, fetching, error } = this.props;
+    const { classes, username, repos, fetching, error } = this.props;
     return (
-      <div>
+      <Paper className={classes.container} elevation={1}>
         <SearchBar
           searchHandler={this.fetch}
           name="username"
@@ -94,7 +105,7 @@ class GithubUserList extends Component {
         ) : (
           <NoResult username={username} message={error} />
         )}
-      </div>
+      </Paper>
     );
   }
 }
@@ -119,7 +130,7 @@ const mapStateToProps = state => ({
   searchKeyword: state.githubUserListReducer.searchKeyword,
 });
 
-export default withRouter(
+export default withStyles(styles)(withRouter(
   connect(
     mapStateToProps,
     {
@@ -129,4 +140,4 @@ export default withRouter(
       fetchUserRepos,
     },
   )(GithubUserList),
-);
+));

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateGameMove, jumpToMove } from './ticTacToeActions';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import './TicTacToe.css';
 
 /**
@@ -86,7 +88,13 @@ class TicTacToe extends Component {
     return this.props.moveRecords.map((squares, i) => {
       return (
         <li className="travel-item" key={i}>
-          <button onClick={this.jumpTo(i)}>State #{i + 1}</button>
+          <Button
+            color="secondary"
+            variant="outlined"
+            size="small"
+            onClick={this.jumpTo(i)}>
+            Back to step #{i + 1}
+          </Button>
         </li>
       );
     });
@@ -137,7 +145,9 @@ class TicTacToe extends Component {
           <Board squares={squares} squareClickHandler={this.squareClicked} />
         </div>
         <div className="game-info">
-          <div className="status">{status}</div>
+          <Typography variant="subheading" className="status">
+            {status}
+          </Typography>
           <ol className="travel-list">{this.renderTravelItems()}</ol>
         </div>
       </div>

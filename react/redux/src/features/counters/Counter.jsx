@@ -6,6 +6,7 @@ import {
   incrementAsync,
   decrement,
 } from './counterActions';
+import Button from '@material-ui/core/Button';
 
 class Counter extends Component {
   incrementIfOdd() {
@@ -19,14 +20,34 @@ class Counter extends Component {
     return (
       <p>
         Clicked: {counter} times{' '}
-        <button onClick={() => dispatch(increment())}>+</button>{' '}
-        <button onClick={() => dispatch(decrement())}>-</button>{' '}
-        <button onClick={this.incrementIfOdd.bind(this)}>
+        <Button
+          color="primary"
+          variant="outlined"
+          size="small"
+          onClick={() => dispatch(increment())}>
+          +
+        </Button>{' '}
+        <Button
+          color="primary"
+          variant="outlined"
+          size="small"
+          onClick={() => dispatch(decrement())}>
+          -
+        </Button>{' '}
+        <Button
+          color="secondary"
+          variant="outlined"
+          size="small"
+          onClick={this.incrementIfOdd.bind(this)}>
           Increment if odd
-        </button>{' '}
-        <button onClick={() => dispatch(incrementAsync())}>
+        </Button>{' '}
+        <Button
+          color="secondary"
+          variant="outlined"
+          size="small"
+          onClick={() => dispatch(incrementAsync())}>
           Increment async
-        </button>
+        </Button>
       </p>
     );
   }

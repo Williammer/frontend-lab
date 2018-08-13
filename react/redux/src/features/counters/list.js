@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { addToList, removeFromList, performInList } from './listActions';
+import Button from '@material-ui/core/Button';
 
 export default function list(mapItemStateToProps) {
   return function(Item) {
@@ -14,14 +15,22 @@ export default function list(mapItemStateToProps) {
         const { dispatch, items } = this.props;
         return (
           <div>
-            <button onClick={() => dispatch(addToList())}>Add counter</button>
-            <br />
+            <Button
+              color="primary"
+              variant="outlined"
+              size="small"
+              onClick={() => dispatch(addToList())}>
+              Add counter
+            </Button>{' '}
             {items &&
               items.length > 0 && (
-                <button
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  size="small"
                   onClick={() => dispatch(removeFromList(items.length - 1))}>
                   Remove counter
-                </button>
+                </Button>
               )}
             <br />
             {items &&

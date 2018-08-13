@@ -1,18 +1,49 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    width: 330,
+    margin: 'auto',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 140,
+  },
+  textArea: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 300,
+  },
+  errorMessage: {
+    textAlign: 'left',
+    width: 300,
+  },
+});
 
 class FormSample extends Component {
   constructor() {
     super();
-
     this.state = {
       logs: [],
-      name: 'df',
-      age: 1,
-      moreInfo: 'moreInfo',
+      name: '',
+      age: '',
+      moreInfo: '',
     };
 
-    // bind eventHandlers
+    
+    this.onInputChanged = this.onInputChanged.bind(this);
     this.updateInputValue = this.updateInputValue.bind(this);
+    this.updateInputDebounced = debounce(this.updateInputValue.bind(this), 1000);
     this.submit = this.submit.bind(this);
   }
 
@@ -29,28 +60,24 @@ class FormSample extends Component {
     return this.isValidName(name) && this.isValidAge(age);
   }
 
-  updateInputValue(evt) {
-    const targetName = evt.target.name;
-    let targetValue = evt.target.value;
+  onInputChanged({ target: { name, value } }) {
+    this.updateInputDebounced(name, value);
+  }
 
-    if (targetName === 'age') {
-      targetValue = Number(targetValue) >= 0 ? Number(targetValue) : '';
+  updateInputValue(name, value) {
+    if (name === 'age') {
+      value = Number(value) || 0;
     }
-
     this.setState(
       {
-        [targetName]: targetValue,
+        [name]: value,
       },
       () => {
-        this.setState(prevState => {
-          return {
-            logs: prevState.logs.concat(
-              `${targetName}: ${
-                this.state[targetName]
-              }  ||  ready: ${this.readyToSubmit()} `,
-            ),
-          };
-        });
+        this.setState(prevState => ({
+          logs: prevState.logs.concat(
+            `${name}: ${this.state[name]}  ||  ready: ${this.readyToSubmit()} `,
+          ),
+        }));
       },
     );
   }
@@ -68,60 +95,36 @@ class FormSample extends Component {
       };
     });
   }
-
+  
+  componentWillUnmount() {
+    this.updateInputDebounced.cancel();
+  }
   render() {
-    const { name, age, moreInfo, logs } = this.state;
+    const { classes } = this.props;
+    const { logs } = this.state;
     const readyToSubmit = this.readyToSubmit();
 
-    return (
-      <div className="sample-form-container">
-        <ul className="form-logger">
-          {logs.map((log, index) => (
-            <li key={index}>{log}</li>
-          ))}
-        </ul>
-
-        <form className="sample-form" onSubmit={this.submit}>
-          <label htmlFor="name">Name: </label>
-          <input
-            name="name"
-            type="text"
-            onChange={this.updateInputValue}
-            value={name}
-            style={{ width: '200px' }}
-          />
+    return <div className="sample-form-container">
+        <form className={classes.container} autoComplete="off" onSubmit={this.submit}>
+          <TextField name="name" label="Name: " margin="normal" className={classes.textField} helperText="Please input your name" onChange={this.onInputChanged} />
+          <TextField name="age" type="number" label="Age: " margin="normal" className={classes.textField} helperText="Please input your age" onChange={this.onInputChanged} />
+          <TextField name="moreInfo" label="More Information: " margin="normal" className={classes.textArea} helperText="More information about yourself" onChange={this.onInputChanged} />
           <br />
-
-          <label htmlFor="age">Age: </label>
-          <input
-            name="age"
-            type="text"
-            onChange={this.updateInputValue}
-            value={age}
-            style={{ width: '200px' }}
-          />
-          <br />
-
-          <label htmlFor="moreInfo">MoreInfo: </label>
-          <textarea
-            name="moreInfo"
-            onChange={this.updateInputValue}
-            value={moreInfo}
-          />
-          <br />
-
-          {readyToSubmit ? (
-            <input type="submit" value="Submit" />
-          ) : (
-            <span style={{ color: 'red' }}>
-              Invalid input to submit. Name needs to be at least 4 chars, age
-              needs to be non-negative number.
-            </span>
-          )}
+          {readyToSubmit ? <Button color="secondary" size="small" variant="outlined" type="submit">Submit</Button>
+          : <Typography color="error" className={classes.errorMessage}>
+              Invalid input value.
+              Name needs to be at least 4 chars, age needs to be non-negative number.
+            </Typography>}
         </form>
-      </div>
-    );
+        <ul className="form-logger">
+          Logs:
+          {logs.map((log, index) => <li key={index}>{log}</li>)}
+        </ul>
+      </div>;
   }
 }
+FormSample.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
-export default FormSample;
+export default withStyles(styles)(FormSample);

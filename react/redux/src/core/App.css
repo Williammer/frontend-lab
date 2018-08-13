@@ -1,8 +1,7 @@
-@import url(https://fonts.googleapis.com/css?family=Delius);
 body {
   margin: 0;
   padding: 0;
-  font-family: Delius, Helvetica, Arial, sans-serif;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
 }
 
 .App {
@@ -47,7 +46,7 @@ body {
 }
 
 .App-main {
-  margin: 40px 0 0 40px;
+  margin-top: 40px;
   text-align: center;
   width: 100%;
   display: flex;
@@ -64,14 +63,6 @@ body {
 }
 
 /* sample form */
-
-.sample-form-container {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
-}
-
 .sample-form {
   padding: 0;
   margin: 0;
@@ -79,14 +70,18 @@ body {
 }
 
 .form-logger {
+  font-size: 14px;
+  font-weight: lighter;
   padding: 0;
   margin: 0;
-  margin-top: -40px;
-  background: #aaa;
+  background: #122738;
   color: white;
-  width: 30%;
+  min-width: 10%;
   text-align: left;
-  min-height: 800px;
+  min-height: 300px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .form-logger li {

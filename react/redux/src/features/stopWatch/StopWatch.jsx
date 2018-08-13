@@ -144,7 +144,7 @@ class StopWatch extends Component {
           size="small"
           onClick={this.props.isRunning ? this.pauseTiming : this.startTiming}>
           {this.props.isRunning ? 'Pause' : 'Start'}
-        </Button>
+        </Button>{' '}
         <Button
           color="secondary"
           variant="outlined"

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from '../../components/Button';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 class TypeWriter extends Component {
   state = {
@@ -75,27 +76,28 @@ class TypeWriter extends Component {
   render() {
     return (
       <div>
-        <p className="typeParagraph">
+        <Typography color="textPrimary" className="typeParagraph" paragraph>
           {this.state.finished
             ? this.props.inputStr
             : this.props.inputStr.slice(0, this.state.typedPos)}
-        </p>
+        </Typography>
         <Button
-          text={
-            this.state.finished
-              ? 'Restart'
-              : this.state.isRunning
-                ? 'Pause'
-                : 'Resume'
-          }
+          color="primary"
+          variant="outlined"
+          size="small"
           onClick={
             this.state.finished
               ? this.restartTyping
               : this.state.isRunning
                 ? this.pauseTyping
                 : this.startTyping
-          }
-        />
+          }>
+          {this.state.finished
+            ? 'Restart'
+            : this.state.isRunning
+              ? 'Pause'
+              : 'Resume'}
+        </Button>
       </div>
     );
   }
