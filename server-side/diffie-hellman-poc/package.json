@@ -1,0 +1,22 @@
+{
+  "name": "diffie-hellman-poc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "webpack": "^4.1.1"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "crypto-js": "^3.1.9-1",
+    "diffie-hellman": "^5.0.2"
+  }
+}
