@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Label from '../../components/Label';
-import Button from '../../components/Button';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 import {
   updateTiming,
@@ -131,24 +131,28 @@ class StopWatch extends Component {
   render() {
     return (
       <div>
-        <Label customClass="timing" text={`${this.props.timing}ms`} />
-        <br />
-        <Label
-          customClass="isRunning"
-          text={`isRunning: ${this.props.isRunning}`}
-        />
-        <br />
-        <br />
+        <Typography variant="headline" color="textPrimary">{`${
+          this.props.timing
+        } ms`}</Typography>
+        <Typography
+          variant="subheading"
+          color="textPrimary"
+          gutterBottom>{`isRunning: ${this.props.isRunning}`}</Typography>
         <Button
-          text={this.props.isRunning ? 'Pause' : 'Start'}
-          onClick={this.props.isRunning ? this.pauseTiming : this.startTiming}
-        />
-        <br />
-        <button
+          color="primary"
+          variant="outlined"
+          size="small"
+          onClick={this.props.isRunning ? this.pauseTiming : this.startTiming}>
+          {this.props.isRunning ? 'Pause' : 'Start'}
+        </Button>
+        <Button
+          color="secondary"
+          variant="outlined"
+          size="small"
           onMouseDown={this.startLongPressReset}
           onMouseUp={this.endLongPressReset}>
           {this.getResetCountDownText()}
-        </button>
+        </Button>
       </div>
     );
   }
