@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import SearchBar from '../../components/SearchBar';
-import List from '../../components/List';
+import ItemList from '../../components/ItemList';
 import './GithubUserList.css';
 
 import { connect } from 'react-redux';
@@ -97,7 +97,7 @@ class GithubUserList extends Component {
               debounce="1000"
               instant
             />
-            <List
+            <ItemList
               renderHeader={() => <h3>Repositories of {username}:</h3>}
               list={this.filter()}
             />
@@ -130,14 +130,16 @@ const mapStateToProps = state => ({
   searchKeyword: state.githubUserListReducer.searchKeyword,
 });
 
-export default withStyles(styles)(withRouter(
-  connect(
-    mapStateToProps,
-    {
-      updateRepos,
-      updateSearchKeyword,
-      updateUsername,
-      fetchUserRepos,
-    },
-  )(GithubUserList),
-));
+export default withStyles(styles)(
+  withRouter(
+    connect(
+      mapStateToProps,
+      {
+        updateRepos,
+        updateSearchKeyword,
+        updateUsername,
+        fetchUserRepos,
+      },
+    )(GithubUserList),
+  ),
+);
