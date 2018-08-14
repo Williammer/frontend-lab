@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateGameMove, jumpToMove } from './ticTacToeActions';
 import Button from '@material-ui/core/Button';
@@ -171,12 +170,10 @@ const mapStateToProps = state => ({
   moveRecords: state.ticTacToeReducer.moveRecords,
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {
-      updateGameMove,
-      jumpToMove,
-    },
-  )(TicTacToe),
-);
+export default connect(
+  mapStateToProps,
+  {
+    updateGameMove,
+    jumpToMove,
+  },
+)(TicTacToe);

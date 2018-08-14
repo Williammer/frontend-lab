@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { NavLink, Route, Switch, BrowserRouter } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
+import { Router } from '@reach/router';
 import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -14,6 +14,7 @@ import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MenuIcon from '@material-ui/icons/Menu';
 
+import NavLink from '../components/NavLink';
 import StopWatch from '../features/stopWatch/StopWatch';
 import FormSample from '../features/formSample/FormSample';
 import RepoList from '../features/githubUserList/GithubUserList';
@@ -168,71 +169,69 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <BrowserRouter>
-        <div className="App">
-          <CssBaseline />
-          <Drawer
-            variant="permanent"
-            classes={{
-              paper: classNames(
-                classes.drawerPaper,
-                !this.state.open && classes.drawerPaperClose,
-              ),
-            }}
-            open={this.state.open}>
-            <div className={classes.toolbarIcon}>
-              <IconButton onClick={this.handleDrawerClose}>
-                <ChevronLeftIcon />
-              </IconButton>
-            </div>
-            <Divider />
-            <MenuList>
-              {menus.map(({ path, title }) => (
-                <MenuItem key={path} className={classes.menuItem}>
-                  <NavLink className={classes.linkItem} to={path}>
-                    {title}
-                  </NavLink>
-                </MenuItem>
-              ))}
-            </MenuList>
-          </Drawer>
-          <AppBar
-            position="absolute"
-            className={classNames(
-              classes.appBar,
-              this.state.open && classes.appBarShift,
-            )}>
-            <Toolbar
-              disableGutters={!this.state.open}
-              className={classes.toolbar}>
-              <IconButton
-                color="inherit"
-                aria-label="Open drawer"
-                onClick={this.handleDrawerOpen}
-                className={classNames(
-                  classes.menuButton,
-                  this.state.open && classes.menuButtonHidden,
-                )}>
-                <MenuIcon />
-              </IconButton>
-              <Typography
-                variant="title"
-                color="inherit"
-                noWrap
-                className={classes.title}>
-                React & Redux Sample Playground
-              </Typography>
-            </Toolbar>
-          </AppBar>
-          <div className="App-main">
-            <Switch>
-              {menus.map(({ path, component }) => (
-                <Route key={path} path={path} component={component} />
-              ))}
-            </Switch>
+      <div className="App">
+        <CssBaseline />
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: classNames(
+              classes.drawerPaper,
+              !this.state.open && classes.drawerPaperClose,
+            ),
+          }}
+          open={this.state.open}>
+          <div className={classes.toolbarIcon}>
+            <IconButton onClick={this.handleDrawerClose}>
+              <ChevronLeftIcon />
+            </IconButton>
           </div>
+          <Divider />
+          <MenuList>
+            {menus.map(({ path, title }) => (
+              <MenuItem key={path} className={classes.menuItem}>
+                <NavLink className={classes.linkItem} to={path}>
+                  {title}
+                </NavLink>
+              </MenuItem>
+            ))}
+          </MenuList>
+        </Drawer>
+        <AppBar
+          position="absolute"
+          className={classNames(
+            classes.appBar,
+            this.state.open && classes.appBarShift,
+          )}>
+          <Toolbar
+            disableGutters={!this.state.open}
+            className={classes.toolbar}>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerOpen}
+              className={classNames(
+                classes.menuButton,
+                this.state.open && classes.menuButtonHidden,
+              )}>
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="title"
+              color="inherit"
+              noWrap
+              className={classes.title}>
+              React & Redux Sample Playground
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <div className="App-main">
+          <Router>
+            {menus.map(({ path, component: Comp }) => (
+              <Comp key={path} path={path} />
+            ))}
+          </Router>
         </div>
-      </BrowserRouter>
+      </div>
     );
   }
 }

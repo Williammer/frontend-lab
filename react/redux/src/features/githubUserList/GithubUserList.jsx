@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import SearchBar from '../../components/SearchBar';
@@ -131,15 +130,13 @@ const mapStateToProps = state => ({
 });
 
 export default withStyles(styles)(
-  withRouter(
-    connect(
-      mapStateToProps,
-      {
-        updateRepos,
-        updateSearchKeyword,
-        updateUsername,
-        fetchUserRepos,
-      },
-    )(GithubUserList),
-  ),
+  connect(
+    mapStateToProps,
+    {
+      updateRepos,
+      updateSearchKeyword,
+      updateUsername,
+      fetchUserRepos,
+    },
+  )(GithubUserList),
 );
