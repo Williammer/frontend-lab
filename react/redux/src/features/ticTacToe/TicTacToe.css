@@ -1,6 +1,6 @@
 .board-row:after {
   clear: both;
-  content: "";
+  content: '';
   display: table;
 }
 
@@ -36,10 +36,15 @@
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+.game-board {
+  min-width: 100px;
 }
 
 .game-info {
-  margin-left: 20px;
+  padding: 10px 20px 0;
   min-width: 120px;
 }
 
@@ -49,4 +54,5 @@
 
 .travel-item {
   list-style: none;
+  margin-bottom: 4px;
 }

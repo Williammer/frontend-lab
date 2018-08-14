@@ -8,12 +8,6 @@ export const stopWatchReducer = (state = {}, action) => {
         timing: time,
       };
 
-    case 'UPDATE_RESET_COUNTDOWN':
-      return {
-        ...state,
-        resetCountedDown: time,
-      };
-
     case 'SET_IS_RUNNING':
       return {
         ...state,

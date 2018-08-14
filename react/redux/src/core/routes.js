@@ -14,45 +14,46 @@ const TypeWriterDemo = () => {
   // [Todo] how to handle these config inputs more nicely?
   return TypeWriter(str, speed);
 };
+const rootPath = '/frontend-lab/';
 
 const routes = [
   {
-    path: '/frontend-lab/repoList',
+    path: `${rootPath}repoList`,
     title: 'Repo list',
     component: RepoList,
   },
   {
-    path: '/frontend-lab/stopWatch',
+    path: `${rootPath}stopWatch`,
     title: 'Stop watch',
     component: StopWatch,
   },
   {
-    path: '/frontend-lab/form',
+    path: `${rootPath}form`,
     title: 'Form sample',
     component: FormSample,
   },
   {
-    path: '/frontend-lab/typeWriter',
+    path: `${rootPath}typeWriter`,
     title: 'Type writer',
     component: TypeWriterDemo,
   },
   {
-    path: '/frontend-lab/ticTacToe',
+    path: `${rootPath}ticTacToe`,
     title: 'TicTacToe game',
     component: TicTacToe,
   },
   {
-    path: '/frontend-lab/collapsible',
+    path: `${rootPath}collapsible`,
     title: 'Collapsible',
     component: Collapsible,
   },
   {
-    path: '/frontend-lab/draggable',
+    path: `${rootPath}draggable`,
     title: 'Draggable',
     component: Draggable,
   },
   {
-    path: '/frontend-lab/counterList',
+    path: `${rootPath}counterList`,
     title: 'CounterList',
     component: CounterList,
   },
