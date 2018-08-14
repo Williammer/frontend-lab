@@ -13,15 +13,11 @@ const epics = createEpicMiddleware({
     fetch: get,
   },
 });
-const middlewares = [epics, routerMiddleware(history)];
+const middlewares = [epics];
 const enhancer = composeWithDevTools(applyMiddleware(...middlewares));
 
 const configureStore = preloadedState => {
-  const store = createStore(
-    connectRouter(history)(rootReducer),
-    preloadedState,
-    enhancer,
-  );
+  const store = createStore(rootReducer, preloadedState, enhancer);
   epics.run(rootEpic);
 
   return store;
