@@ -1,34 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    width: 330,
-    margin: 'auto',
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 140,
-  },
-  textArea: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 300,
-  },
-  errorMessage: {
-    textAlign: 'left',
-    width: 300,
-  },
-});
+import withStyles from './formSampleStyles';
 
 class FormSample extends Component {
   constructor() {
@@ -169,4 +145,4 @@ FormSample.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(FormSample);
+export default withStyles(FormSample);
