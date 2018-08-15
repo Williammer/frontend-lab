@@ -1,120 +1,127 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-class TypeWriter extends Component {
+export default class TypeWriter extends PureComponent {
   state = {
-    typedPos: 0,
-    isRunning: false,
-    finished: false,
+    position: 0,
+    isTyping: false,
+    started: false,
   };
 
   _typingInterval = null;
 
   constructor(props) {
     super(props);
-    this.startTyping = this.startTyping.bind(this);
-    this.stopTyping = this.stopTyping.bind(this);
-    this.pauseTyping = this.pauseTyping.bind(this);
-    this.restartTyping = this.restartTyping.bind(this);
+    this.start = this.start.bind(this);
+    this.reset = this.reset.bind(this);
+    this.pause = this.pause.bind(this);
+    this.restart = this.restart.bind(this);
   }
 
-  startTyping() {
+  start() {
+    const { content, speed } = this.props;
+    this.clearTimer();
     this._typingInterval = window.setInterval(() => {
-      if (this.state.typedPos >= this.props.inputStr.length) {
-        this.stopTyping();
+      if (this.state.position >= content.length) {
+        this.reset();
         return;
       }
 
       this.setState((prevState, props) => {
         return {
-          isRunning: true,
-          typedPos: prevState.typedPos + 1,
+          started: true,
+          isTyping: true,
+          position: prevState.position + 1,
         };
       });
-    }, this.props.speed);
+    }, 1000 / speed);
   }
 
-  pauseTyping() {
+  pause() {
+    this.clearTimer();
+    this.setState({
+      isTyping: false,
+    });
+  }
+
+  reset() {
+    this.clearTimer();
+    this.setState({
+      position: 0,
+      isTyping: false,
+      started: false,
+    });
+  }
+
+  restart() {
+    this.setState(
+      {
+        position: 0,
+      },
+      this.start,
+    );
+  }
+
+  clearTimer() {
     if (this._typingInterval) {
       window.clearInterval(this._typingInterval);
       this._typingInterval = null;
     }
-
-    this.setState({
-      isRunning: false,
-    });
   }
 
-  stopTyping() {
-    this.pauseTyping();
-    this.setState({
-      typedPos: 0,
-      finished: true,
-    });
-  }
-
-  restartTyping() {
-    this.setState(
-      {
-        typedPos: 0,
-        finished: false,
-      },
-      this.startTyping,
-    );
-  }
-
-  componentDidMount() {
-    this.startTyping();
+  componentDidUpdate({content: prevContent, speed: prevSpeed}) {
+    const { content, speed} = this.props;
+    if(prevContent !== content || prevSpeed !== speed) {
+      this.reset();
+    }
   }
 
   componentWillUnmount() {
-    this.stopTyping();
+    this.reset();
   }
 
   render() {
+    const { classes, content } = this.props;
+    const { position, isTyping, started } = this.state;
     return (
-      <div>
-        <Typography color="textPrimary" className="typeParagraph" paragraph>
-          {this.state.finished
-            ? this.props.inputStr
-            : this.props.inputStr.slice(0, this.state.typedPos)}
-        </Typography>
+      <div className={classes.container}>
         <Button
           color="primary"
           variant="outlined"
           size="small"
           onClick={
-            this.state.finished
-              ? this.restartTyping
-              : this.state.isRunning
-                ? this.pauseTyping
-                : this.startTyping
+              isTyping
+                ? this.pause
+                : this.start
           }>
-          {this.state.finished
-            ? 'Restart'
-            : this.state.isRunning
+          {!started 
+            ? 'Start'
+            : isTyping
               ? 'Pause'
               : 'Resume'}
+        </Button>{' '}
+        <Button
+          color="secondary"
+          variant="outlined"
+          size="small"
+          onClick={this.reset}>
+          Reset
         </Button>
+        <Typography color="textSecondary" className={classes.typingFlag}>
+          { `isTyping: ${isTyping}` }
+        </Typography>
+        <Typography color="textPrimary" className={classes.paragraph} paragraph>
+          {started ? content.slice(0, position) : content}
+        </Typography>
       </div>
     );
   }
 }
 
 TypeWriter.propTypes = {
-  inputStr: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
+  content: PropTypes.string.isRequired,
   speed: PropTypes.number.isRequired,
 };
-
-TypeWriter.defaultProps = {
-  inputStr: 'This is default string.',
-  speed: 100,
-};
-
-function TypeWriterContainer(inputStr, speed) {
-  return <TypeWriter inputStr={inputStr} speed={speed} />;
-}
-
-export default TypeWriterContainer;
