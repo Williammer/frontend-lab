@@ -2,7 +2,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 export const styles = theme => ({
   contentInput: {
-    minWidth: 400,
+    minWidth: 300,
+    fontSize: 14,
   },
   speedInput: {
     maxWidth: 140,
@@ -11,7 +12,7 @@ export const styles = theme => ({
     marginTop: 50,
   },
   paragraph: {
-    maxWidth: 600,
+    maxWidth: 400,
     margin: '10px auto 0',
     fontSize: 14,
   },
