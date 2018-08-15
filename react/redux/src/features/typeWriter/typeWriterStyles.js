@@ -8,7 +8,7 @@ export const styles = theme => ({
     maxWidth: 140,
   },
   container: {
-    marginTop: 50
+    marginTop: 50,
   },
   paragraph: {
     maxWidth: 600,

@@ -71,9 +71,9 @@ export default class TypeWriter extends PureComponent {
     }
   }
 
-  componentDidUpdate({content: prevContent, speed: prevSpeed}) {
-    const { content, speed} = this.props;
-    if(prevContent !== content || prevSpeed !== speed) {
+  componentDidUpdate({ content: prevContent, speed: prevSpeed }) {
+    const { content, speed } = this.props;
+    if (prevContent !== content || prevSpeed !== speed) {
       this.reset();
     }
   }
@@ -91,16 +91,8 @@ export default class TypeWriter extends PureComponent {
           color="primary"
           variant="outlined"
           size="small"
-          onClick={
-              isTyping
-                ? this.pause
-                : this.start
-          }>
-          {!started 
-            ? 'Start'
-            : isTyping
-              ? 'Pause'
-              : 'Resume'}
+          onClick={isTyping ? this.pause : this.start}>
+          {!started ? 'Start' : isTyping ? 'Pause' : 'Resume'}
         </Button>{' '}
         <Button
           color="secondary"
@@ -110,7 +102,7 @@ export default class TypeWriter extends PureComponent {
           Reset
         </Button>
         <Typography color="textSecondary" className={classes.typingFlag}>
-          { `isTyping: ${isTyping}` }
+          {`isTyping: ${isTyping}`}
         </Typography>
         <Typography color="textPrimary" className={classes.paragraph} paragraph>
           {started ? content.slice(0, position) : content}

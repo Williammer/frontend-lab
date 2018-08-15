@@ -59,9 +59,9 @@ class TypeWriterDemo extends PureComponent {
           onClick={this.setup}>
           Setup
         </Button>
-        <br/>
-        <br/>
-        <Divider /> 
+        <br />
+        <br />
+        <Divider />
         {content &&
           speed && (
             <TypeWriter classes={classes} content={content} speed={speed} />
