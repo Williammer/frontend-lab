@@ -1,5 +1,7 @@
+import { withStyles } from '@material-ui/core/styles';
+
 const drawerWidth = 150;
-const styles = theme => ({
+export const styles = theme => ({
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
   },
@@ -75,4 +77,4 @@ const styles = theme => ({
   },
 });
 
-export default styles;
+export default withStyles(styles);

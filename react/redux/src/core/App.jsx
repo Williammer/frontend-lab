@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Router } from '@reach/router';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -15,7 +14,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import NavLink from '../components/NavLink';
-import styles from './rootStyles';
+import withStyles from './rootStyles';
 import routes from './routes';
 import './App.css';
 
@@ -102,4 +101,4 @@ class App extends Component {
   }
 }
 
-export default withStyles(styles)(App);
+export default withStyles(App);
