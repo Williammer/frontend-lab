@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --open --config webpack.dev.js",
-    "dev": "webpack --config webpack.dev.js",
+    "dev": "webpack --env.NODE_ENV=development --env.development --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
   },
   "author": "",
@@ -36,9 +36,11 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "lodash": "^4.17.10",
     "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react-dom": "^16.4.2",
+    "whatwg-fetch": "^2.0.4"
   }
 }

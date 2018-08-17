@@ -7,7 +7,8 @@ const ManifestPlugin = require("webpack-manifest-plugin");
 module.exports = {
   entry: {
     main: "./src/index.js",
-    another: "./src/another.js"
+    another: "./src/another.js",
+    polyfills: "./src/polyfills.js"
   },
   output: {
     filename: "[name].[hash].js",
@@ -15,7 +16,10 @@ module.exports = {
     path: path.resolve(__dirname, "dist")
   },
   resolve: {
-    extensions: [".wasm", ".mjs", ".js", ".jsx"]
+    extensions: [".js", ".jsx"],
+    // configs for optimization
+    symlinks: false,
+    cacheWithContext: false
   },
   module: {
     rules: [
