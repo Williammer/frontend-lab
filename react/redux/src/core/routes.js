@@ -5,6 +5,7 @@ import RepoList from '../features/githubUserList/GithubUserList';
 import TypeWriterDemo from '../features/typeWriter/TypeWriterDemo';
 import TicTacToe from '../features/ticTacToe/TicTacToe';
 import Collapsible from '../features/collapsible/Collapsible';
+import Treeview from '../features/treeview/Treeview';
 import Draggable from '../features/draggable/Draggable';
 import CounterList from '../features/counters/CounterList';
 
@@ -46,6 +47,11 @@ const routes = [
     path: `${rootPath}collapsible`,
     title: 'Collapsible',
     component: Collapsible,
+  },
+  {
+    path: `${rootPath}treeview`,
+    title: 'Treeview',
+    component: Treeview,
   },
   {
     path: `${rootPath}draggable`,
