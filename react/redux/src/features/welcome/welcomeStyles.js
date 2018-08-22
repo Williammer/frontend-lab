@@ -14,12 +14,12 @@ const styles = theme => ({
       width: 0,
     },
     to: {
-      width: '39em',
+      width: '21em',
     },
   },
   welcome: {
     color: '#555',
-    width: '39em',
+    width: '21em',
     overflow: 'hidden',
     height: '20px',
     margin: '0 auto',
