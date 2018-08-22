@@ -1,6 +1,6 @@
 import { withStyles } from '@material-ui/core/styles';
 
-const drawerWidth = 150;
+const drawerWidth = 170;
 export const styles = theme => ({
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -13,6 +13,7 @@ export const styles = theme => ({
     ...theme.mixins.toolbar,
   },
   appBar: {
+    background: '#2196f3',
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -64,15 +65,15 @@ export const styles = theme => ({
     padding: '0 14px',
     lineHeight: 30,
     width: '100%',
-    fontSize: 15,
+    fontSize: 14,
     '&.active': {
       fontWeight: 'bold',
-      background: '#555',
+      background: '#5A5A5A',
       color: '#FFF',
     },
   },
   menuItem: {
-    padding: 0,
+    padding: '4px 0',
     height: 30,
   },
 });
