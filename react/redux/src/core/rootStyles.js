@@ -37,6 +37,10 @@ export const styles = theme => ({
   },
   title: {
     flexGrow: 1,
+    '& > a': {
+      textDecoration: 'none',
+      color: '#FFF',
+    },
   },
   drawerPaper: {
     position: 'relative',

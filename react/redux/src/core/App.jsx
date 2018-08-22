@@ -15,7 +15,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import NavLink from '../components/NavLink';
 import withStyles from './rootStyles';
-import routes from './routes';
+import routes, { rootPath } from './routes';
 import './App.css';
 
 class App extends Component {
@@ -52,13 +52,16 @@ class App extends Component {
           </div>
           <Divider />
           <MenuList>
-            {routes.map(({ path, title }) => (
-              <MenuItem key={path} className={classes.menuItem}>
-                <NavLink className={classes.linkItem} to={path}>
-                  {title}
-                </NavLink>
-              </MenuItem>
-            ))}
+            {routes.map(
+              ({ path, title, soloLink }) =>
+                !soloLink && (
+                  <MenuItem key={path} className={classes.menuItem}>
+                    <NavLink className={classes.linkItem} to={path}>
+                      {title}
+                    </NavLink>
+                  </MenuItem>
+                ),
+            )}
           </MenuList>
         </Drawer>
         <AppBar
@@ -85,7 +88,7 @@ class App extends Component {
               color="inherit"
               noWrap
               className={classes.title}>
-              React & Redux Sample Playground
+              <NavLink to={rootPath}>React & Redux Demo Playground</NavLink>
             </Typography>
           </Toolbar>
         </AppBar>

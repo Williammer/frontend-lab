@@ -1,9 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
+import classNames from 'classnames';
+import withStyles from './welcomeStyles';
 
-class Welcome extends Component {
-  render() {
-    return <div>Welcome!</div>;
-  }
+function Welcome({ classes: { welcome, typewriter } }) {
+  return (
+    <div className={classNames(welcome, typewriter)}>
+      Welcome to React & Redux Demo Playground, choose the demo from sidebar to
+      play!
+    </div>
+  );
 }
 
-export default Welcome;
+export default withStyles(Welcome);

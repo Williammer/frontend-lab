@@ -1,3 +1,4 @@
+import Welcome from '../features/welcome/Welcome';
 import StopWatch from '../features/stopWatch/StopWatch';
 import FormSample from '../features/formSample/FormSample';
 import RepoList from '../features/githubUserList/GithubUserList';
@@ -7,9 +8,15 @@ import Collapsible from '../features/collapsible/Collapsible';
 import Draggable from '../features/draggable/Draggable';
 import CounterList from '../features/counters/CounterList';
 
-const rootPath = '/frontend-lab/';
+export const rootPath = '/frontend-lab/';
 
 const routes = [
+  {
+    path: `${rootPath}`,
+    title: 'Welcome',
+    component: Welcome,
+    soloLink: true,
+  },
   {
     path: `${rootPath}repoList`,
     title: 'Repo list',
