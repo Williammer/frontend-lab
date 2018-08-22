@@ -18,18 +18,19 @@ const treeData = [
   },
 ];
 
-function renderTreeviewNode({ children, ...props }) {
+function renderTreeviewNode(nodeData) {
+  const data = Array.isArray(nodeData) ? nodeData : [nodeData];
   return (
-    <TreeviewNode {...props}>
-      {!children
-        ? null
-        : Array.isArray(children)
-          ? children.map(child => renderTreeviewNode(child))
-          : renderTreeviewNode(children)}
-    </TreeviewNode>
+    <React.Fragment>
+      {data.map(({ children, ...props }, index) => (
+        <TreeviewNode {...props} key={index}>
+          {children ? renderTreeviewNode(children) : null}
+        </TreeviewNode>
+      ))}
+    </React.Fragment>
   );
 }
 
 export default function TreeviewDemo() {
-  return <div>{treeData.map(root => renderTreeviewNode(root))}</div>;
+  return <React.Fragment>{renderTreeviewNode(treeData)}</React.Fragment>;
 }
