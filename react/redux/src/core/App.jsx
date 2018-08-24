@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router } from '@reach/router';
+import { Router, Redirect } from '@reach/router';
 import classNames from 'classnames';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -94,6 +94,7 @@ class App extends Component {
         </AppBar>
         <div className="App-main">
           <Router>
+            <Redirect from="/" to="/frontend-lab" noThrow />
             {routes.map(({ path, component: Comp }) => (
               <Comp key={path} path={path} />
             ))}
