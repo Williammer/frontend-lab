@@ -5,8 +5,7 @@
   "homepage": "./",
   "devDependencies": {
     "react-scripts": "^1.1.5",
-    "react-test-renderer": "^16.4.2",
-    "redux-devtools-extension": "^2.13.5"
+    "react-test-renderer": "^16.4.2"
   },
   "dependencies": {
     "@material-ui/core": "^1.5.1",
@@ -25,7 +24,8 @@
     "redux-observable": "^1.0.0",
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.2.2",
-    "styled-components": "^3.4.5"
+    "styled-components": "^3.4.5",
+    "redux-devtools-extension": "^2.13.5"
   },
   "scripts": {
     "start": "react-scripts start",
