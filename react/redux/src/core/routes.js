@@ -31,7 +31,6 @@ const TypeWriterDemo = lazyload('typeWriter/TypeWriterDemo');
 const TicTacToe = lazyload('ticTacToe/TicTacToe');
 const Collapsible = lazyload('collapsible/Collapsible');
 const Treeview = lazyload('treeview/Treeview');
-const Draggable = lazyload('draggable/Draggable');
 const CounterList = lazyload('counters/CounterList');
 
 export const rootPath = '/frontend-lab/';
@@ -77,11 +76,6 @@ const routes = [
     path: `${rootPath}treeview`,
     title: 'Treeview',
     component: Treeview,
-  },
-  {
-    path: `${rootPath}draggable`,
-    title: 'Draggable',
-    component: Draggable,
   },
   {
     path: `${rootPath}counterList`,
