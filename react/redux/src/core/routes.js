@@ -1,13 +1,38 @@
-import Welcome from '../features/welcome/Welcome';
-import StopWatch from '../features/stopWatch/StopWatch';
-import FormSample from '../features/formSample/FormSample';
-import RepoList from '../features/githubUserList/GithubUserList';
-import TypeWriterDemo from '../features/typeWriter/TypeWriterDemo';
-import TicTacToe from '../features/ticTacToe/TicTacToe';
-import Collapsible from '../features/collapsible/Collapsible';
-import Treeview from '../features/treeview/Treeview';
-import Draggable from '../features/draggable/Draggable';
-import CounterList from '../features/counters/CounterList';
+import React from 'react';
+import Loadable from 'react-loadable';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+function Loading({ error, retry, timedOut }) {
+  if (error || timedOut) {
+    return (
+      <div>
+        Fail to load the module! <button onClick={retry}>Retry</button>
+      </div>
+    );
+  }
+  return <CircularProgress />;
+}
+const lazyload = path => {
+  return Loadable({
+    // webpack need to know at least some file path information to handle dynamic statements
+    loader: () => import(`../features/${path}`),
+    loading() {
+      return <Loading />;
+    },
+    timeout: 6000,
+  });
+};
+
+const Welcome = lazyload('welcome/Welcome');
+const StopWatch = lazyload('stopWatch/StopWatch');
+const FormSample = lazyload('formSample/FormSample');
+const RepoList = lazyload('githubUserList/GithubUserList');
+const TypeWriterDemo = lazyload('typeWriter/TypeWriterDemo');
+const TicTacToe = lazyload('ticTacToe/TicTacToe');
+const Collapsible = lazyload('collapsible/Collapsible');
+const Treeview = lazyload('treeview/Treeview');
+const Draggable = lazyload('draggable/Draggable');
+const CounterList = lazyload('counters/CounterList');
 
 export const rootPath = '/frontend-lab/';
 
