@@ -10,7 +10,7 @@
     "start": "node index.js resource/fooCase.msb"
   },
   "dependencies": {
-    "babel-core": "^6.22.1"
+    "babel-core": "^6.26.3"
   },
   "devDependencies": {}
 }
