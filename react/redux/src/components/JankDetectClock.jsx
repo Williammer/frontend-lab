@@ -1,5 +1,7 @@
 import React, { createRef, PureComponent } from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import Fade from '@material-ui/core/Fade';
+import withToolTip from './withToolTip';
 
 const SPEED = 0.003 / Math.PI;
 const FRAMES = 10;
@@ -13,6 +15,8 @@ const styles = theme => ({
     right: 0,
     top: 0,
     zIndex: 1201,
+    height: '64px',
+    width: '64px',
   },
 });
 
@@ -66,13 +70,14 @@ class JankDetectClock extends PureComponent {
   }
 
   render() {
-    const { classes } = this.props;
     const paths = new Array(FRAMES);
     for (let i = 0; i < FRAMES; i++) {
       paths.push(<path className="arcHand" key={i} />);
     }
+
+    const { classes, ...restProps } = this.props;
     return (
-      <div className={classes.clockContainer}>
+      <div {...restProps} className={classes.clockContainer}>
         <svg
           height={(radius + 10) * 2}
           width={(radius + 10) * 2}
@@ -94,4 +99,12 @@ class JankDetectClock extends PureComponent {
   }
 }
 
-export default withStyles(styles)(JankDetectClock);
+const toolTipProps = {
+  TransitionComponent: Fade,
+  TransitionProps: { timeout: 600 },
+  title: 'Jank Detect Clock',
+  placement: 'bottom',
+};
+
+const styledClock = withStyles(styles)(JankDetectClock);
+export default withToolTip(styledClock, toolTipProps);
