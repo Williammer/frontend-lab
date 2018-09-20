@@ -1,4 +1,6 @@
-import { withStyles } from '@material-ui/core/styles';
+import {
+  withStyles
+} from '@material-ui/core/styles';
 
 const drawerWidth = 170;
 export const styles = theme => ({
@@ -11,36 +13,6 @@ export const styles = theme => ({
     justifyContent: 'flex-end',
     padding: '0 8px',
     ...theme.mixins.toolbar,
-  },
-  appBar: {
-    background: '#2196f3',
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginLeft: 12,
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: 'none',
-  },
-  title: {
-    flexGrow: 1,
-    '& > a': {
-      textDecoration: 'none',
-      color: '#FFF',
-    },
   },
   drawerPaper: {
     position: 'relative',
@@ -63,6 +35,22 @@ export const styles = theme => ({
       width: 0,
     },
   },
+  appBar: {
+    background: '#2196f3',
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
   linkItem: {
     display: 'block',
     textDecoration: 'none',
@@ -81,6 +69,22 @@ export const styles = theme => ({
     padding: '4px 0',
     height: 30,
   },
+  menuButton: {
+    marginLeft: 12,
+    marginRight: 36,
+  },
+  menuButtonHidden: {
+    display: 'none',
+  },
+  title: {
+    flexGrow: 1,
+    '& > a': {
+      textDecoration: 'none',
+      color: '#FFF',
+    },
+  },
+
+
 });
 
 export default withStyles(styles);
