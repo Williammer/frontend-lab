@@ -1,7 +1,5 @@
 import React, { createRef, PureComponent } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Fade from '@material-ui/core/Fade';
-import withToolTip from './withToolTip';
 
 const SPEED = 0.003 / Math.PI;
 const FRAMES = 10;
@@ -99,12 +97,4 @@ class JankDetectClock extends PureComponent {
   }
 }
 
-const toolTipProps = {
-  TransitionComponent: Fade,
-  TransitionProps: { timeout: 600 },
-  title: 'Jank Detect Clock',
-  placement: 'bottom',
-};
-
-const styledClock = withStyles(styles)(JankDetectClock);
-export default withToolTip(styledClock, toolTipProps);
+export default withStyles(styles)(JankDetectClock);

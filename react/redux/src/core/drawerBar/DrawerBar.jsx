@@ -11,9 +11,9 @@ import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
-import NavLink from '../components/NavLink';
+import NavLink from '../../components/NavLink';
 import withStyles from './drawerBarStyles';
-import routes, { rootPath } from './routes';
+import routes, { rootPath } from '../routes';
 
 class DrawerBar extends PureComponent {
   state = {
