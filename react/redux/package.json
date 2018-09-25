@@ -9,6 +9,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
+    "raw-loader": "^0.5.1",
     "react-scripts": "^1.1.5",
     "react-test-renderer": "^16.5.2"
   },
