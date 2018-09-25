@@ -1,6 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
 import classNames from 'classnames';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -32,7 +31,6 @@ class DrawerBar extends PureComponent {
     const { classes } = this.props;
     return (
       <Fragment>
-        <CssBaseline />
         <Drawer
           variant="permanent"
           classes={{

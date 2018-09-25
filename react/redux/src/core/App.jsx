@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Redirect } from '@reach/router';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import routes from './routes';
 import DrawerBar from './drawerBar/DrawerBar';
@@ -9,6 +10,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
+      <CssBaseline />
       <DrawerBar />
       <JankDetectClockWithTip />
       <div className="App-main">
