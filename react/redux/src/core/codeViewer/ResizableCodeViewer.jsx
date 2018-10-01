@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import Resizable from 're-resizable';
 import SourceCode from './SourceCode';
+import mapPathToSourceCode from './mapPathToSourceCode';
 
 export default class ResizableCodeViewer extends PureComponent {
   defaultStyle = {
@@ -12,13 +13,13 @@ export default class ResizableCodeViewer extends PureComponent {
   };
 
   render() {
-    const { code, enable, size, style } = this.props;
+    const { path, enable, size, style } = this.props;
     return (
       <Resizable
         defaultSize={size}
         enable={enable}
         style={{ ...this.defaultStyle, ...style }}>
-        <SourceCode code={code} />
+        <SourceCode code={mapPathToSourceCode[path]} />
       </Resizable>
     );
   }
