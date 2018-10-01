@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Router, Redirect } from '@reach/router';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -18,7 +18,6 @@ function App() {
         <Router>
           <Redirect from="/" to="/frontend-lab" noThrow />
           {routes.map(({ path, component: Comp }) => (
-            // <Fragment key={path}>
             <MainWithCodeViewer
               collapse={false}
               size={{ height: '100vh', width: 700 }}
@@ -27,7 +26,6 @@ function App() {
               path={path}
               Comp={Comp}
             />
-            // </Fragment>
           ))}
         </Router>
       </div>
