@@ -9,6 +9,7 @@ import ticTacToeCode from '!!raw-loader!../../features/ticTacToe/TicTacToe';
 import collapsibleCode from '!!raw-loader!../../features/collapsible/Collapsible';
 import treeviewCode from '!!raw-loader!../../features/treeview/Treeview';
 import countersCode from '!!raw-loader!../../features/counters/CounterList';
+import canvasImgCode from '!!raw-loader!../../features/canvasImgViewer/CanvasImgViewer';
 
 const mapPathToSourceCode = {
   [rootPath]: welcomeCode,
@@ -20,5 +21,6 @@ const mapPathToSourceCode = {
   [`${rootPath}collapsible`]: collapsibleCode,
   [`${rootPath}treeview`]: treeviewCode,
   [`${rootPath}counterList`]: countersCode,
+  [`${rootPath}canvasImgViewer`]: canvasImgCode,
 };
 export default mapPathToSourceCode;

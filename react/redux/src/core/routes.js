@@ -32,6 +32,7 @@ const TicTacToe = lazyload('ticTacToe/TicTacToe');
 const Collapsible = lazyload('collapsible/Collapsible');
 const Treeview = lazyload('treeview/Treeview');
 const CounterList = lazyload('counters/CounterList');
+const CanvasImgViewer = lazyload('canvasImgViewer/CanvasImgViewer');
 
 export const rootPath = '/frontend-lab/';
 
@@ -81,6 +82,11 @@ const routes = [
     path: `${rootPath}counterList`,
     title: 'CounterList',
     component: CounterList,
+  },
+  {
+    path: `${rootPath}canvasImgViewer`,
+    title: 'Canvas Img Viewer',
+    component: CanvasImgViewer,
   },
 ];
 
