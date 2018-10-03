@@ -46,17 +46,17 @@ export default class CanvasImgViewer extends React.Component {
     this.onChangeHeight = this.onChangeHeight.bind(this);
     this.deleteImgState = this.deleteImgState.bind(this);
   }
-  onChangeWidth({ target: {value} }) {
-    this.setState(({height}) => ({width: value, height}));
+  onChangeWidth({ target: { value } }) {
+    this.setState(({ height }) => ({ width: value, height }));
   }
-  onChangeHeight({ target: {value} }) {
-    this.setState(({width}) => ({width, height: value}));
+  onChangeHeight({ target: { value } }) {
+    this.setState(({ width }) => ({ width, height: value }));
   }
   deleteImgState() {
-    this.setState((prev) => {
+    this.setState(prev => {
       delete prev.width;
       delete prev.height;
-      return prev
+      return prev;
     });
   }
   render() {
@@ -64,10 +64,26 @@ export default class CanvasImgViewer extends React.Component {
     const { width, height } = this.state;
     return (
       <div className="App">
-        <label htmlFor="width">Width: <input name="width" type="number" onChange={this.onChangeWidth} value={width || 0} /></label>
-        <label htmlFor="height">Width: <input name="height" type="number" onChange={this.onChangeHeight} value={height || 0} /></label>
-        <button onClick={this.deleteImgState} >Delete img state</button>
-        <LazyLoadImg imgUrl={`${baseUrl}${width||1}x${height||1}`} />
+        <label htmlFor="width">
+          Width:{' '}
+          <input
+            name="width"
+            type="number"
+            onChange={this.onChangeWidth}
+            value={width || 0}
+          />
+        </label>
+        <label htmlFor="height">
+          Width:{' '}
+          <input
+            name="height"
+            type="number"
+            onChange={this.onChangeHeight}
+            value={height || 0}
+          />
+        </label>
+        <button onClick={this.deleteImgState}>Delete img state</button>
+        <LazyLoadImg imgUrl={`${baseUrl}${width || 1}x${height || 1}`} />
       </div>
     );
   }
