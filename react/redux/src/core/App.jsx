@@ -20,8 +20,6 @@ function App() {
           {routes.map(({ path, component: Comp }) => (
             <MainWithCodeViewer
               collapse={false}
-              size={{ height: '100vh', width: 700 }}
-              enable={{ right: true }}
               key={path}
               path={path}
               Comp={Comp}

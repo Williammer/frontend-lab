@@ -44,20 +44,12 @@ export default class CanvasImgViewer extends React.Component {
     };
     this.onChangeWidth = this.onChangeWidth.bind(this);
     this.onChangeHeight = this.onChangeHeight.bind(this);
-    this.deleteImgState = this.deleteImgState.bind(this);
   }
   onChangeWidth({ target: { value } }) {
     this.setState(({ height }) => ({ width: value, height }));
   }
   onChangeHeight({ target: { value } }) {
     this.setState(({ width }) => ({ width, height: value }));
-  }
-  deleteImgState() {
-    this.setState(prev => {
-      delete prev.width;
-      delete prev.height;
-      return prev;
-    });
   }
   render() {
     const baseUrl = 'https://via.placeholder.com/';
@@ -82,7 +74,6 @@ export default class CanvasImgViewer extends React.Component {
             value={height || 0}
           />
         </label>
-        <button onClick={this.deleteImgState}>Delete img state</button>
         <LazyLoadImg imgUrl={`${baseUrl}${width || 1}x${height || 1}`} />
       </div>
     );
