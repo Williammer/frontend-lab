@@ -2,7 +2,24 @@ import {
   withStyles
 } from '@material-ui/core/styles';
 
-const drawerWidth = 170;
+const defaultStyle = {
+  drawerWidth: 170,
+  height: 30,
+  fontSize: 14,
+  linkPadding: '0 14px',
+};
+
+const mobileStyle = {
+  drawerWidth: 100,
+  height: 24,
+  fontSize: 12,
+  linkPadding: '0 8px',
+  textEllipsis: {
+    overflow: 'inherit',
+    textOverflow: 'ellipsis'
+  }
+};
+
 export const styles = theme => ({
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -17,12 +34,18 @@ export const styles = theme => ({
   drawerPaper: {
     position: 'relative',
     whiteSpace: 'nowrap',
-    width: drawerWidth,
     height: '100vh',
+    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    [theme.breakpoints.down('sm')]: {
+      width: mobileStyle.drawerWidth,
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: defaultStyle.drawerWidth,
+    },
   },
   drawerPaperClose: {
     overflowX: 'hidden',
@@ -44,30 +67,49 @@ export const styles = theme => ({
     }),
   },
   appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: mobileStyle.drawerWidth,
+      width: `calc(100% - ${mobileStyle.drawerWidth}px)`,
+    },
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: defaultStyle.drawerWidth,
+      width: `calc(100% - ${defaultStyle.drawerWidth}px)`,
+    },
   },
   linkItem: {
     display: 'block',
     textDecoration: 'none',
     color: '#222',
-    padding: '0 14px',
-    lineHeight: 30,
     width: '100%',
-    fontSize: 14,
     '&.active': {
       fontWeight: 'bold',
       background: '#5A5A5A',
       color: '#FFF',
     },
+    [theme.breakpoints.down('sm')]: {
+      lineHeight: mobileStyle.height,
+      fontSize: mobileStyle.fontSize,
+      padding: mobileStyle.linkPadding,
+      ...mobileStyle.textEllipsis,
+    },
+    [theme.breakpoints.up('sm')]: {
+      lineHeight: defaultStyle.height,
+      fontSize: defaultStyle.fontSize,
+      padding: defaultStyle.linkPadding,
+    },
   },
   menuItem: {
     padding: '4px 0',
-    height: 30,
+    [theme.breakpoints.down('sm')]: {
+      height: mobileStyle.height,
+    },
+    [theme.breakpoints.up('sm')]: {
+      height: defaultStyle.height,
+    },
   },
   menuButton: {
     marginLeft: 12,

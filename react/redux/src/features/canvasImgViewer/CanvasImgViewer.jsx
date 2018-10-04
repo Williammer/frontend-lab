@@ -10,7 +10,6 @@ class LazyLoadImg extends React.Component {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     const img = new Image();
-    // img.crossOrigin = 'Anonymous';
     img.onload = function() {
       canvas.width = this.width;
       canvas.height = this.height;

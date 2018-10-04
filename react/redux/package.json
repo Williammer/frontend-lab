@@ -5,13 +5,13 @@
   "homepage": "./",
   "devDependencies": {
     "raw-loader": "^0.5.1",
-    "react-scripts": "^1.1.5",
+    "react-scripts": "^2.0.4",
     "react-test-renderer": "^16.5.2"
   },
   "dependencies": {
-    "@material-ui/core": "^3.1.1",
+    "@material-ui/core": "^3.1.2",
     "@material-ui/icons": "^3.0.1",
-    "@reach/router": "^1.2.0",
+    "@reach/router": "^1.2.1",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "hoist-non-react-statics": "^3.0.1",
@@ -21,14 +21,14 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-loadable": "^5.5.0",
-    "react-pose": "^3.3.4",
+    "react-pose": "^3.3.6",
     "react-redux": "^5.0.7",
     "react-syntax-highlighter": "^8.0.1",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.5",
     "redux-observable": "^1.0.0",
     "redux-thunk": "^2.3.0",
-    "rxjs": "^6.3.2",
+    "rxjs": "^6.3.3",
     "styled-components": "^3.4.9"
   },
   "scripts": {
@@ -36,5 +36,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

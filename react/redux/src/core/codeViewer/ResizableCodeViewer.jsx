@@ -1,29 +1,37 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import Resizable from 're-resizable';
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 import SourceCode from './SourceCode';
 import mapPathToSourceCode from './mapPathToSourceCode';
+import {
+  baseDefaultResizableStyle,
+  mobileResizableStyle,
+  defaultResizableStyle,
+} from './codeViewerStyles';
 
-export default class ResizableCodeViewer extends PureComponent {
-  defaultStyle = {
-    border: '3px double #DDD',
-    borderLeft: '6px double #DDD',
-    background: 'rgb(29, 31, 33)',
-    position: 'absolute',
-    overflow: 'hidden',
-    right: '0',
-    top: '0',
-    fontSize: '14px',
+function ResizableCodeViewer({ path, enable, size, style, width }) {
+  const defaultSize = size || {
+    width: isWidthUp('lg', width)
+      ? defaultResizableStyle.width
+      : mobileResizableStyle.width,
+    height: '-webkit-fill-available',
   };
 
-  render() {
-    const { path, enable, size, style } = this.props;
-    return (
-      <Resizable
-        defaultSize={size || { width: 700, height: '-webkit-fill-available' }}
-        enable={enable || { left: true }}
-        style={{ ...this.defaultStyle, ...style }}>
-        <SourceCode code={mapPathToSourceCode[path]} />
-      </Resizable>
-    );
-  }
+  const computedStyle = {
+    ...baseDefaultResizableStyle,
+    fontSize: isWidthUp('lg', width)
+      ? defaultResizableStyle.fontSize
+      : mobileResizableStyle.fontSize,
+    ...style,
+  };
+  return (
+    <Resizable
+      defaultSize={defaultSize}
+      enable={enable || { left: true }}
+      style={computedStyle}>
+      <SourceCode code={mapPathToSourceCode[path]} />
+    </Resizable>
+  );
 }
+
+export default withWidth()(ResizableCodeViewer);
