@@ -5,14 +5,15 @@ import {
 const defaultStyle = {
   drawerWidth: 170,
   height: 30,
-  fontSize: 14,
+  linkFontSize: 14,
   linkPadding: '0 14px',
 };
 
 const mobileStyle = {
   drawerWidth: 100,
   height: 24,
-  fontSize: 12,
+  linkFontSize: 12,
+  titleFontSize: 16,
   linkPadding: '0 8px',
   textEllipsis: {
     overflow: 'inherit',
@@ -92,13 +93,13 @@ export const styles = theme => ({
     },
     [theme.breakpoints.down('sm')]: {
       lineHeight: mobileStyle.height,
-      fontSize: mobileStyle.fontSize,
+      fontSize: mobileStyle.linkFontSize,
       padding: mobileStyle.linkPadding,
       ...mobileStyle.textEllipsis,
     },
     [theme.breakpoints.up('sm')]: {
       lineHeight: defaultStyle.height,
-      fontSize: defaultStyle.fontSize,
+      fontSize: defaultStyle.linkFontSize,
       padding: defaultStyle.linkPadding,
     },
   },
@@ -123,6 +124,9 @@ export const styles = theme => ({
     '& > a': {
       textDecoration: 'none',
       color: '#FFF',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: mobileStyle.titleFontSize,
     },
   },
 
