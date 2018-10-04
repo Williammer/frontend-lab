@@ -1,2 +1,0 @@
-webpackJsonp([14],{207:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0}),t.d(n,"updateGameMove",function(){return u}),t.d(n,"jumpToMove",function(){return r});var u=function(e){return{type:"UPDATE_GAME_MOVE",index:e}},r=function(e){return{type:"JUMP_TO_MOVE",index:e}}}});
-//# sourceMappingURL=14.3922f9bb.chunk.js.map
