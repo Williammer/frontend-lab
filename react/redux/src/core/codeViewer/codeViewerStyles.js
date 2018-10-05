@@ -5,7 +5,7 @@ export const baseDefaultResizableStyle = {
   position: 'absolute',
   overflow: 'hidden',
   right: '0',
-  top: '0',
+  top: '-32px',
 };
 
 export const mobileResizableStyle = {
